@@ -67,6 +67,7 @@ const validateSubmission = (payload) => {
   }
 
   const name = typeof payload.name === "string" ? payload.name.trim() : "";
+  const website = payload.website == null ? "" : String(payload.website);
   const email = typeof payload.email === "string" ? payload.email.trim() : "";
   const phone = typeof payload.phone === "string" ? payload.phone.trim() : "";
   const subject = typeof payload.subject === "string" ? payload.subject : "";
@@ -74,6 +75,10 @@ const validateSubmission = (payload) => {
   const locale = typeof payload.locale === "string" ? payload.locale : "en";
   const pageUrl = typeof payload.pageUrl === "string" ? payload.pageUrl : "";
   const submittedAt = typeof payload.submittedAt === "string" ? payload.submittedAt : "";
+
+  if (website) {
+    errors.website = "Submission rejected.";
+  }
 
   if (!name) {
     errors.name = "Name is required.";
@@ -232,4 +237,3 @@ server.listen(PORT, () => {
   console.log(`Local contact API listening on http://localhost:${PORT}`);
   console.log(`Allowed browser origin: ${ALLOWED_ORIGIN}`);
 });
-

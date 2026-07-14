@@ -41,6 +41,7 @@ Successful request:
 
 ```powershell
 $body = @{
+  website = ""
   name = "Test User"
   email = "test@example.com"
   phone = "+1 214 555 0100"
@@ -73,6 +74,7 @@ Validation error example:
 
 ```powershell
 $invalidBody = @{
+  website = ""
   name = ""
   email = "not-an-email"
   phone = ""
@@ -107,12 +109,14 @@ The API returns HTTP `422` with an `errors` object keyed by field name.
 - Unsupported methods return `405`.
 - Non-JSON requests return `415`.
 - Field validation errors return `422`.
+- A non-empty `website` honeypot is rejected with `422` and is never logged as a successful submission.
 - Valid submissions return `201` and are logged to the terminal.
 
 ## Accepted JSON fields
 
 | Field | Validation |
 | --- | --- |
+| `website` | Honeypot; must be empty |
 | `name` | Required, 256 characters maximum |
 | `email` | Required, valid email, 256 characters maximum |
 | `phone` | Optional, 50 characters maximum |
@@ -123,4 +127,3 @@ The API returns HTTP `422` with an `errors` object keyed by field name.
 | `submittedAt` | Optional valid date string |
 
 Stop the server with `Ctrl+C`.
-
