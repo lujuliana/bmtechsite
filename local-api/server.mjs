@@ -5,6 +5,7 @@ const PORT = 3000;
 const ALLOWED_ORIGIN = "http://127.0.0.1:5500";
 const MAX_BODY_BYTES = 64 * 1024;
 const SUBJECTS = new Set(["Inquiry", "Career", "Security", "Other"]);
+const HONEYPOT_DEBUG = process.env.HONEYPOT_DEBUG === "true";
 
 const setCorsHeaders = (response, origin) => {
   response.setHeader("Vary", "Origin");
@@ -194,6 +195,28 @@ const server = http.createServer(async (request, response) => {
 
   try {
     const payload = await readJsonBody(request);
+    const honeypotFilled = payload
+      && typeof payload === "object"
+      && !Array.isArray(payload)
+      && payload.website != null
+      && String(payload.website).length > 0;
+
+    if (honeypotFilled) {
+      console.warn(JSON.stringify({
+        event: "honeypot_submission",
+        requestId
+      }));
+
+      if (!HONEYPOT_DEBUG) {
+        sendJson(response, 201, {
+          success: true,
+          message: "Contact submission received.",
+          submissionId: randomUUID()
+        }, origin);
+        return;
+      }
+    }
+
     const { errors, submission } = validateSubmission(payload);
 
     if (Object.keys(errors).length > 0) {
