@@ -22,7 +22,11 @@
     try {
       const url = new URL(endpoint);
       const hostname = url.hostname.toLowerCase();
-      return url.protocol === "https:" &&
+      const isLocalDevelopment = hostname === "localhost" ||
+        hostname === "127.0.0.1" || hostname === "::1";
+      const usesAllowedProtocol = url.protocol === "https:" ||
+        (isLocalDevelopment && url.protocol === "http:");
+      return usesAllowedProtocol &&
         !hostname.includes("your_api_id") &&
         !hostname.includes("your_region");
     } catch (_error) {
@@ -83,6 +87,7 @@
   };
 
   const buildPayload = (form) => ({
+    website: form.elements.website.value,
     name: form.elements.name.value.trim(),
     email: form.elements.email.value.trim(),
     phone: form.elements.phone.value.trim(),
