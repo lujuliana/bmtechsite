@@ -22,7 +22,11 @@
     try {
       const url = new URL(endpoint);
       const hostname = url.hostname.toLowerCase();
-      return url.protocol === "https:" &&
+      const isLocalDevelopment = hostname === "localhost" ||
+        hostname === "127.0.0.1" || hostname === "::1";
+      const usesAllowedProtocol = url.protocol === "https:" ||
+        (isLocalDevelopment && url.protocol === "http:");
+      return usesAllowedProtocol &&
         !hostname.includes("your_api_id") &&
         !hostname.includes("your_region");
     } catch (_error) {
