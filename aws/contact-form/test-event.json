@@ -1,0 +1,31 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /contact",
+  "rawPath": "/contact",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "application/json",
+    "content-type": "application/json",
+    "origin": "https://www.example.com"
+  },
+  "requestContext": {
+    "accountId": "123456789012",
+    "apiId": "exampleapi",
+    "domainName": "exampleapi.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "exampleapi",
+    "http": {
+      "method": "POST",
+      "path": "/contact",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "203.0.113.10",
+      "userAgent": "Lambda console test"
+    },
+    "requestId": "test-request-id",
+    "routeKey": "POST /contact",
+    "stage": "$default",
+    "time": "15/Jul/2026:12:00:00 +0000",
+    "timeEpoch": 1784116800000
+  },
+  "body": "{\"website\":\"\",\"name\":\"Test User\",\"email\":\"reply-to@example.com\",\"phone\":\"+1 214 555 0100\",\"subject\":\"Inquiry\",\"message\":\"This is an AWS Lambda contact form test.\",\"locale\":\"en\",\"pageUrl\":\"https://www.example.com/contact.html\",\"submittedAt\":\"2026-07-15T12:00:00.000Z\"}",
+  "isBase64Encoded": false
+}
