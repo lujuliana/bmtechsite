@@ -7,7 +7,7 @@ This dependency-free development server receives the JSON payload sent by `js/co
 - Node.js 18 or newer
 - The static site served from `http://127.0.0.1:5500`
 
-The contact forms are configured to submit to `http://localhost:3000/contact`.
+The contact forms are configured to submit to `https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact`.
 
 ## Start the API
 
@@ -70,7 +70,7 @@ $body = @{
 } | ConvertTo-Json
 
 Invoke-RestMethod `
-  -Uri "http://localhost:3000/contact" `
+  -Uri "https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact" `
   -Method Post `
   -ContentType "application/json" `
   -Headers @{ Origin = "http://127.0.0.1:5500" } `
@@ -102,7 +102,7 @@ $invalidBody = @{
 
 try {
   Invoke-RestMethod `
-    -Uri "http://localhost:3000/contact" `
+    -Uri "https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact" `
     -Method Post `
     -ContentType "application/json" `
     -Headers @{ Origin = "http://127.0.0.1:5500" } `
@@ -129,7 +129,7 @@ $honeypotBody = @{
 
 try {
   Invoke-RestMethod `
-    -Uri "http://localhost:3000/contact" `
+    -Uri "https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact" `
     -Method Post `
     -ContentType "application/json" `
     -Headers @{ Origin = "http://127.0.0.1:5500" } `

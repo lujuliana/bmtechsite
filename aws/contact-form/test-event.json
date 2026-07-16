@@ -6,12 +6,12 @@
   "headers": {
     "accept": "application/json",
     "content-type": "application/json",
-    "origin": "https://www.example.com"
+    "origin": "http://127.0.0.1:5500"
   },
   "requestContext": {
     "accountId": "123456789012",
     "apiId": "exampleapi",
-    "domainName": "exampleapi.execute-api.us-east-1.amazonaws.com",
+    "domainName": "exampleapi.execute-api.us-east-2.amazonaws.com",
     "domainPrefix": "exampleapi",
     "http": {
       "method": "POST",
@@ -26,6 +26,6 @@
     "time": "15/Jul/2026:12:00:00 +0000",
     "timeEpoch": 1784116800000
   },
-  "body": "{\"website\":\"\",\"name\":\"Test User\",\"email\":\"reply-to@example.com\",\"phone\":\"+1 214 555 0100\",\"subject\":\"Inquiry\",\"message\":\"This is an AWS Lambda contact form test.\",\"locale\":\"en\",\"pageUrl\":\"https://www.example.com/contact.html\",\"submittedAt\":\"2026-07-15T12:00:00.000Z\"}",
+  "body": "{\"website\":\"\",\"name\":\"Test User\",\"email\":\"reply-to@example.com\",\"phone\":\"+1 214 555 0100\",\"subject\":\"Inquiry\",\"message\":\"This is an AWS Lambda contact form test.\",\"locale\":\"en\",\"pageUrl\":\"http://127.0.0.1:5500/contact.html\",\"submittedAt\":\"2026-07-15T12:00:00.000Z\"}",
   "isBase64Encoded": false
 }
