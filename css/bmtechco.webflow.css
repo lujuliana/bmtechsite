@@ -1234,6 +1234,8 @@ ul {
   padding: var(--_primitive-tokens---spacing-scale--space-5);
   border-radius: var(--_primitive-tokens---radius--radius-sm);
   color: #a00000;
+  background-color: #ffd2d2;
+  /* border-radius: 8px; */
 }
 
 .social-list {
@@ -2019,11 +2021,6 @@ ul {
 
   .vuln-link-block {
     flex-flow: column;
-  }
-
-  .error-message {
-    background-color: #ffd2d2;
-    border-radius: 8px;
   }
 }
 
