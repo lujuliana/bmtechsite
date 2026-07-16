@@ -9,7 +9,7 @@ const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "";
 const CONTACT_FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || "";
 const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL || "";
 const CONTACT_SUBJECT_PREFIX = process.env.CONTACT_SUBJECT_PREFIX || "Website contact";
-const HONEYPOT_DEBUG = process.env.HONEYPOT_DEBUG === "false";
+const HONEYPOT_DEBUG = process.env.HONEYPOT_DEBUG === "true";
 
 const ses = new SESClient(AWS_REGION ? { region: AWS_REGION } : {});
 
