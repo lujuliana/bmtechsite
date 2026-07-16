@@ -5,12 +5,12 @@ https://lujuliana.github.io/bmtechsite
 Configure these under **Lambda → Configuration → Environment variables**. Do not place AWS access keys in environment variables; Lambda obtains temporary credentials from its execution role.
 
 | Variable | Required | Description | Value |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | `CONTACT_FROM_EMAIL` | Yes | SES-verified sender address. User input is never used as the sender. | `juliana.lu@bmtech.com` |
 | `CONTACT_TO_EMAIL` | Yes | Address that receives contact submissions. | `juliana.lu@bmtech.com` |
 | `ALLOWED_ORIGIN` | Yes | Exact website origin allowed by CORS, such as `https://www.example.com`; omit a trailing slash. | `http://127.0.0.1:5500` |
-| `SES_REGION` | No | Region containing the SES identity. Defaults to Lambda's managed `AWS_REGION`. | us-east-2 |
-| `CONTACT_SUBJECT_PREFIX` | No | Email subject prefix. Defaults to `Website contact`. | |
+| `SES_REGION` | No | Region containing the SES identity. Defaults to Lambda's managed `AWS_REGION`. | `us-east-2` |
+| `CONTACT_SUBJECT_PREFIX` | No | Email subject prefix. Defaults to `Website contact`. | `Website contact` |
 | `HONEYPOT_DEBUG` | No | Exactly `true` exposes the diagnostic `422` honeypot response. Any other value silently discards honeypot submissions and returns normal success. | `false` |
 
 # Todo
