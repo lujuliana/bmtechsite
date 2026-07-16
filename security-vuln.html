@@ -96,48 +96,76 @@
         <div class="w-richtext">
           <h1>Vulnerability Information Disclosure Policy</h1>
           <p>‍</p>
-          <p>To ensure that customers can use its products and services with confidence, BMT Group collects vulnerability information related to its offerings, conducts impact assessments, and evaluates associated risks in accordance with this Policy.</p>
-          <p>Should a vulnerability be confirmed, the Group will appropriately disclose the relevant information and recommended countermeasures. Furthermore, the Group actively promotes these initiatives through its participation in the <a href="https://www.ipa.go.jp/security/ciadr/partnership_guide.html">Information Security Early Warning Partnership</a> and the <a href="https://www.cve.org/">CVE Program.</a>
-          </p>
+
+          <h2><strong>Purpose</strong></h2>
+          <p>BMTech is committed to maintaining the security of our products and services. We encourage customers, security researchers, and members of the security community to responsibly report potential security vulnerabilities so they can be investigated and addressed in a timely manner.</p>
+          <p>This policy explains how to report security vulnerabilities, how BMTech handles vulnerability reports, and how we communicate with reporters throughout the process.</p>
           <p>‍</p>
-          <h2><strong>Vulnerability Information Collection</strong></h2>
-          <p>We actively gather information regarding vulnerabilities in the products and services we provide. If you discover a vulnerability related to BMT Group products or services, please email the BMT Cybersecurity Team at <a href="mailto:cybersecurity@bmtech.com"><strong>cybersecurity@bmtech.com</strong></a> or contact a relevant domestic or international coordinating body.</p>
-          <p>When contacting us, please ensure that your message includes at least the following information:</p>
+
+          <h2><strong>Scope</strong></h2>
+          <p>This policy applies to security vulnerabilities affecting products, firmware, software, cloud services, websites, and other systems developed or maintained by BMTech.</p>
+          <p>Reports relating solely to third-party products or services that are not developed or maintained by BMTech should be directed to the appropriate vendor whenever possible.</p>
+          <p>‍</p>
+
+          <h2><strong>Reporting a Vulnerability</strong></h2>
+          <p>If you believe you have identified a security vulnerability in a BMTech product or service, please report it by sending an email to <strong><a href="mailto:cybersecurity@bmtech.com" style="text-decoration: underline;">cybersecurity@bmtech.com</a></strong>.</p>
+          <p>To help us investigate your report, please include as much of the following information as possible: </p>
           <ul role="list">
-            <li>The name of the affected product(s) or service(s)</li>
-            <li>A description of the vulnerability and its potential impact</li>
+            <li>The affected product or service</li>
+            <li>Product model, firmware version, or software version (if applicable)</li>
+            <li>A description of the vulnerability</li>
+            <li>Steps to reproduce the issue</li>
+            <li>Proof-of-concept code, screenshots, logs, or other supporting information</li> 
+            <li>The potential security impact</li>
+            <li>Your preferred contact information</li>
           </ul>
-          <p>If contacting us via email, please encrypt your message using PGP. We will acknowledge receipt of your report (hereinafter referred to as the &quot;Reporter&quot;) typically within three business days of receiving the communication. However, please note that there may be delays during specific periods (such as holidays).</p>
-          <p>We may not elect to take action if we determine that a report falls outside the scope of this policy.</p>
           <p>‍</p>
-          <h2><strong>Investigation and Countermeasures</strong></h2>
-          <p>We promptly disseminate information regarding reported vulnerabilities throughout BMT Group and conduct an investigation.</p>
-          <p>If the investigation confirms the existence of a new vulnerability in BMT Group products or services, we assess its potential impact and associated risks. Should this assessment determine that risk mitigation is required, we formulate and prepare appropriate countermeasures while coordinating with relevant stakeholders as necessary.</p>
-          <p>If it is determined that the reported issue does not constitute a new vulnerability, we coordinate with the Reporter to conclude the handling process.</p>
-          <p>Information concerning vulnerabilities and countermeasures is managed with strict confidentiality within BMT Group and is never disclosed to third parties prior to public release.</p>
-          <p>‍</p>
-          <h2><strong>Communication with Reporters</strong></h2>
-          <p>We will engage in appropriate communication with the Reporter and provide updates on the status of our investigation and response in at least the following cases:</p>
+
+          <h2><strong>Report Handling</strong></h2>
+          <p>After receiving your report, we will:</p>
           <ul role="list">
-            <li>When a new vulnerability is confirmed in a BMT Group product or service</li>
-            <li>When our judgments and assessments change as a result of an impact survey or risk assessment</li>
-            <li>When coordination with a third party other than the Reporter becomes necessary</li>
-            <li>When preparing for public disclosure</li>
-            <li>When the response process has been concluded</li>
+            <li>Acknowledge receipt of your report within <strong>5 business days</strong>.</li>
+            <li>Review the report to determine whether it describes a security vulnerability.</li>
+            <li>Investigate confirmed vulnerabilities and assess their potential impact.</li>
+            <li>Develop and implement appropriate remediation measures based on the assessed risk.</li>
+            <li>Coordinate with internal teams and external partners, as appropriate.</li>
           </ul>
-          <p>We may request your assistance. Communication with the Reporter will be conducted via email. To prevent the unintentional disclosure of the content of our communications to third parties, we may request that you use encryption.</p>
-          <p>Furthermore, BMT Group will not initiate legal action against a Reporter for communications or cooperation provided in good faith.</p>
+          <p>If additional information is required during the investigation, we may contact you for clarification. </p>
           <p>‍</p>
-          <h2><strong>Publication</strong></h2>
-          <p>Based on the results of our assessment, if we determine that risk mitigation is required, we will disclose information regarding the vulnerability along with recommended countermeasures at an appropriate time via the BMT Group website, JVN, or other channels.</p>
-          <p>If a CVE ID has not yet been assigned to the vulnerability being disclosed, BMT Group will obtain a CVE ID from a CNA (CVE Numbering Authority) and include it in the published information.</p>
-          <p>In cases where we determine that a vulnerability may potentially impact specific customers, such as those utilizing products or services related to social infrastructure, we may also contact those customers individually through our sales representatives or other designated channels.</p>
+
+          <h2><strong>Communication</strong></h2>
+          <p>We value constructive collaboration with security researchers and will keep reporters informed throughout the investigation process.</p>
+          <p>For confirmed vulnerability reports, we will provide status updates at least every <strong>14 days</strong> until the investigation has been completed or the report has been closed.</p>
+          <p>If we determine that the reported issue is not a security vulnerability or falls outside the scope of this policy, we will notify you.</p>
           <p>‍</p>
-          <h2><strong>Acknowledgments</strong></h2>
-          <p>Acknowledgments will be posted at the time of publication with the consent of those who have contributed to the discovery or resolution of vulnerabilities in BMT Group products and services.</p>
+
+          <h2><strong>Coordinated Disclosure</strong></h2>
+          <p>We encourage responsible, coordinated disclosure of security vulnerabilities.</p>
+          <p>We ask that reporters refrain from publicly disclosing a vulnerability until BMTech has had a reasonable opportunity to investigate the issue and develop appropriate mitigations. We will work with reporters to coordinate public disclosure when appropriate.</p>
+          <p>Where appropriate, BMTech may request a Common Vulnerabilities and Exposures (CVE) identifier through an authorized CVE Numbering Authority (CNA) or coordinate with the reporting researcher or another appropriate organization.</p>
           <p>‍</p>
-          <h3><strong>Update History</strong></h3>
-          <p>Published on May 1, 2026</p>
+
+          <h2><strong>Good-Faith Security Research</strong></h2>
+          <p>BMTech welcomes vulnerability reports submitted in good faith.</p>
+          <p>We will not pursue legal action against individuals who:</p>
+          <ul role="list">
+            <li>Act in good faith to identify and report security vulnerabilities.</li>
+            <li>Avoid actions that could unnecessarily disrupt our products, services, or customers.</li>
+            <li>Do not intentionally access, modify, or retain data beyond what is reasonably necessary to demonstrate the vulnerability.</li>
+            <li>Do not exploit a vulnerability for malicious purposes or personal gain.</li>
+            <li>Provide BMTech with a reasonable opportunity to investigate and address the issue before public disclosure.</li>
+          </ul>
+          <p>Activities that violate applicable laws or intentionally harm BMTech, its customers, or third parties are not covered by this policy.</p>
+          <p>‍</p>
+
+          <h2><strong>Public Disclosure</strong></h2>
+          <p>When appropriate, BMTech may publish information about confirmed vulnerabilities together with available mitigations, software updates, or other recommended actions.</p>
+          <p>With the reporter's consent, we may acknowledge individuals or organizations that have responsibly disclosed vulnerabilities and contributed to improving the security of our products and services.</p>
+          <p>We appreciate the efforts of the security community in helping us improve the security of our products and services. ‍</p>
+          <p>‍</p>
+
+          <h2><strong>Last Updated</strong></h2>
+          <p>May 1, 2026‍</p>
         </div>
       </section>
     </div>
