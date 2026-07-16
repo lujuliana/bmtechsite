@@ -7,7 +7,7 @@ https://lujuliana.github.io/bmtechsite
 | `CONTACT_TO_EMAIL` | Yes | Address that receives contact submissions. | `juliana.lu@bmtech.com` |
 | `ALLOWED_ORIGIN` | Yes | Exact website origin allowed by CORS, such as `https://www.example.com`; omit a trailing slash. | `http://127.0.0.1:5500` |
 | `SES_REGION` | No | Region containing the SES identity. Defaults to Lambda's managed `AWS_REGION`. | `us-east-2` |
-| `CONTACT_SUBJECT_PREFIX` | No | Email subject prefix. Defaults to `Website contact`. | `Website contact` |
+| `CONTACT_SUBJECT_PREFIX` | No | Email subject prefix. Defaults to `Website contact`. | `BMTech Website Contact` |
 | `HONEYPOT_DEBUG` | No | Exactly `true` exposes the diagnostic `422` honeypot response. Any other value silently discards honeypot submissions and returns normal success. | `false` |
 
 # Todo
@@ -20,6 +20,7 @@ https://lujuliana.github.io/bmtechsite
 - [ ] Change `CONTACT_FROM_EMAIL` to `info@bmtech.com`
 - [ ] Change `CONTACT_TO_EMAIL` to `info@bmtech.com`
 - [ ] Change `ALLOWED_ORIGIN` to `https://bmtech.com`
+- [ ] Change API Gateway's CORS origin to `https://bmtech.com`
 - [ ] Deploy latest site to Lightsail/Nginx
 - [ ] Perform final production contact form test
 
