@@ -1,9 +1,6 @@
 https://lujuliana.github.io/bmtechsite
 
 ## AWS Lambda Environment Variables
-
-Configure these under **Lambda → Configuration → Environment variables**. Do not place AWS access keys in environment variables; Lambda obtains temporary credentials from its execution role.
-
 | Variable | Required | Description | Value |
 | --- | --- | --- | --- |
 | `CONTACT_FROM_EMAIL` | Yes | SES-verified sender address. User input is never used as the sender. | `juliana.lu@bmtech.com` |
