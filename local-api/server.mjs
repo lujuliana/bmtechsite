@@ -5,7 +5,7 @@ const PORT = 3000;
 const ALLOWED_ORIGIN = "http://127.0.0.1:5500";
 const MAX_BODY_BYTES = 64 * 1024;
 const SUBJECTS = new Set(["Inquiry", "Career", "Security", "Other"]);
-const HONEYPOT_DEBUG = process.env.HONEYPOT_DEBUG === "true";
+const HONEYPOT_DEBUG = process.env.HONEYPOT_DEBUG === "false";
 
 const setCorsHeaders = (response, origin) => {
   response.setHeader("Vary", "Origin");
