@@ -27,6 +27,7 @@ https://lujuliana.github.io/bmtechsite
 
 ## Website Updates
 - [ ] Add japanese product detail pages
+- [ ] Change alt txt on japanese pages to japanese
 - [ ] Add blog/events, about, & careers page
 - [ ] Change linkedin link
 - [ ] Add factory location + pictures
