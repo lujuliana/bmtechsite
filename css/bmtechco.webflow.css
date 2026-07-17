@@ -137,6 +137,9 @@ html:lang(ja) body {
 html:lang(ja) .display-lg:not(.banner), html:lang(ja) .h1 {
   font-weight: var(--font-weight-regular);
 }
+html:lang(ja) .hero-section.overlay-dark .display-lg.banner {
+  font-weight: var(--font-weight-regular);
+}
 h1 {
   margin-top: var(--space-4);
   margin-bottom: var(--space-2);
@@ -379,10 +382,6 @@ ul {
 }
 .display-lg.banner, .display-lg.banner:where(.w-variant-2811ceda-65e0-7f4e-8038-b25febe7c0b4), .display-lg.banner.overlay-dark-3 {
   text-shadow: 0 5px 5px #0003;
-}
-.display-lg.banner.ja {
-  /* font-family: var(--font-japanese); */
-  font-weight: var(--font-weight-regular);
 }
 .display-lg.banner.overlay-dark-8 {
   text-shadow: 0 5px 5px #0003;
