@@ -1,6 +1,11 @@
 [
   {
     "slug": "bbmu",
+    "name": "BBMU",
+    "fullName": {
+      "en": "Battery Bank Management Unit",
+      "ja": "バッテリーバンク管理ユニット"
+    },
     "category": "BMS",
     "image": "bbmu.jpg",
     "features": [
@@ -14,12 +19,15 @@
       "Grid Energy Storage",
       "Renewable Energy Systems",
       "Uninterruptible Power Supply (UPS) Systems"
-    ],
-    "enFullName": "Battery Bank Management Unit",
-    "jaFullName": "バッテリーバンク管理ユニット"
+    ]
   },
   {
     "slug": "bmmu",
+    "name": "BMMU",
+    "fullName": {
+      "en": "Battery Module Management Unit",
+      "ja": "バッテリーモジュール管理ユニット"
+    },
     "category": "BMS",
     "image": "bmmu.jpg",
     "features": [
@@ -34,12 +42,15 @@
       "Renewable Energy Systems",
       "Residential Energy Storage",
       "Uninterruptible Power Supply (UPS) Systems"
-    ],
-    "enFullName": "Battery Module Management Unit",
-    "jaFullName": "バッテリーモジュール管理ユニット"
+    ]
   },
   {
     "slug": "brmu",
+    "name": "BRMU",
+    "fullName": {
+      "en": "Battery Rack Management Unit",
+      "ja": "バッテリーラック管理システム"
+    },
     "category": "BMS",
     "image": "brmu.jpg",
     "features": [
@@ -55,12 +66,15 @@
       "Renewable Energy Systems",
       "Residential Energy Storage",
       "Uninterruptible Power Supply (UPS) Systems"
-    ],
-    "enFullName": "Battery Rack Management Unit",
-    "jaFullName": "バッテリーラック管理システム"
+    ]
   },
   {
     "slug": "ems-c",
+    "name": "EMS-C",
+    "fullName": {
+      "en": "Energy Management System - Commercial",
+      "ja": "エネルギー管理システム — 業務用"
+    },
     "category": "EMS",
     "image": "ems-c.jpg",
     "features": [
@@ -73,12 +87,15 @@
     "applications": [
       "Grid Energy Storage",
       "Renewable Energy Systems"
-    ],
-    "enFullName": "Energy Management System - Commercial",
-    "jaFullName": "エネルギー管理システム — 業務用"
+    ]
   },
   {
     "slug": "iot-b10",
+    "name": "IOT-B10",
+    "fullName": {
+      "en": "IOT-B10",
+      "ja": "IOT-B10"
+    },
     "category": "EMS",
     "image": "IOT-B10.jpg",
     "features": [
@@ -88,12 +105,15 @@
     "applications": [
       "Grid Energy Storage",
       "Renewable Energy Systems"
-    ],
-    "enFullName": "IOT-B10",
-    "jaFullName": "IOT-B10"
+    ]
   },
   {
     "slug": "smc-gateway",
+    "name": "SMC-Gateway",
+    "fullName": {
+      "en": "Station Management Controller - Gateway",
+      "ja": "ステーション管理コントローラー — ゲートウェイ"
+    },
     "category": "EMS",
     "image": "smc-gateway.jpg",
     "features": [
@@ -107,12 +127,15 @@
     "applications": [
       "Grid Energy Storage",
       "Renewable Energy Systems"
-    ],
-    "enFullName": "Station Management Controller - Gateway",
-    "jaFullName": "ステーション管理コントローラー — ゲートウェイ"
+    ] 
   },
   {
     "slug": "smc-server",
+    "name": "SMC-Server",
+    "fullName": {
+      "en": "Station Management Controller - Server",
+      "ja": "ステーション管理コントローラー — サーバー"
+    },
     "category": "EMS",
     "image": "smc-server.jpg",
     "features": [
@@ -125,8 +148,6 @@
     "applications": [
       "Grid Energy Storage",
       "Renewable Energy Systems"
-    ],
-    "enFullName": "Station Management Controller - Server",
-    "jaFullName": "ステーション管理コントローラー — サーバー"
+    ]
   }
 ]
