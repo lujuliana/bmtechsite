@@ -187,10 +187,10 @@ ul {
   align-items: center;
   display: flex;
 }
-.navbar-wrapper.ja {
-  /* font-family: var(--font-japanese); */
+/* .navbar-wrapper.ja {
+  font-family: var(--font-japanese);
   font-weight: var(--font-weight-regular);
-}
+} */
 .linked-nav-logo {
   margin-right: var(--space-2);
 }
