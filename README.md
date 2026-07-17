@@ -1,3 +1,4 @@
+## Github Pages Site
 https://lujuliana.github.io/bmtechsite
 
 ## AWS Lambda Environment Variables
@@ -23,6 +24,16 @@ https://lujuliana.github.io/bmtechsite
 - [ ] Change API Gateway's CORS origin to `https://bmtech.com`
 - [ ] Deploy latest site to Lightsail/Nginx
 - [ ] Perform final production contact form test
+
+## Website Updates
+- [ ] Add japanese product detail pages
+- [ ] Add blog/events, about, & careers page
+- [ ] Change linkedin link
+- [ ] Add factory location + pictures
+	- Headquarters → 本社
+	- Factory      → 工場
+- [ ] Add new product pictures
+- [ ] Add HV box product
 
 ## Future Improvements
 
