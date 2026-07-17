@@ -16,7 +16,7 @@
       "Uninterruptible Power Supply (UPS) Systems"
     ],
     "enFullName": "Battery Bank Management Unit",
-    "jaFullName": "バッテリーバンク管理ユニット\nBattery Bank Management Unit"
+    "jaFullName": "バッテリーバンク管理ユニット"
   },
   {
     "slug": "bmmu",
@@ -36,7 +36,7 @@
       "Uninterruptible Power Supply (UPS) Systems"
     ],
     "enFullName": "Battery Module Management Unit",
-    "jaFullName": "バッテリーモジュール管理ユニット\nBattery Module Management Unit"
+    "jaFullName": "バッテリーモジュール管理ユニット"
   },
   {
     "slug": "brmu",
@@ -57,7 +57,7 @@
       "Uninterruptible Power Supply (UPS) Systems"
     ],
     "enFullName": "Battery Rack Management Unit",
-    "jaFullName": "バッテリーラック管理システム\nBattery Rack Management Unit"
+    "jaFullName": "バッテリーラック管理システム"
   },
   {
     "slug": "ems-c",
@@ -75,7 +75,7 @@
       "Renewable Energy Systems"
     ],
     "enFullName": "Energy Management System - Commercial",
-    "jaFullName": "エネルギー管理システム — 業務用\nEnergy Management System - Commercial"
+    "jaFullName": "エネルギー管理システム — 業務用"
   },
   {
     "slug": "iot-b10",
@@ -109,7 +109,7 @@
       "Renewable Energy Systems"
     ],
     "enFullName": "Station Management Controller - Gateway",
-    "jaFullName": "ステーション管理コントローラー — ゲートウェイ\nStation Management Controller-Gateway"
+    "jaFullName": "ステーション管理コントローラー — ゲートウェイ"
   },
   {
     "slug": "smc-server",
@@ -127,6 +127,6 @@
       "Renewable Energy Systems"
     ],
     "enFullName": "Station Management Controller - Server",
-    "jaFullName": "ステーション管理コントローラー — サーバー\nStation Management Controller-Server"
+    "jaFullName": "ステーション管理コントローラー — サーバー"
   }
 ]
