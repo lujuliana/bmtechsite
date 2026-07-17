@@ -128,6 +128,15 @@ body {
   line-height: var(--line-height-body);
   font-weight: var(--font-weight-medium);
 }
+html:lang(ja) body, html:lang(ja) h1, html:lang(ja) h2, html:lang(ja) h3, html:lang(ja) h4, html:lang(ja) h5, html:lang(ja) h6 {
+  font-family: var(--font-japanese);
+}
+html:lang(ja) body {
+  font-weight: var(--font-weight-regular);
+}
+html:lang(ja) .display-lg:not(.banner), html:lang(ja) .h1 {
+  font-weight: var(--font-weight-regular);
+}
 h1 {
   margin-top: var(--space-4);
   margin-bottom: var(--space-2);
@@ -176,7 +185,7 @@ ul {
   display: flex;
 }
 .navbar-wrapper.ja {
-  font-family: var(--font-japanese);
+  /* font-family: var(--font-japanese); */
   font-weight: var(--font-weight-regular);
 }
 .linked-nav-logo {
@@ -372,7 +381,7 @@ ul {
   text-shadow: 0 5px 5px #0003;
 }
 .display-lg.banner.ja {
-  font-family: var(--font-japanese);
+  /* font-family: var(--font-japanese); */
   font-weight: var(--font-weight-regular);
 }
 .display-lg.banner.overlay-dark-8 {
@@ -408,6 +417,10 @@ ul {
   display: flex;
   position: relative;
   inset: auto 0% 0%;
+}
+html:lang(ja) .footer {
+  font-family: var(--font-japanese);
+  font-weight: var(--font-weight-regular);
 }
 .footer-container {
   width: var(--container-width);
@@ -465,7 +478,7 @@ ul {
   color: var(--color-gray-light);
   text-transform: none;
 }
-.footer-text.link.ja {
+html:lang(ja) .footer-text {
   font-family: var(--font-japanese);
 }
 .section {
@@ -642,9 +655,6 @@ ul {
 }
 .body-wrapper {
   min-height: 100vh;
-}
-.body-wrapper.ja {
-  font-family: var(--font-japanese);
 }
 .footer-nav {
   width: var(--full-width);
@@ -958,6 +968,10 @@ ul {
   background-color: #0000;
   border: 0 solid #000;
 }
+html:lang(ja) .form-select {
+  font-family: var(--font-japanese);
+  font-weight: var(--font-weight-regular);
+}
 .error-message {
   margin-top: var(--space-4);
   padding: var(--space-5);
@@ -1035,9 +1049,6 @@ ul {
   color: var(--color-gray-dark);
   font-weight: var(--font-weight-semibold);
 }
-.input-label.ja {
-  font-family: var(--font-japanese);
-}
 .social-link-two {
   background-color: #f5f5f5;
   border-radius: 100px;
@@ -1102,10 +1113,6 @@ ul {
 .locale.nav-link {
   grid-column-gap: var(--space-0);
   grid-row-gap: var(--space-0);
-}
-.ja {
-  font-family: var(--font-japanese);
-  font-weight: var(--font-weight-regular);
 }
 @media screen and (min-width: 1440px) {
   .card-grid {
