@@ -37,6 +37,7 @@ https://lujuliana.github.io/bmtechsite
 
 ## Future Improvements
 
+- [ ] Add alt text to images
 - [ ] Add API rate limiting or AWS WAF if spam becomes an issue
 - [ ] Add automated end-to-end contact form tests
 - [ ] Optimize Webflow-generated HTML/CSS/JS
