@@ -590,15 +590,19 @@ ul {
 
 .footer-logo {
   max-width: 16rem;
+  flex-shrink: 0;
 }
 
 .footer-content {
+  width: min(100%, 35rem);
+  margin-left: auto;
   grid-column-gap: var(--_sizes---spacing--grid-gap);
   grid-row-gap: var(--_sizes---spacing--grid-gap);
   grid-template-rows: auto;
   grid-template-columns: 1fr 1fr;
   grid-auto-columns: 1fr;
   display: grid;
+  justify-content: end;
 }
 
 .footer-block {
@@ -1474,7 +1478,7 @@ ul {
     --_sizes---min-tap-target: 3rem;
     --_sizes---padding--card-padding: var(--_primitive-tokens---spacing-scale--space-6);
     --_sizes---letter-spacing--body-letter-spacing: 0em;
-    --_sizes---font-size--xs-font-size: 1.2rem;
+    --_sizes---font-size--xs-font-size: 1rem;
     --_sizes---font-weight--600-font-weight: 600;
     --_sizes---padding--button-padding-y: var(--_primitive-tokens---spacing-scale--space-3);
     --_sizes---padding--button-padding-x: var(--_primitive-tokens---spacing-scale--space-5);
@@ -1521,7 +1525,7 @@ ul {
   }
 
   .footer-text, .footer-text.link {
-    font-size: var(--_sizes---font-size--body-font-size);
+    font-size: var(--_sizes---font-size--xs-font-size);
   }
 
   .section {
@@ -1939,10 +1943,13 @@ ul {
   }
 
   .footer-content {
+    width: 100%;
     margin-top: var(--_primitive-tokens---spacing-scale--space-6);
+    margin-left: 0;
     grid-column-gap: var(--_primitive-tokens---spacing-scale--space-6);
     grid-row-gap: var(--_primitive-tokens---spacing-scale--space-6);
     grid-template-columns: 1fr;
+    justify-content: start;
   }
 
   .section, .products-section {
