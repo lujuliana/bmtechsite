@@ -2,3 +2,5 @@ node_modules/
 aws/contact-form/contact-form.zip
 AUDIT.md
 CLEANUP.md
+.venv
+.agents
