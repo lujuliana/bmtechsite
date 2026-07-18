@@ -1,3 +1,4 @@
+## Github Pages Site
 https://lujuliana.github.io/bmtechsite
 
 ## AWS Lambda Environment Variables
@@ -24,11 +25,21 @@ https://lujuliana.github.io/bmtechsite
 - [ ] Deploy latest site to Lightsail/Nginx
 - [ ] Perform final production contact form test
 
+## Website Updates
+- [ ] Add japanese product detail pages
+- [ ] Change alt txt on japanese pages to japanese
+- [ ] Add blog/events, about, & careers page
+- [ ] Change linkedin link
+- [ ] Add factory location + pictures
+	- Headquarters → 本社
+	- Factory      → 工場
+- [ ] Add new product pictures
+- [ ] Add HV box product
+
 ## Future Improvements
 
 - [ ] Add API rate limiting or AWS WAF if spam becomes an issue
 - [ ] Add automated end-to-end contact form tests
-- [ ] Optimize Webflow-generated HTML/CSS/JS
 - [ ] Reduce duplicated page components (header/footer/navigation)
 - [ ] Move toward a reusable templating/component workflow
 - [ ] Configure a custom API domain (e.g. `api.bmtech.com`)

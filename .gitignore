@@ -1,4 +1,9 @@
 node_modules/
 aws/contact-form/contact-form.zip
 AUDIT.md
-CLEANUP.md
+cleanup-report.md
+.venv
+.agents
+bmtechco.webflow.old.css
+inspect_css.py
+docs
