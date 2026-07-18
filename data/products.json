@@ -2,7 +2,7 @@
   {
     "slug": "bbmu",
     "name": "BBMU",
-    "fullName": {
+    "description": {
       "en": "Battery Bank Management Unit",
       "ja": "バッテリーバンク管理ユニット"
     },
@@ -24,7 +24,7 @@
   {
     "slug": "bmmu",
     "name": "BMMU",
-    "fullName": {
+    "description": {
       "en": "Battery Module Management Unit",
       "ja": "バッテリーモジュール管理ユニット"
     },
@@ -47,7 +47,7 @@
   {
     "slug": "brmu",
     "name": "BRMU",
-    "fullName": {
+    "description": {
       "en": "Battery Rack Management Unit",
       "ja": "バッテリーラック管理システム"
     },
@@ -71,7 +71,7 @@
   {
     "slug": "ems-c",
     "name": "EMS-C",
-    "fullName": {
+    "description": {
       "en": "Energy Management System - Commercial",
       "ja": "エネルギー管理システム — 業務用"
     },
@@ -92,7 +92,7 @@
   {
     "slug": "iot-b10",
     "name": "IOT-B10",
-    "fullName": {
+    "description": {
       "en": "IOT-B10",
       "ja": "IOT-B10"
     },
@@ -110,7 +110,7 @@
   {
     "slug": "smc-gateway",
     "name": "SMC-Gateway",
-    "fullName": {
+    "description": {
       "en": "Station Management Controller - Gateway",
       "ja": "ステーション管理コントローラー — ゲートウェイ"
     },
@@ -132,7 +132,7 @@
   {
     "slug": "smc-server",
     "name": "SMC-Server",
-    "fullName": {
+    "description": {
       "en": "Station Management Controller - Server",
       "ja": "ステーション管理コントローラー — サーバー"
     },

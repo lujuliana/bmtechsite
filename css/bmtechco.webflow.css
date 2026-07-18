@@ -566,6 +566,9 @@ html:lang(ja) .footer-text {
   box-shadow: 0 0 5px 1px var(--shadow-color-soft);
   margin-left: 1.5%;
   margin-right: 2%;
+  flex-shrink: 0;
+  height: auto !important;
+  display: flex;
 }
 .prod-card {
   z-index: 990;
@@ -601,6 +604,14 @@ html:lang(ja) .footer-text {
   line-height: var(--line-height-h4);
   font-weight: var(--font-weight-semibold);
 }
+.prod-card .sm-txt, .prod-card-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .team-slider-arrow {
   display: none;
 }
@@ -612,6 +623,7 @@ html:lang(ja) .footer-text {
 }
 .prod-slider-mask {
   padding: var(--space-2);
+  display: flex !important;
 }
 .image-section {
   width: var(--full-width);
