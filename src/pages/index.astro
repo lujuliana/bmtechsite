@@ -1,31 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { products } from '../data/products';
+
+const homepageProductOrder = ['bbmu', 'bmmu', 'brmu', 'ems-c', 'smc-gateway', 'smc-server', 'iot-b10'];
+const homepageProducts = homepageProductOrder.map((slug) => {
+  const product = products.find((candidate) => candidate.slug === slug);
+
+  if (!product) {
+    throw new Error(`Homepage product data was not found for ${slug}.`);
+  }
+
+  return product;
+});
 ---
 
 <Layout
   locale="en"
-  title="BMTech"
+  title="Battery Management Technology Corporation"
   currentPath="/"
+  description="Optimize your power infrastructure with BMTech. Discover our cutting-edge equipment and systems built for high-performance battery energy storage."
+  ogTitle="Battery Management Technology Corporation"
+  ogDescription="Optimize your power infrastructure with BMTech. Discover our cutting-edge equipment and systems built for high-performance battery energy storage."
+  ogImage="https://cdn.prod.website-files.com/6a0c84e4593078e8f088bb7c/6a0fe4369f79f753573f39c8_8b94941eb69acb8d526938741fe02663_sign-gemini-trans.png"
   webflowPageId="6a0c84e6593078e8f088bc70"
 >
   <Fragment slot="head">
-    <meta content="Optimize your power infrastructure with BMTech. Discover our cutting-edge equipment and systems built for high-performance battery energy storage." name="description" />
-    <meta content="Battery Management Technology Corporation" property="og:title" />
-    <meta content="Optimize your power infrastructure with BMTech. Discover our cutting-edge equipment and systems built for high-performance battery energy storage." property="og:description" />
-    <meta content="https://cdn.prod.website-files.com/6a0c84e4593078e8f088bb7c/6a0fe4369f79f753573f39c8_8b94941eb69acb8d526938741fe02663_sign-gemini-trans.png" property="og:image" />
-    <meta content="Battery Management Technology Corporation" name="twitter:title" />
-    <meta content="Optimize your power infrastructure with BMTech. Discover our cutting-edge equipment and systems built for high-performance battery energy storage." name="twitter:description" />
-    <meta property="og:type" content="website" />
-    <meta content="summary_large_image" name="twitter:card" />
-    <meta content="Webflow" name="generator" />
     <style>html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo, .image-section) {visibility: hidden !important;}</style>
-    <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
-    <link href="images/favicon.png" rel="icon" type="image/png" sizes="32x32" media="(prefers-color-scheme: light)" />
-    <link href="images/favicon-dark.png" rel="icon" type="image/png" sizes="32x32" media="(prefers-color-scheme: dark)" />
-    <link href="images/favicon-48.png" rel="icon" type="image/png" sizes="48x48" />
-    <link href="images/webclip-180.png" rel="apple-touch-icon" sizes="180x180" />
-    <link href="images/webclip-192.png" rel="icon" type="image/png" sizes="192x192" />
-    <link href="images/webclip.png" rel="icon" type="image/png" sizes="512x512" />
+  </Fragment>
+
+  <Fragment slot="scripts">
     <script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script>
   </Fragment>
 
@@ -71,76 +75,11 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <div data-delay="4000" data-animation="slide" class="prod-slider w-slider" data-autoplay="false" data-easing="ease" data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="12" data-duration="500" data-infinite="true">
         <div class="prod-slider-mask w-slider-mask">
-          <div class="prod-slide w-slide">
-            <div data-w-id="0cdf2b58-3790-11ac-1196-dab7df62aa2f" class="prod-card">
-              <a href="products/bbmu.html" class="link-card w-inline-block"><img loading="lazy" src="images/bbmu.jpg" alt="BBMU" sizes="(max-width: 800px) 100vw, 800px" srcset="images/bbmu-p-500.jpg 500w, images/bbmu.jpg 800w" class="card-img" />
-                <div class="card-info">
-                  <h3 class="prod-card-name">BBMU</h3>
-                  <p class="sm-txt gray-200 card">Battery Bank Management Unit</p>
-                </div>
-              </a>
+          {homepageProducts.map((product) => (
+            <div class="prod-slide w-slide">
+              <ProductCard product={product} locale="en" />
             </div>
-          </div>
-          <div class="prod-slide w-slide">
-            <div data-w-id="0cdf2b58-3790-11ac-1196-dab7df62aa2f" class="prod-card">
-              <a href="products/bmmu.html" class="link-card w-inline-block"><img loading="lazy" src="images/bmmu.jpg" alt="BMMU" sizes="(max-width: 800px) 100vw, 800px" srcset="images/bmmu-p-500.jpg 500w, images/bmmu.jpg 800w" class="card-img" />
-                <div class="card-info">
-                  <h3 class="prod-card-name">BMMU</h3>
-                  <p class="sm-txt gray-200 card">Battery Module Management Unit</p>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="prod-slide w-slide">
-            <div data-w-id="0cdf2b58-3790-11ac-1196-dab7df62aa2f" class="prod-card">
-              <a href="products/brmu.html" class="link-card w-inline-block"><img loading="lazy" src="images/brmu.jpg" alt="BRMU" sizes="(max-width: 800px) 100vw, 800px" srcset="images/brmu-p-500.jpg 500w, images/brmu.jpg 800w" class="card-img" />
-                <div class="card-info">
-                  <h3 class="prod-card-name">BRMU</h3>
-                  <p class="sm-txt gray-200 card">Battery Rack Management Unit</p>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="prod-slide w-slide">
-            <div data-w-id="0cdf2b58-3790-11ac-1196-dab7df62aa2f" class="prod-card">
-              <a href="products/ems-c.html" class="link-card w-inline-block"><img loading="lazy" src="images/ems-c.jpg" alt="EMS-C" sizes="(max-width: 800px) 100vw, 800px" srcset="images/ems-c-p-500.jpg 500w, images/ems-c.jpg 800w" class="card-img" />
-                <div class="card-info">
-                  <h3 class="prod-card-name">EMS-C</h3>
-                  <p class="sm-txt gray-200 card">Energy Management System - Commercial</p>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="prod-slide w-slide">
-            <div data-w-id="0cdf2b58-3790-11ac-1196-dab7df62aa2f" class="prod-card">
-              <a href="products/smc-gateway.html" class="link-card w-inline-block"><img loading="lazy" src="images/smc-gateway.jpg" alt="SMC-Gateway" sizes="(max-width: 800px) 100vw, 800px" srcset="images/smc-gateway-p-500.jpg 500w, images/smc-gateway.jpg 640w" class="card-img" />
-                <div class="card-info">
-                  <h3 class="prod-card-name">SMC-Gateway</h3>
-                  <p class="sm-txt gray-200 card">Station Management Controller - Gateway</p>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="prod-slide w-slide">
-            <div data-w-id="0cdf2b58-3790-11ac-1196-dab7df62aa2f" class="prod-card">
-              <a href="products/smc-server.html" class="link-card w-inline-block"><img loading="lazy" src="images/smc-server.jpg" alt="SMC-Server" sizes="(max-width: 800px) 100vw, 800px" srcset="images/smc-server-p-500.jpg 500w, images/smc-server.jpg 640w" class="card-img" />
-                <div class="card-info">
-                  <h3 class="prod-card-name">SMC-Server</h3>
-                  <p class="sm-txt gray-200 card">Station Management Controller - Server</p>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="prod-slide w-slide">
-            <div data-w-id="0cdf2b58-3790-11ac-1196-dab7df62aa2f" class="prod-card">
-              <a href="products/iot-b10.html" class="link-card w-inline-block"><img loading="lazy" src="images/IOT-B10.jpg" alt="IOT-B10" sizes="(max-width: 800px) 100vw, 800px" srcset="images/IOT-B10-p-500.jpg 500w, images/IOT-B10.jpg 560w" class="card-img" />
-                <div class="card-info">
-                  <h3 class="prod-card-name">IOT-B10</h3>
-                  <p class="sm-txt gray-200 card">IOT-B10</p>
-                </div>
-              </a>
-            </div>
-          </div>
+          ))}
         </div>
         <div class="team-slider-arrow w-slider-arrow-left">
           <div class="w-icon-slider-left"></div>

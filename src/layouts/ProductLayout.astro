@@ -1,0 +1,100 @@
+---
+import Layout from './Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import type { Product } from '../data/products';
+
+interface Props {
+  product: Product;
+  allProducts: Product[];
+  locale: 'en' | 'ja';
+}
+
+const { product, allProducts, locale } = Astro.props;
+const relatedProducts = allProducts.filter(
+  (candidate) => candidate.category === product.category && candidate.slug !== product.slug,
+);
+const metadata = product.metadata;
+const localizedFullName = product.fullName[locale] || product.fullName.en;
+const localizedFeatures = product.features[locale];
+const localizedApplications = product.applications[locale];
+const labels = {
+  en: {
+    features: 'Features',
+    applications: 'Applications',
+    category: 'Category',
+    consulting: 'Product Consulting',
+    contact: 'Contact',
+    relatedProducts: 'Related Products',
+  },
+  ja: {
+    features: '特徴',
+    applications: '用途',
+    category: 'カテゴリー',
+    consulting: '製品に関するお問い合わせ',
+    contact: 'お問い合わせ',
+    relatedProducts: '関連製品',
+  },
+} as const;
+const consultingSubject = locale === 'ja' ? `${product.name} 製品に関するお問い合わせ (Product Consulting)` : `${product.name} Product consulting`;
+const consultingLink = `mailto:info@bmtech.com?subject=${encodeURIComponent(consultingSubject)}`;
+const text = labels[locale];
+const imagePath = `/images/${product.image.src}`;
+const imageExtensionIndex = product.image.src.lastIndexOf('.');
+const responsiveImagePath = `/images/${product.image.src.slice(0, imageExtensionIndex)}-p-500${product.image.src.slice(imageExtensionIndex)}`;
+const imageWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('smc-') ? 640 : 800;
+---
+
+<Layout
+  locale={locale}
+  title={metadata.title}
+  currentPath={`/products/${product.slug}.html`}
+  description={metadata.description}
+  ogTitle={metadata.title}
+  ogDescription={metadata.description}
+  ogImage={imagePath}
+  webflowPageId={metadata.webflowPageId}
+>
+  <Fragment slot="head">
+    <style>html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo) {visibility: hidden !important;}</style>
+  </Fragment>
+
+  <div class="main-wrapper">
+    <div class="w-layout-grid prod-page-grid">
+      <img
+        src={imagePath}
+        loading="lazy"
+        sizes="(max-width: 800px) 100vw, 800px"
+        srcset={`${responsiveImagePath} 500w, ${imagePath} ${imageWidth}w`}
+        alt={product.name}
+        class="prod-image"
+      />
+      <div class="w-layout-vflex product-info">
+        <h1 class="h1 product-title">{product.name}</h1>
+        <h2 class="product-full-name">{localizedFullName}</h2>
+        {locale === 'en' && product.fullNameJa && <h2 class="product-full-name">{product.fullNameJa}</h2>}
+        <div class="divider"></div>
+        <h2 class="product-h2">{text.features}</h2>
+        <div class="prod-details w-richtext">
+          <ul role="list">
+            {localizedFeatures.map((feature) => <li>{feature}</li>)}
+          </ul>
+        </div>
+        <h2 class="product-h2">{text.applications}</h2>
+        <div class="prod-details">{localizedApplications.join(', ')}</div>
+        <h2 class="product-h2">{text.category}</h2>
+        <div class="prod-details">{product.category}</div>
+        <div class="divider"></div>
+        <h2 class="product-h2">{text.consulting}</h2>
+        <a data-wf--button-primary--variant="large" href={consultingLink} class="button-primary w-variant-9f4e8c27-5b86-86be-f241-d06a0af72488 w-button">{text.contact}</a>
+      </div>
+    </div>
+    <section class="related-products">
+      <div class="w-layout-vflex product-info">
+        <h2 class="product-h2">{text.relatedProducts}</h2>
+        <div class="w-layout-grid card-list">
+          {relatedProducts.map((relatedProduct) => <ProductCard product={relatedProduct} locale={locale} />)}
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

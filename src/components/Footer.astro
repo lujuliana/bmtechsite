@@ -15,9 +15,9 @@ const content = {
     address: '1255 W 15th St, Suite 325, Plano, TX 75075 USA',
     links: {
       home: '/',
-      products: '/products.html',
-      security: '/security-vuln.html',
-      contact: '/contact.html',
+      products: '/products',
+      security: '/security-vuln',
+      contact: '/contact',
     },
     navId: 'w-node-d9cb0135-f8d1-edb1-9f0e-0e29f9fa28b4-19513961',
     contactId: 'w-node-_75165c98-ada8-0bdd-e89b-0d3719513970-19513961',
@@ -29,10 +29,10 @@ const content = {
     contact: 'お問い合わせ',
     address: '〒75075 アメリカ合衆国テキサス州プラノ W 15th St Suite 325',
     links: {
-      home: '/ja/home.html',
-      products: '/ja/products.html',
-      security: '/ja/security-vuln.html',
-      contact: '/ja/contact.html',
+      home: '/ja/',
+      products: '/ja/products',
+      security: '/ja/security-vuln',
+      contact: '/ja/contact',
     },
     navId: 'w-node-_81e6db74-40f1-9991-196e-8edc29db6ad5-29db6acf',
     contactId: 'w-node-_81e6db74-40f1-9991-196e-8edc29db6ae6-29db6acf',
@@ -40,8 +40,34 @@ const content = {
 } as const;
 
 const footer = content[locale];
-const normalizedCurrentPath = `/${currentPath.split(/[?#]/)[0].replace(/^\/+|\/+$/g, '')}`;
-const isCurrent = (href: string) => normalizedCurrentPath === href;
+const normalizePath = (path: string) => {
+  let pathname = path.trim();
+
+  if (/^[a-z][a-z\d+.-]*:\/\//i.test(pathname)) {
+    pathname = new URL(pathname).pathname;
+  } else {
+    pathname = pathname.split(/[?#]/)[0];
+  }
+
+  pathname = `/${pathname.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '')}`;
+  pathname = pathname.replace(/\/{2,}/g, '/');
+  pathname = pathname.replace(/\/index(?:\.html)?$/i, '') || '/';
+  pathname = pathname.replace(/\.html$/i, '');
+
+  if (/^\/home$/i.test(pathname)) return '/';
+  if (/^\/ja(?:\/home)?$/i.test(pathname)) return '/ja';
+
+  return pathname;
+};
+
+const normalizedCurrentPath = normalizePath(currentPath);
+const isCurrent = (href: string) => {
+  const normalizedHref = normalizePath(href);
+  const isProductsRoute = normalizedHref === '/products' || normalizedHref === '/ja/products';
+
+  return normalizedCurrentPath === normalizedHref
+    || (isProductsRoute && normalizedCurrentPath.startsWith(`${normalizedHref}/`));
+};
 const linkClass = (href: string, baseClass: string) =>
   `${baseClass}${isCurrent(href) ? ' w--current' : ''}`;
 ---

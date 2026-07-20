@@ -17,6 +17,7 @@ interface Props {
 }
 
 const { product, locale } = Astro.props;
+const productPath = locale === 'ja' ? `/ja/products/${product.slug}` : `/products/${product.slug}`;
 const imagePath = `/images/${product.image.src}`;
 const imageExtensionIndex = product.image.src.lastIndexOf('.');
 const responsiveImagePath = `/images/${product.image.src.slice(0, imageExtensionIndex)}-p-500${product.image.src.slice(imageExtensionIndex)}`;
@@ -24,7 +25,7 @@ const sourceWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('
 ---
 
 <div data-w-id="0cdf2b58-3790-11ac-1196-dab7df62aa2f" class="prod-card">
-  <a href={`/products/${product.slug}.html`} class="link-card w-inline-block">
+  <a href={productPath} class="link-card w-inline-block">
     <img
       loading="lazy"
       src={imagePath}
@@ -36,7 +37,7 @@ const sourceWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('
     <div class="card-info">
       <h3 class="prod-card-name">{product.name}</h3>
       <p class="sm-txt gray-200 card">
-        {locale === 'ja' && <>{product.fullName.ja}<br /></>}
+        {locale === 'ja' && product.fullName.ja && <>{product.fullName.ja}<br /></>}
         {product.fullName.en}
       </p>
     </div>

@@ -11,18 +11,18 @@ const navigation = {
     componentId: '1d782d06-8df0-b709-7aae-ca2a3e349dd0',
     wrapperId: undefined,
     home: { label: 'Home', href: '/' },
-    products: { label: 'Products', href: '/products.html' },
-    security: { label: 'Security', href: '/security-vuln.html' },
-    contact: { label: 'Contact', href: '/contact.html' },
+    products: { label: 'Products', href: '/products' },
+    security: { label: 'Security', href: '/security-vuln' },
+    contact: { label: 'Contact', href: '/contact' },
     langSwitchLabel: '日本語',
   },
   ja: {
     componentId: '69fd2859-5244-20c1-e0b8-bd1ba18f697b',
     wrapperId: '5f59c381-3a27-e2b7-faff-aac039f86576',
-    home: { label: 'ホーム', href: '/ja/home.html' },
-    products: { label: '製品情報', href: '/ja/products.html' },
-    security: { label: 'セキュリティ', href: '/ja/security-vuln.html' },
-    contact: { label: 'お問い合わせ', href: '/ja/contact.html' },
+    home: { label: 'ホーム', href: '/ja/' },
+    products: { label: '製品情報', href: '/ja/products' },
+    security: { label: 'セキュリティ', href: '/ja/security-vuln' },
+    contact: { label: 'お問い合わせ', href: '/ja/contact' },
     langSwitchLabel: 'EN',
   },
 } as const;
@@ -39,28 +39,20 @@ const normalizePath = (path: string) => {
   pathname = `/${pathname.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '')}`;
   pathname = pathname.replace(/\/{2,}/g, '/');
 
-  if (/^\/index(?:\.html)?$/i.test(pathname)) return '/';
-  if (/^\/ja(?:\/index(?:\.html)?)?$/i.test(pathname)) return '/ja/home.html';
-  if (/^\/ja\/home\/?$/i.test(pathname)) return '/ja/home.html';
+  pathname = pathname.replace(/\/index(?:\.html)?$/i, '') || '/';
+  pathname = pathname.replace(/\.html$/i, '');
+
+  if (/^\/home$/i.test(pathname)) return '/';
+  if (/^\/ja(?:\/home)?$/i.test(pathname)) return '/ja';
 
   return pathname;
 };
 
-const langSwitches: Record<string, string> = {
-  '/': '/ja/home.html',
-  '/products.html': '/ja/products.html',
-  '/security-vuln.html': '/ja/security-vuln.html',
-  '/contact.html': '/ja/contact.html',
-  '/ja/home.html': '/',
-  '/ja/products.html': '/products.html',
-  '/ja/security-vuln.html': '/security-vuln.html',
-  '/ja/contact.html': '/contact.html',
-};
-
 const nav = navigation[locale];
 const normalizedCurrentPath = normalizePath(currentPath);
-const langSwitchPath = langSwitches[normalizedCurrentPath]
-  ?? (locale === 'en' ? '/ja/home.html' : '/');
+const langSwitchPath = locale === 'en'
+  ? (normalizedCurrentPath === '/' ? '/ja/' : `/ja${normalizedCurrentPath}`)
+  : (normalizedCurrentPath === '/ja' ? '/' : normalizedCurrentPath.replace(/^\/ja(?=\/)/, ''));
 const isCurrent = (href: string) => normalizedCurrentPath === normalizePath(href);
 const currentClass = (href: string, baseClass: string) =>
   `${baseClass}${isCurrent(href) ? ' w--current' : ''}`;
