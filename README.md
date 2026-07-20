@@ -26,6 +26,8 @@ https://lujuliana.github.io/bmtechsite
 - [ ] Perform final production contact form test
 
 ## Website Updates
+- [ ] Move toward a reusable templating/component workflow with Astro
+- [ ] Reduce duplicated page components (cards/header/footer/navigation)
 - [ ] Add japanese product detail pages
 - [ ] Change alt txt on japanese pages to japanese
 - [ ] Add blog/events, about, & careers page
@@ -40,8 +42,6 @@ https://lujuliana.github.io/bmtechsite
 
 - [ ] Add API rate limiting or AWS WAF if spam becomes an issue
 - [ ] Add automated end-to-end contact form tests
-- [ ] Reduce duplicated page components (header/footer/navigation)
-- [ ] Move toward a reusable templating/component workflow
 - [ ] Configure a custom API domain (e.g. `api.bmtech.com`)
 - [ ] Review the existing SPF and DMARC records for `bmtech.com`
 - [ ] Add or improve DMARC as needed
