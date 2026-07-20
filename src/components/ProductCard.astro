@@ -1,0 +1,44 @@
+---
+interface Product {
+  slug: string;
+  name: string;
+  fullName: {
+    en: string;
+    ja: string;
+  };
+  image: {
+    src: string;
+  };
+}
+
+interface Props {
+  product: Product;
+  locale: 'en' | 'ja';
+}
+
+const { product, locale } = Astro.props;
+const imagePath = `/images/${product.image.src}`;
+const imageExtensionIndex = product.image.src.lastIndexOf('.');
+const responsiveImagePath = `/images/${product.image.src.slice(0, imageExtensionIndex)}-p-500${product.image.src.slice(imageExtensionIndex)}`;
+const sourceWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('smc-') ? 640 : 800;
+---
+
+<div data-w-id="0cdf2b58-3790-11ac-1196-dab7df62aa2f" class="prod-card">
+  <a href={`/products/${product.slug}.html`} class="link-card w-inline-block">
+    <img
+      loading="lazy"
+      src={imagePath}
+      alt={product.name}
+      sizes="(max-width: 800px) 100vw, 800px"
+      srcset={`${responsiveImagePath} 500w, ${imagePath} ${sourceWidth}w`}
+      class="card-img"
+    />
+    <div class="card-info">
+      <h3 class="prod-card-name">{product.name}</h3>
+      <p class="sm-txt gray-200 card">
+        {locale === 'ja' && <>{product.fullName.ja}<br /></>}
+        {product.fullName.en}
+      </p>
+    </div>
+  </a>
+</div>

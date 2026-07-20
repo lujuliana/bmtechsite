@@ -1,6 +1,7 @@
 :root {
   --font-body: Manrope, sans-serif;
   --font-heading: "Instrument Sans", sans-serif;
+  --font-japanese: "Noto Sans JP", sans-serif;
   --radius-lg: 1rem;
   --radius-md: .75rem;
   --radius-none: 0rem;
@@ -60,7 +61,6 @@
   --grid-gap: var(--space-6);
   --hero-spacing: var(--space-10);
   --color-dark: #010101;
-  --font-japanese: "Noto Sans JP", sans-serif;
   --color-gray-dark: #4a4a4a;
   --color-gray: #6a6a6a;
   --color-gray-light: #c8c8c8;
@@ -411,6 +411,10 @@ html:lang(ja) .footer {
   font-family: var(--font-japanese);
   font-weight: var(--font-weight-regular);
 }
+.footer:lang(ja) {
+  font-family: var(--font-japanese);
+  font-weight: var(--font-weight-regular);
+}
 .footer-container {
   width: var(--container-width);
   max-width: var(--full-width);
@@ -468,6 +472,9 @@ html:lang(ja) .footer {
   text-transform: none;
 }
 html:lang(ja) .footer-text {
+  font-family: var(--font-japanese);
+}
+.footer:lang(ja) .footer-text {
   font-family: var(--font-japanese);
 }
 .section {

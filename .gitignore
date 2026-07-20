@@ -1,12 +1,47 @@
+# Dependencies
 node_modules/
+
+# Build output
+dist/
+.astro/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# AWS build artifacts
 aws/contact-form/contact-form.zip
+
+# AI / local tooling
+.agents/
+
+# Temporary reports
 AUDIT.md
 cleanup-report.md
-.venv
-.agents
-bmtechco.webflow.old.css
+docs/
+
+# One-off scripts
 inspect_css.py
-docs
+
+# Backup files
+*.old.*
+bmtechco.webflow.old.css
+
+# Temporary pages
 about.html
 security-old.html
-ja\security-old.html
+ja/security-old.html
