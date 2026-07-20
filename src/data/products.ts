@@ -120,7 +120,7 @@ export const products: Product[] = [
     },
     metadata: {
       title: 'BRMU Battery Rack Management Unit | BMTech',
-      description: 'Optimize your power infrastructure with the BRMU Battery Rack Management System. Ideal for grid, renewable, residential energy storage, and UPS.',
+      description: 'Optimize your power infrastructure with the BRMU Battery Rack Management Unit. Ideal for grid, renewable, residential energy storage, and UPS.',
       webflowPageId: '6a511f2c1be522a1302e3368',
     },
   },

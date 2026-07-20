@@ -23,10 +23,8 @@ https://lujuliana.github.io/bmtechsite
 - [ ] Perform final production contact form test
 
 ## Website Updates
-- [ ] Move toward a reusable templating/component workflow with Astro
-- [ ] Reduce duplicated page components (cards/header/footer/navigation)
 - [ ] Add japanese product detail pages
-- [ ] Change alt txt on japanese pages to japanese
+- [ ] Change alt txt and metadata on japanese pages to japanese
 - [ ] Add blog/events, about, & careers page
 - [ ] Change linkedin link
 - [ ] Add factory location + pictures
