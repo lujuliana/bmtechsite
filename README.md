@@ -15,9 +15,6 @@ https://lujuliana.github.io/bmtechsite
 
 ## Production Deployment
 
-- [ ] Verify `bmtech.com` domain in Amazon SES
-- [ ] Add SES DNS records in Namecheap
-- [ ] Request Amazon SES production access
 - [ ] Change `CONTACT_FROM_EMAIL` to `info@bmtech.com`
 - [ ] Change `CONTACT_TO_EMAIL` to `info@bmtech.com`
 - [ ] Change `ALLOWED_ORIGIN` to `https://bmtech.com`

@@ -179,6 +179,10 @@ ul {
   margin-right: auto;
   padding: 15px 20px;
 }
+html:lang(ja) .navbar {
+  font-family: var(--font-japanese);
+  font-weight: var(--font-weight-regular);
+}
 .navbar.shadow-three {
   padding: var(--space-3) var(--space-5);
 }
