@@ -14,7 +14,8 @@ const relatedProducts = allProducts.filter(
   (candidate) => candidate.category === product.category && candidate.slug !== product.slug,
 );
 const metadata = product.metadata;
-const localizedFullName = product.fullName[locale] || product.fullName.en;
+const englishFullName = product.fullName.en;
+const japaneseFullName = product.fullName.ja || product.fullNameJa;
 const localizedFeatures = product.features[locale];
 const localizedApplications = product.applications[locale];
 const labels = {
@@ -47,7 +48,7 @@ const imageWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('s
 <Layout
   locale={locale}
   title={metadata.title}
-  currentPath={`/products/${product.slug}`}
+  currentPath={locale === 'ja' ? `/ja/products/${product.slug}` : `/products/${product.slug}`}
   description={metadata.description}
   ogTitle={metadata.title}
   ogDescription={metadata.description}
@@ -70,8 +71,8 @@ const imageWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('s
       />
       <div class="w-layout-vflex product-info">
         <h1 class="h1 product-title">{product.name}</h1>
-        <h2 class="product-full-name">{localizedFullName}</h2>
-        {locale === 'en' && product.fullNameJa && <h2 class="product-full-name">{product.fullNameJa}</h2>}
+        <h2 class="product-full-name">{englishFullName}</h2>
+        {locale === 'ja' && japaneseFullName && <h2 class="product-full-name">{japaneseFullName}</h2>}
         <div class="divider"></div>
         <h2 class="product-h2">{text.features}</h2>
         <div class="prod-details w-richtext">

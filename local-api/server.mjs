@@ -2,7 +2,7 @@ import http from "node:http";
 import { randomUUID } from "node:crypto";
 
 const PORT = 3000;
-const ALLOWED_ORIGIN = "http://127.0.0.1:5500";
+const ALLOWED_ORIGIN = "http://localhost:4321";
 const MAX_BODY_BYTES = 64 * 1024;
 const SUBJECTS = new Set(["Inquiry", "Career", "Security", "Other"]);
 const HONEYPOT_DEBUG = process.env.HONEYPOT_DEBUG === "false";

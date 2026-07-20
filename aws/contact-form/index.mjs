@@ -5,7 +5,12 @@ const MAX_BODY_BYTES = 64 * 1024;
 const SUBJECTS = new Set(["Inquiry", "Career", "Security", "Other"]);
 
 const AWS_REGION = process.env.SES_REGION || process.env.AWS_REGION;
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "";
+const ALLOWED_ORIGINS = new Set(
+  (process.env.ALLOWED_ORIGINS || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+);
 const CONTACT_FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || "";
 const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL || "";
 const CONTACT_SUBJECT_PREFIX = process.env.CONTACT_SUBJECT_PREFIX || "Website contact";
@@ -20,8 +25,8 @@ const responseHeaders = (origin) => {
     Vary: "Origin"
   };
 
-  if (origin && origin === ALLOWED_ORIGIN) {
-    headers["Access-Control-Allow-Origin"] = ALLOWED_ORIGIN;
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    headers["Access-Control-Allow-Origin"] = origin;
     headers["Access-Control-Allow-Methods"] = "POST, OPTIONS";
     headers["Access-Control-Allow-Headers"] = "Content-Type";
     headers["Access-Control-Max-Age"] = "600";
@@ -148,7 +153,7 @@ const configurationErrors = () => {
 
   if (!CONTACT_FROM_EMAIL) missing.push("CONTACT_FROM_EMAIL");
   if (!CONTACT_TO_EMAIL) missing.push("CONTACT_TO_EMAIL");
-  if (!ALLOWED_ORIGIN) missing.push("ALLOWED_ORIGIN");
+  if (ALLOWED_ORIGINS.size === 0) missing.push("ALLOWED_ORIGINS");
 
   return missing;
 };
@@ -203,7 +208,7 @@ export const handler = async (event, context) => {
   const method = event?.requestContext?.http?.method || "";
   const path = event?.rawPath || event?.requestContext?.http?.path || "";
 
-  if (origin && origin !== ALLOWED_ORIGIN) {
+  if (origin && !ALLOWED_ORIGINS.has(origin)) {
     return jsonResponse(403, {
       success: false,
       error: "Origin is not allowed.",

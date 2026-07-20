@@ -149,7 +149,11 @@
         });
 
         if (!response.ok) {
-          throw new Error(`Contact API returned HTTP ${response.status}.`);
+          const responseText = await response.text();
+
+          throw new Error(
+            `Contact API returned HTTP ${response.status}: ${responseText}`
+          );
         }
 
         showResult(form, successMessage, errorMessage, true);

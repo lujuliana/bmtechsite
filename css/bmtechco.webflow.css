@@ -1146,7 +1146,7 @@ html:lang(ja) .form-select {
 }
 @media screen and (min-width: 1920px) {
   body {
-    --font-size-body: 1.25rem;
+    --font-size-body: 1.15rem;
     --section-padding: var(--space-9);
     --card-padding: var(--space-6);
     --font-size-xs: 1rem;
