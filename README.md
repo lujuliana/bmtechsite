@@ -4,8 +4,6 @@ This repository contains BMTech's statically generated English and Japanese webs
 
 Production is deployed as a static Astro site hosted on AWS Lightsail. The contact form is handled separately by API Gateway, Lambda, and Amazon SES.
 
-https://lujuliana.github.io/bmtechsite
-
 ## Prerequisites
 
 - Node.js 20+ (or the version you use)
