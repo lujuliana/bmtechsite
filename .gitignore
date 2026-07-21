@@ -41,7 +41,3 @@ inspect_css.py
 *.old.*
 bmtechco.webflow.old.css
 
-# Temporary pages
-about.html
-security-old.html
-ja/security-old.html
