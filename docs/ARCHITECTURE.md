@@ -1,8 +1,30 @@
 # Architecture
 
-## English and Japanese routing
+## Overview
 
-English routes have no locale prefix. Japanese equivalents use `/ja`:
+The website is built with Astro in static output mode.
+
+```text
+Localized page data
+        |
+        v
+Astro pages and layouts
+        |
+        v
+Shared components
+        |
+        v
+Static HTML, CSS, JavaScript, images, and videos
+        |
+        v
+Nginx on AWS Lightsail
+```
+
+Astro assembles the site at build time. The production server does not run an Astro or Node.js application process; Nginx serves the files generated in `dist/`.
+
+## Routing and localization
+
+English routes have no locale prefix. Japanese equivalents use `/ja`.
 
 | Page | English | Japanese |
 | --- | --- | --- |
@@ -12,29 +34,90 @@ English routes have no locale prefix. Japanese equivalents use `/ja`:
 | Product detail | `/products/<slug>` | `/ja/products/<slug>` |
 | Contact | `/contact` | `/ja/contact` |
 
-The shared header maps each route to its equivalent page in the other language. Page components must pass the matching `locale` and `currentPath` values to the layout so links and active-page styling remain correct.
+The shared header receives the current locale and path so it can:
 
-## Contact form architecture
+- render localized navigation text;
+- indicate the active page; and
+- link to the equivalent route in the other language.
 
-1. The English and Japanese contact pages render the same Webflow-compatible form structure and load `/js/contact-form.js`.
-2. The shared browser script performs localized validation, blocks normal form submission, reads the honeypot field, and sends a JSON request to the form's configured API Gateway endpoint. The payload includes the form fields, locale, page URL, and submission time.
-3. API Gateway forwards `POST /contact` and CORS preflight requests to `aws/contact-form/index.mjs`.
-4. The Lambda verifies the request origin against the comma-separated `ALLOWED_ORIGINS` environment variable, validates the JSON payload again, silently handles honeypot submissions by default, and sends accepted messages through Amazon SES.
-5. The sender and recipient are configured through Lambda environment variables. The visitor's email is used only as the SES reply-to address.
+Localized pages should pass the correct `locale` and `currentPath` values to the shared layout.
 
-The development helper in `local-api/` can validate and log compatible requests without sending email. Production configuration and environment-variable notes are maintained in the repository's root `README.md`.
+## Page composition
 
-## Environment
+`Layout.astro` provides the shared document shell:
+
+- metadata;
+- font and stylesheet loading;
+- Webflow page attributes;
+- header and footer;
+- shared browser scripts; and
+- page-level layout structure.
+
+`ProductLayout.astro` builds product-detail pages from the centralized product catalog. Product route files remain small and primarily select a product record and locale.
+
+## Product data
+
+Product content is centralized in:
+
+```text
+src/data/products.ts
+```
+
+Each product record contains shared identifiers and localized page content, including:
+
+- route slug;
+- English and Japanese text;
+- product image information;
+- category;
+- metadata; and
+- related-product information.
+
+This avoids duplicating complete product-page markup across English and Japanese routes.
+
+## Contact form flow
+
+```text
+English or Japanese contact page
+                |
+                v
+        /js/contact-form.js
+                |
+                v
+       API Gateway /contact
+                |
+                v
+      AWS Lambda validation
+                |
+                v
+          Amazon SES email
+```
+
+1. The English and Japanese contact pages render the same Webflow-compatible form structure.
+2. `/js/contact-form.js` performs localized browser validation, prevents normal form submission, reads the honeypot field, and sends JSON to the configured API Gateway endpoint.
+3. The request payload includes form fields, locale, page URL, and submission time.
+4. API Gateway handles `POST /contact` and CORS preflight requests.
+5. The Lambda validates the request origin and payload again.
+6. Honeypot submissions are silently discarded in production.
+7. Accepted submissions are sent through Amazon SES.
+8. The visitor's email address is used as `Reply-To`, never as the SES sender.
+
+The development helper in `local-api/` accepts the same request format, validates submissions, and logs them without sending email.
+
+## Lambda configuration
 
 The static website itself does not require environment variables.
 
-The contact-form Lambda uses:
+The contact-form Lambda uses the following variables:
 
-| Variable | Required | Description | Target Val | Lambda Val |
-| --- | -- | ---- | -- | -- |
-| `CONTACT_FROM_EMAIL` | Yes | SES-verified sender address. User input is never used as the sender. | `info@bmtech.com` |`juliana.lu@bmtech.com` |
-| `CONTACT_TO_EMAIL` | Yes | Address that receives contact submissions. | `info@bmtech.com` | `juliana.lu@bmtech.com` |
-| `ALLOWED_ORIGINS` | Yes | List of exact website origins allowed by CORS; omit a trailing slash. | `https://bmtech.com, https://www.bmtech.com` | `https://bmtech.com, https://www.bmtech.com` |
-| `SES_REGION` | No | Region containing the SES identity. Defaults to Lambda's managed `AWS_REGION`. | `us-east-2` | `us-east-2` |
-| `CONTACT_SUBJECT_PREFIX` | No | Email subject prefix. Defaults to `Website contact`. | `BMTech Website Contact` | `BMTech Website Contact` |
-| `HONEYPOT_DEBUG` | No | Exactly `true` exposes the diagnostic `422` honeypot response. Any other value silently discards honeypot submissions and returns normal success. | `false` | `false` |
+| Variable | Required | Purpose | Production value |
+| --- | --- | --- | --- |
+| `CONTACT_FROM_EMAIL` | Yes | SES-verified sender address | `info@bmtech.com` |
+| `CONTACT_TO_EMAIL` | Yes | Recipient for website submissions | `info@bmtech.com` |
+| `ALLOWED_ORIGINS` | Yes | Comma-separated exact browser origins allowed by the Lambda | `https://bmtech.com,https://www.bmtech.com` |
+| `SES_REGION` | No | Region containing the SES identity; defaults to `AWS_REGION` | `us-east-2` |
+| `CONTACT_SUBJECT_PREFIX` | No | Prefix added to contact-email subjects | `BMTech Website Contact` |
+| `HONEYPOT_DEBUG` | No | When exactly `true`, returns diagnostic honeypot errors instead of silent success | `false` |
+
+Origins must be exact and must not include a trailing slash.
+
+API Gateway CORS settings must allow the same production origins as the Lambda.

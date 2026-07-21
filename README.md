@@ -1,49 +1,38 @@
-# BMTech Astro project
+# BMTech Website
 
-This repository contains BMTech's statically generated English and Japanese website. Astro assembles shared layouts and components at build time while retaining the site's Webflow markup, styles, and browser interactions.
+BMTech's public website is a statically generated, bilingual site built with Astro.
 
-Production is deployed as a static Astro site hosted on AWS Lightsail. The contact form is handled separately by API Gateway, Lambda, and Amazon SES.
+The project supports English and Japanese pages, shared layouts and components, reusable product data, and a contact form backed by AWS API Gateway, Lambda, and Amazon SES.
 
-## Prerequisites
+## Features
 
-- Node.js 20+ (or the version you use)
+- English routes at the site root
+- Japanese routes under `/ja/`
+- Shared Astro layouts, navigation, footer, and product cards
+- Centralized product content in `src/data/products.ts`
+- Static production output generated in `dist/`
+- Webflow-compatible markup, styling, and browser interactions
+- Local contact-form development server
+- Production contact-form backend on AWS
+
+## Requirements
+
+- Node.js 20 or later
 - npm
 
-## Project structure
+The current production server uses Node.js 22 to build the site.
 
-```text
-.
-|-- src/
-|   |-- components/
-|   |-- data/
-|   |-- drafts/
-|   |-- layouts/
-|   `-- pages/
-|       |-- products/
-|       `-- ja/
-|           `-- products/
-|-- public/
-|-- aws/contact-form/
-|-- local-api/
-|-- astro.config.mjs
-`-- package.json
-```
+## Installation
 
-- `src/` contains all Astro source code and site data.
-- `public/` contains static files served from root-relative URLs such as `/css/...`, `/js/...`, `/images/...`, and `/videos/...`.
-- `aws/contact-form/` contains the production contact-form Lambda and its deployment dependencies and test event.
-- `local-api/` contains a development-only contact endpoint and its usage notes.
-- `astro.config.mjs` configures Astro for static output.
-- `package.json` defines the development and build commands.
-
-
-## Development and build
-
-Install dependencies once:
+Clone the repository and install dependencies:
 
 ```sh
+git clone https://github.com/lujuliana/bmtechsite.git
+cd bmtechsite
 npm install
 ```
+
+## Development
 
 Start the Astro development server:
 
@@ -51,27 +40,40 @@ Start the Astro development server:
 npm run dev
 ```
 
+Astro prints the local development URL in the terminal.
+
+## Production build
+
 Create the static production site:
 
 ```sh
 npm run build
 ```
 
-## Deployment overview
+The generated site is written to:
 
-The project uses Astro's `static` output mode. A deployment should:
+```text
+dist/
+```
 
-1. install dependencies with `npm install` (or `npm ci` in an automated environment);
-2. run `npm run build`;
-3. publish the generated static site to the configured web host;
-4. serve root-relative asset URLs without rewriting their paths; and
-5. configure the contact Lambda and API Gateway independently, including SES identities and the production `ALLOWED_ORIGINS` values.
+The `dist/` directory is generated and should not be edited manually.
 
-The repository does not currently define a deployment workflow in `package.json` or `astro.config.mjs`.
+## Production deployment
+
+Production is hosted on AWS Lightsail and served by Nginx. Deployment is currently performed manually from the repository clone on the server.
+
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for the complete deployment, rollback, and contact-backend configuration process.
+
+## Documentation
+
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — application design, localization, and contact-form flow
+- [`docs/PROJECT-STRUCTURE.md`](docs/PROJECT-STRUCTURE.md) — repository layout and common maintenance tasks
+- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) — Lightsail, Nginx, Lambda, API Gateway, SES, and production procedures
+- [`TODO.md`](TODO.md) — remaining production, content, and infrastructure work
 
 ## Generated directories
 
-These directories are generated and should not be edited manually:
+The following directories are generated and should not be committed or edited manually:
 
 - `dist/`
 - `node_modules/`
