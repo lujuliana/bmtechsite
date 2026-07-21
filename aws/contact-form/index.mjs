@@ -220,7 +220,7 @@ export const htmlEmailBody = (submission, submissionId, requestId) => {
           <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width: 680px; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
             <tr>
               <td style="padding: 24px; background-color: #12355b; color: #ffffff;">
-                <h1 style="margin: 0; font-size: 22px; line-height: 1.3;">New website contact form submission</h1>
+                <h1 style="margin: 0; font-size: 22px; line-height: 1.3;">New contact form submission</h1>
               </td>
             </tr>
             <tr>
