@@ -5,7 +5,7 @@ This dependency-free development server receives the JSON payload sent by `js/co
 ## Requirements
 
 - Node.js 18 or newer
-- The static site served from `http://127.0.0.1:5500`
+- The static site served from `http://localhost:4321`
 
 The contact forms are configured to submit to `https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact`.
 
@@ -21,7 +21,7 @@ Expected output:
 
 ```text
 Local contact API listening on http://localhost:3000
-Allowed browser origin: http://127.0.0.1:5500
+Allowed browser origin: http://localhost:4321
 ```
 
 Keep this terminal open. Successful form submissions are logged there as formatted JSON.
@@ -37,7 +37,7 @@ $env:HONEYPOT_DEBUG = "true"
 node local-api/server.mjs
 ```
 
-In debug mode, a filled honeypot returns the existing HTTP `422` validation response. The submission is still discarded and is never included in the successful-submission log. Remove the variable to return to production-safe behavior:
+In debug mode, a filled honeypot returns the existing HTTP `422` validation response. The submission is still discarded and is never included in the successful-submission log. Remove the environment variable to return to production-safe behavior:
 
 ```powershell
 Remove-Item Env:HONEYPOT_DEBUG
@@ -45,10 +45,10 @@ Remove-Item Env:HONEYPOT_DEBUG
 
 ## Run the website
 
-Serve the project at `http://127.0.0.1:5500`. For example, VS Code Live Server commonly uses that address. Open either:
+Serve the project at `http://localhost:4321`. For example, VS Code Live Server commonly uses that address. Open either:
 
-- `http://127.0.0.1:5500/contact`
-- `http://127.0.0.1:5500/ja/contact`
+- `http://localhost:4321/contact`
+- `http://localhost:4321/ja/contact`
 
 Submitting a valid form should show the page's existing success message and print the submission to the API terminal.
 
@@ -65,7 +65,7 @@ $body = @{
   subject = "Inquiry"
   message = "This is a local contact form test."
   locale = "en"
-  pageUrl = "http://127.0.0.1:5500/contact"
+  pageUrl = "http://localhost:4321/contact"
   submittedAt = (Get-Date).ToUniversalTime().ToString("o")
 } | ConvertTo-Json
 
@@ -73,7 +73,7 @@ Invoke-RestMethod `
   -Uri "https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact" `
   -Method Post `
   -ContentType "application/json" `
-  -Headers @{ Origin = "http://127.0.0.1:5500" } `
+  -Headers @{ Origin = "http://localhost:4321" } `
   -Body $body
 ```
 
@@ -105,7 +105,7 @@ try {
     -Uri "https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact" `
     -Method Post `
     -ContentType "application/json" `
-    -Headers @{ Origin = "http://127.0.0.1:5500" } `
+    -Headers @{ Origin = "http://localhost:4321" } `
     -Body $invalidBody
 } catch {
   $_.ErrorDetails.Message
@@ -132,7 +132,7 @@ try {
     -Uri "https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact" `
     -Method Post `
     -ContentType "application/json" `
-    -Headers @{ Origin = "http://127.0.0.1:5500" } `
+    -Headers @{ Origin = "http://localhost:4321" } `
     -Body $honeypotBody
 } catch {
   $_.ErrorDetails.Message
@@ -145,7 +145,7 @@ With `HONEYPOT_DEBUG` unset, this returns the normal `201` success response. Wit
 
 - `POST /contact` accepts JSON submissions.
 - `OPTIONS /contact` handles browser CORS preflight.
-- Only browser requests from `http://127.0.0.1:5500` are allowed.
+- Only browser requests from `http://localhost:4321` are allowed.
 - Request bodies are limited to 64 KiB.
 - Invalid JSON returns `400`.
 - Disallowed origins return `403`.

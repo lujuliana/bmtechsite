@@ -2,15 +2,20 @@ import http from "node:http";
 import { randomUUID } from "node:crypto";
 
 const PORT = 3000;
-const ALLOWED_ORIGIN = "http://localhost:4321";
+const ALLOWED_ORIGINS = new Set(
+  (process.env.ALLOWED_ORIGINS || "http://localhost:4321")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+);
 const MAX_BODY_BYTES = 64 * 1024;
 const SUBJECTS = new Set(["Inquiry", "Career", "Security", "Other"]);
 const HONEYPOT_DEBUG = process.env.HONEYPOT_DEBUG === "false";
 
 const setCorsHeaders = (response, origin) => {
   response.setHeader("Vary", "Origin");
-  if (origin === ALLOWED_ORIGIN) {
-    response.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    response.setHeader("Access-Control-Allow-Origin", origin);
     response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
     response.setHeader("Access-Control-Allow-Headers", "Content-Type");
     response.setHeader("Access-Control-Max-Age", "600");
@@ -139,7 +144,7 @@ const server = http.createServer(async (request, response) => {
   const origin = request.headers.origin || "";
   const url = new URL(request.url || "/", "http://localhost");
 
-  if (origin && origin !== ALLOWED_ORIGIN) {
+  if (origin && !ALLOWED_ORIGINS.has(origin)) {
     sendJson(response, 403, {
       success: false,
       error: "Origin is not allowed.",
@@ -258,5 +263,5 @@ const server = http.createServer(async (request, response) => {
 
 server.listen(PORT, () => {
   console.log(`Local contact API listening on http://localhost:${PORT}`);
-  console.log(`Allowed browser origin: ${ALLOWED_ORIGIN}`);
+  console.log(`Allowed browser origins: ${[...ALLOWED_ORIGINS].join(", ")}`);
 });
