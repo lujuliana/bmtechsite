@@ -175,6 +175,75 @@ const emailBody = (submission, submissionId, requestId) => [
   submission.message
 ].join("\n");
 
+const escapeHtml = (value) => String(value).replace(
+  /[&<>"']/g,
+  (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[character]
+);
+
+export const htmlEmailBody = (submission, submissionId, requestId) => {
+  const contactDetails = [
+    ["Name", submission.name],
+    ["Email", submission.email],
+    ["Phone", submission.phone || "Not provided"],
+    ["Subject", submission.subject]
+  ];
+  const submissionDetails = [
+    ["Submission ID", submissionId],
+    ["Locale", submission.locale],
+    ["Page URL", submission.pageUrl || "Not provided"],
+    ["Submitted at", submission.submittedAt || "Not provided"]
+  ];
+
+  const detailRows = (details) => details.map(([label, value]) => `
+    <tr>
+      <th scope="row" style="padding: 10px 16px; border-bottom: 1px solid #e5e7eb; color: #4b5563; font-size: 14px; font-weight: 600; text-align: left; vertical-align: top; width: 130px;">${escapeHtml(label)}</th>
+      <td style="padding: 10px 16px; border-bottom: 1px solid #e5e7eb; color: #111827; font-size: 14px; text-align: left; overflow-wrap: anywhere;">${escapeHtml(value)}</td>
+    </tr>`).join("");
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BMT website contact form submission</title>
+  </head>
+  <body style="margin: 0; padding: 0; background-color: #f3f4f6; color: #111827; font-family: Arial, Helvetica, sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f3f4f6;">
+      <tr>
+        <td align="center" style="padding: 32px 16px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width: 680px; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+            <tr>
+              <td style="padding: 24px; background-color: #12355b; color: #ffffff;">
+                <h1 style="margin: 0; font-size: 22px; line-height: 1.3;">New contact form submission</h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 24px;">
+                <p style="margin: 0 0 20px; color: #374151; font-size: 15px; line-height: 1.6;">A contact form submission was received.</p>
+                <h2 style="margin: 0 0 8px; color: #111827; font-size: 16px;">Contact details</h2>
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #e5e7eb; border-radius: 6px; border-collapse: separate; border-spacing: 0;">${detailRows(contactDetails)}
+                </table>
+                <h2 style="margin: 24px 0 8px; color: #111827; font-size: 16px;">Submission details</h2>
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #e5e7eb; border-radius: 6px; border-collapse: separate; border-spacing: 0;">${detailRows(submissionDetails)}
+                </table>
+                <h2 style="margin: 24px 0 8px; color: #111827; font-size: 16px;">Message</h2>
+                <div style="padding: 16px; background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; color: #111827; font-size: 14px; line-height: 1.6; overflow-wrap: anywhere; white-space: pre-wrap;">${escapeHtml(submission.message)}</div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+};
+
 const sendContactEmail = async (submission, submissionId, requestId) => {
   const command = new SendEmailCommand({
     Source: CONTACT_FROM_EMAIL,
@@ -188,6 +257,10 @@ const sendContactEmail = async (submission, submissionId, requestId) => {
         Data: `${CONTACT_SUBJECT_PREFIX}: ${submission.subject}`
       },
       Body: {
+        Html: {
+          Charset: "UTF-8",
+          Data: htmlEmailBody(submission, submissionId, requestId)
+        },
         Text: {
           Charset: "UTF-8",
           Data: emailBody(submission, submissionId, requestId)
