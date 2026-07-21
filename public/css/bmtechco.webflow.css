@@ -77,11 +77,6 @@
   --color-surface-alt: #e9e9e9;
   --color-surface-muted: #eaeaea;
 }
-@font-face {
-  font-family: 'Manrope Fallback';
-  src: url('Manrope-Regular.woff2') format('woff2');
-  font-weight: 410 490; /* Forces any weight in this range to use the 400 file */
-}
 .w-richtext p, .w-richtext ul, .w-richtext ol {
   color: var(--color-gray);
 }
@@ -478,7 +473,7 @@ html:lang(ja) .footer {
   font-family: var(--font-body);
   color: var(--color-link-on-dark);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
 }
 .footer-text.link:hover {
   color: var(--color-gray-light);

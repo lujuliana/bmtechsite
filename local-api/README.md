@@ -47,8 +47,8 @@ Remove-Item Env:HONEYPOT_DEBUG
 
 Serve the project at `http://127.0.0.1:5500`. For example, VS Code Live Server commonly uses that address. Open either:
 
-- `http://127.0.0.1:5500/contact.html`
-- `http://127.0.0.1:5500/ja/contact.html`
+- `http://127.0.0.1:5500/contact`
+- `http://127.0.0.1:5500/ja/contact`
 
 Submitting a valid form should show the page's existing success message and print the submission to the API terminal.
 
@@ -65,7 +65,7 @@ $body = @{
   subject = "Inquiry"
   message = "This is a local contact form test."
   locale = "en"
-  pageUrl = "http://127.0.0.1:5500/contact.html"
+  pageUrl = "http://127.0.0.1:5500/contact"
   submittedAt = (Get-Date).ToUniversalTime().ToString("o")
 } | ConvertTo-Json
 
