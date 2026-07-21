@@ -1,0 +1,12 @@
+---
+import ProductLayout from '../../../layouts/ProductLayout.astro';
+import { products } from '../../../data/products';
+
+const product = products.find((candidate) => candidate.slug === 'smc-server');
+
+if (!product) {
+  throw new Error('SMC-Server product data was not found.');
+}
+---
+
+<ProductLayout product={product} allProducts={products} locale="ja" />

@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { products } from '../data/products';
+
+const allProductOrder = ['bbmu', 'bmmu', 'brmu', 'ems-c', 'smc-gateway', 'smc-server', 'iot-b10'];
+const allProducts = allProductOrder.map((slug) => {
+  const product = products.find((candidate) => candidate.slug === slug);
+
+  if (!product) {
+    throw new Error(`Products page data was not found for ${slug}.`);
+  }
+
+  return product;
+});
+const bmsProducts = products.filter((product) => product.category === 'BMS');
+const emsProducts = products.filter((product) => product.category === 'EMS');
+---
+
+<Layout
+  locale="en"
+  title="Products | BMTech"
+  currentPath="/products"
+  description="Explore BMTech's advanced products and systems engineered for high-performance battery power and energy storage infrastructure. View full specs."
+  ogTitle="Products | BMTech"
+  ogDescription="Explore BMTech's advanced products and systems engineered for high-performance battery power and energy storage infrastructure. View full specs."
+  ogImage="https://cdn.prod.website-files.com/6a0c84e4593078e8f088bb7c/6a0fe4369f79f753573f39c8_8b94941eb69acb8d526938741fe02663_sign-gemini-trans.png"
+  webflowPageId="6a160510355148a0dbcd6f8c"
+>
+  <Fragment slot="head">
+    <style>html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo) {visibility: hidden !important;}</style>
+  </Fragment>
+
+  <div class="main-wrapper">
+    <section data-wf--banner--variant="overlay-dark" class="hero-section small">
+      <div class="w-layout-blockcontainer hero-container w-container">
+        <h1 data-w-id="cffab803-26ef-6867-3cb2-f5ad37876f0b" class="display-lg banner w-variant-2811ceda-65e0-7f4e-8038-b25febe7c0b4">Products</h1>
+      </div>
+      <div class="overlay w-variant-2811ceda-65e0-7f4e-8038-b25febe7c0b4"></div><img src="/images/bess-gemini_compressed.png" loading="lazy" alt="A battery energy storage system next to a solar farm" class="image-2">
+    </section>
+    <section data-w-id="3017ba22-ff4d-07e5-212c-b5813f3244c8" style="opacity:0" class="w-layout-blockcontainer container w-container">
+      <div data-current="All" data-easing="ease" data-duration-in="300" data-duration-out="100" class="tabs w-tabs">
+        <div class="tabs-menu w-tab-menu">
+          <a data-w-tab="All" class="button-primary tab w-inline-block w-tab-link w--current">
+            <div>All</div>
+          </a>
+          <a data-w-tab="BMS" class="button-primary tab w-inline-block w-tab-link">
+            <div>BMS</div>
+          </a>
+          <a data-w-tab="EMS" class="button-primary tab w-inline-block w-tab-link">
+            <div>EMS</div>
+          </a>
+        </div>
+        <div class="tabs-content w-tab-content">
+          <div data-w-tab="All" class="w-tab-pane w--tab-active">
+            <div class="w-layout-grid card-grid">
+              {allProducts.map((product) => <ProductCard product={product} locale="en" />)}
+            </div>
+          </div>
+          <div data-w-tab="BMS" class="w-tab-pane">
+            <div class="w-layout-grid card-grid">
+              {bmsProducts.map((product) => <ProductCard product={product} locale="en" />)}
+            </div>
+          </div>
+          <div data-w-tab="EMS" class="w-tab-pane">
+            <div class="w-layout-grid card-grid">
+              {emsProducts.map((product) => <ProductCard product={product} locale="en" />)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

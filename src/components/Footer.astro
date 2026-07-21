@@ -1,0 +1,108 @@
+---
+interface Props {
+  locale: 'en' | 'ja';
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+
+const content = {
+  en: {
+    home: 'Home',
+    products: 'Products',
+    security: 'Security',
+    contact: 'Contact',
+    address: '1255 W 15th St, Suite 325, Plano, TX 75075 USA',
+    links: {
+      home: '/',
+      products: '/products',
+      security: '/security-vuln',
+      contact: '/contact',
+    },
+    navId: 'w-node-d9cb0135-f8d1-edb1-9f0e-0e29f9fa28b4-19513961',
+    contactId: 'w-node-_75165c98-ada8-0bdd-e89b-0d3719513970-19513961',
+  },
+  ja: {
+    home: 'ホーム',
+    products: '製品情報',
+    security: 'セキュリティ',
+    contact: 'お問い合わせ',
+    address: '〒75075 アメリカ合衆国テキサス州プラノ W 15th St Suite 325',
+    links: {
+      home: '/ja/',
+      products: '/ja/products',
+      security: '/ja/security-vuln',
+      contact: '/ja/contact',
+    },
+    navId: 'w-node-_81e6db74-40f1-9991-196e-8edc29db6ad5-29db6acf',
+    contactId: 'w-node-_81e6db74-40f1-9991-196e-8edc29db6ae6-29db6acf',
+  },
+} as const;
+
+const footer = content[locale];
+const normalizePath = (path: string) => {
+  let pathname = path.trim();
+
+  if (/^[a-z][a-z\d+.-]*:\/\//i.test(pathname)) {
+    pathname = new URL(pathname).pathname;
+  } else {
+    pathname = pathname.split(/[?#]/)[0];
+  }
+
+  pathname = `/${pathname.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '')}`;
+  pathname = pathname.replace(/\/{2,}/g, '/');
+  pathname = pathname.replace(/\/index(?:\.html)?$/i, '') || '/';
+  pathname = pathname.replace(/\.html$/i, '');
+
+  if (/^\/home$/i.test(pathname)) return '/';
+  if (/^\/ja(?:\/home)?$/i.test(pathname)) return '/ja';
+
+  return pathname;
+};
+
+const normalizedCurrentPath = normalizePath(currentPath);
+const isCurrent = (href: string) => {
+  const normalizedHref = normalizePath(href);
+  const isProductsRoute = normalizedHref === '/products' || normalizedHref === '/ja/products';
+
+  return normalizedCurrentPath === normalizedHref
+    || (isProductsRoute && normalizedCurrentPath.startsWith(`${normalizedHref}/`));
+};
+const linkClass = (href: string, baseClass: string) =>
+  `${baseClass}${isCurrent(href) ? ' w--current' : ''}`;
+---
+
+<footer class="footer" lang={locale}>
+  <div class="footer-container">
+    <div class="footer-wrapper">
+      <div class="footer-logo"><img loading="lazy" src="/images/white-logo-txt.png" alt="BMT: Empower a Sustainable Future" sizes="(max-width: 3360px) 100vw, 3360px" srcset="/images/BMT-logo-w-caps-text-1-p-500.png 500w, /images/BMT-logo-w-caps-text-1-p-800.png 800w, /images/BMT-logo-w-caps-text-1-p-1080.png 1080w, /images/BMT-logo-w-caps-text-1-p-1600.png 1600w, /images/BMT-logo-w-caps-text-1-p-2000.png 2000w, /images/BMT-logo-w-caps-text-1-p-2600.png 2600w, /images/white-logo-txt.png 3360w" /></div>
+      <div class="footer-content">
+        <nav id={footer.navId} class="footer-block">
+          <ul role="list" class="footer-nav">
+            <li class="footer-subhead3">
+              <a href={footer.links.home} aria-current={isCurrent(footer.links.home) ? 'page' : undefined} class={linkClass(footer.links.home, 'footer-page-link w-inline-block')}>
+                <div class="nav-link-two">{footer.home}</div><img src="/images/arrow-right.svg" loading="lazy" alt="Right arrow" class="arrow-right" />
+              </a>
+            </li>
+            <li class="footer-subhead3">
+              <a href={footer.links.products} aria-current={isCurrent(footer.links.products) ? 'page' : undefined} class={linkClass(footer.links.products, 'footer-page-link w-inline-block')}>
+                <div class="nav-link-two">{footer.products}</div><img src="/images/arrow-right.svg" loading="lazy" alt="Right arrow" class="arrow-right" />
+              </a>
+            </li>
+            <li class="footer-subhead3">
+              <a href={footer.links.security} aria-current={isCurrent(footer.links.security) ? 'page' : undefined} class={linkClass(footer.links.security, 'footer-page-link w-inline-block')}>
+                <div class="nav-link-two">{footer.security}</div><img src="/images/arrow-right.svg" loading="lazy" alt="Right arrow" class="arrow-right" />
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div id={footer.contactId} class="footer-block">
+          <a href={footer.links.contact} aria-current={isCurrent(footer.links.contact) ? 'page' : undefined} class={linkClass(footer.links.contact, 'footer-subhead3 footer-page-link')}>{footer.contact}</a>
+          <a href="mailto:info@bmtech.com" class="footer-text link">info@bmtech.com</a>
+          <div class="footer-text">{footer.address}</div>
+          <!-- <a href="" class="footer-text">Phone</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

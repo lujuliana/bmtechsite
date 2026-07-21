@@ -1,0 +1,111 @@
+---
+interface Props {
+  locale: 'en' | 'ja';
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+
+const navigation = {
+  en: {
+    componentId: '1d782d06-8df0-b709-7aae-ca2a3e349dd0',
+    wrapperId: undefined,
+    home: { label: 'Home', href: '/' },
+    products: { label: 'Products', href: '/products' },
+    security: { label: 'Security', href: '/security-vuln' },
+    contact: { label: 'Contact', href: '/contact' },
+    langSwitchLabel: '日本語',
+  },
+  ja: {
+    componentId: '69fd2859-5244-20c1-e0b8-bd1ba18f697b',
+    wrapperId: '5f59c381-3a27-e2b7-faff-aac039f86576',
+    home: { label: 'ホーム', href: '/ja/' },
+    products: { label: '製品情報', href: '/ja/products' },
+    security: { label: 'セキュリティ', href: '/ja/security-vuln' },
+    contact: { label: 'お問い合わせ', href: '/ja/contact' },
+    langSwitchLabel: 'EN',
+  },
+} as const;
+
+const normalizePath = (path: string) => {
+  let pathname = path.trim();
+
+  if (/^[a-z][a-z\d+.-]*:\/\//i.test(pathname)) {
+    pathname = new URL(pathname).pathname;
+  } else {
+    pathname = pathname.split(/[?#]/)[0];
+  }
+
+  pathname = `/${pathname.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '')}`;
+  pathname = pathname.replace(/\/{2,}/g, '/');
+
+  pathname = pathname.replace(/\/index(?:\.html)?$/i, '') || '/';
+  pathname = pathname.replace(/\.html$/i, '');
+
+  if (/^\/home$/i.test(pathname)) return '/';
+  if (/^\/ja(?:\/home)?$/i.test(pathname)) return '/ja';
+
+  return pathname;
+};
+
+const nav = navigation[locale];
+const normalizedCurrentPath = normalizePath(currentPath);
+const langSwitchPath = locale === 'en'
+  ? (normalizedCurrentPath === '/' ? '/ja/' : `/ja${normalizedCurrentPath}`)
+  : (normalizedCurrentPath === '/ja' ? '/' : normalizedCurrentPath.replace(/^\/ja(?=\/)/, ''));
+const isCurrent = (href: string) => normalizedCurrentPath === normalizePath(href);
+const currentClass = (href: string, baseClass: string) =>
+  `${baseClass}${isCurrent(href) ? ' w--current' : ''}`;
+const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
+---
+
+<header data-wf-component-id={nav.componentId} data-wf-variant-state="base" class="header">
+  <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar shadow-three w-nav">
+    <div data-w-id={nav.wrapperId} class="navbar-wrapper">
+      <a href={nav.home.href} aria-current={ariaCurrent(nav.home.href)} class={currentClass(nav.home.href, 'linked-nav-logo w-nav-brand')}>
+        <img
+          sizes={locale === 'en' ? '(max-width: 479px) 98vw, (max-width: 3344px) 100vw, 3344px' : '(max-width: 3344px) 100vw, 3344px'}
+          srcset="/images/BMT-logo-blue-p-500.png 500w, /images/BMT-logo-blue-p-800.png 800w, /images/BMT-logo-blue-p-1080.png 1080w, /images/BMT-logo-blue-p-1600.png 1600w, /images/BMT-logo-blue-p-2000.png 2000w, /images/BMT-logo-blue-p-2600.png 2600w, /images/logo-blue.png 3344w"
+          alt="logo"
+          src="/images/logo-blue.png"
+          loading="lazy"
+          class="navbar-logo"
+        />
+      </a>
+      <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+        <ul role="list" class="horiz-nav-menu w-list-unstyled">
+          <li class="horiz-nav-item">
+            <a href={nav.home.href} aria-current={ariaCurrent(nav.home.href)} class={currentClass(nav.home.href, 'nav-link')}>{nav.home.label}</a>
+          </li>
+          <li class="horiz-nav-item">
+            <a href={nav.products.href} aria-current={ariaCurrent(nav.products.href)} class={currentClass(nav.products.href, 'nav-link')}>{nav.products.label}</a>
+          </li>
+          <li class="horiz-nav-item">
+            <a href={nav.security.href} aria-current={ariaCurrent(nav.security.href)} class={currentClass(nav.security.href, 'nav-link')}>{nav.security.label}</a>
+          </li>
+          <li class="horiz-nav-item">
+            <a href={langSwitchPath} class="nav-link w-inline-block">
+              {locale === 'en' ? (
+                <img src="/images/jpn-flag.png" loading="lazy" width="20" height="Auto" alt="Japan flag" srcset="/images/jpn-flag-p-500.png 500w, /images/jpn-flag-p-800.png 800w, /images/jpn-flag.png 1280w" sizes="(max-width: 767px) 100vw, (max-width: 1439px) 20px, 1vw" class="flag-icon" />
+              ) : (
+                <img src="/images/us-flag.png" loading="lazy" width="20" height="Auto" alt="USA flag" srcset="/images/us-flag-p-500.png 500w, /images/us-flag-p-800.png 800w, /images/us-flag-p-1080.png 1080w, /images/us-flag-p-1600.png 1600w, /images/us-flag.png 2000w" sizes="(max-width: 1439px) 20px, 1vw" class="flag-icon" />
+              )}
+              <div>{nav.langSwitchLabel}</div>
+            </a>
+          </li>
+          <li class="nav-contact-button-wrap">
+            <a data-wf--button-primary--variant="base" href={nav.contact.href} aria-current={ariaCurrent(nav.contact.href)} class={currentClass(nav.contact.href, 'button-primary w-button')}>{nav.contact.label}</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <div class="div-block">
+          <a data-wf--button-primary--variant="base" href={nav.contact.href} aria-current={ariaCurrent(nav.contact.href)} class={currentClass(nav.contact.href, 'button-primary w-button')}>{nav.contact.label}</a>
+        </div>
+        <div class="menu-button w-nav-button">
+          <div class="icon-2 w-icon-nav-menu"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

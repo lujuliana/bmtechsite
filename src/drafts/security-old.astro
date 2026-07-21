@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const description = 'At BMTech, system security is a top priority. Review our vulnerability disclosure guidelines to learn how to safely report security issues to us.';
+---
+
+<Layout
+  locale="en"
+  title="Security & Vulnerability Disclosure | BMTech"
+  currentPath="/security-old"
+  description={description}
+  ogTitle="Security & Vulnerability Disclosure | BMTech"
+  ogDescription={description}
+  webflowPageId="6a1f14ff96d60540b556d6ba"
+>
+  <Fragment slot="head">
+    <style>html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo) {visibility: hidden !important;}</style>
+  </Fragment>
+
+  <div class="main-wrapper">
+    <section data-wf--banner--variant="overlay-dark" class="hero-section small">
+      <div class="w-layout-blockcontainer hero-container w-container">
+        <h1 data-w-id="cffab803-26ef-6867-3cb2-f5ad37876f0b" class="display-lg banner w-variant-2811ceda-65e0-7f4e-8038-b25febe7c0b4">Security</h1>
+      </div>
+      <div class="overlay w-variant-2811ceda-65e0-7f4e-8038-b25febe7c0b4"></div><img src="/images/Security.png" loading="lazy" alt="Picture of a lock" class="image-2">
+    </section>
+    <section data-w-id="8653e725-ea09-812e-859e-54fce9088c26" style="opacity:0" class="section">
+      <div class="w-layout-vflex vuln-list">
+        <div class="vuln-list-item">
+          <a href="/security-vuln" class="vuln-link-block w-inline-block">
+            <div class="vuln-list-left">
+              <h2 class="h2">Vulnerability Information Disclosure Policy</h2>
+              <div class="body-txt gray">May 1, 2026</div>
+            </div><img src="/images/us-flag.png" loading="lazy" sizes="(max-width: 1280px) 100vw, 1280px" srcset="/images/us-flag-p-500.png 500w, /images/us-flag-p-800.png 800w, /images/us-flag.png 1280w" alt="USA flag" class="thumbnail">
+          </a>
+        </div>
+        <div class="vuln-list-item">
+          <a href="/ja/security-vuln" class="vuln-link-block w-inline-block">
+            <div class="vuln-list-left">
+              <h2 class="h2">脆弱性情報開示ポリシー</h2>
+              <div class="body-txt gray">2026年5月1日 公開</div>
+            </div><img src="/images/jpn-flag.png" loading="lazy" sizes="(max-width: 1280px) 100vw, 1280px" srcset="/images/jpn-flag-p-500.png 500w, /images/jpn-flag-p-800.png 800w, /images/jpn-flag.png 1280w" alt="Japan flag" class="thumbnail">
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

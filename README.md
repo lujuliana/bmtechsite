@@ -1,48 +1,80 @@
-## Github Pages Site
+# BMTech Astro project
+
+This repository contains BMTech's statically generated English and Japanese website. Astro assembles shared layouts and components at build time while retaining the site's Webflow markup, styles, and browser interactions.
+
+Production is deployed as a static Astro site hosted on AWS Lightsail. The contact form is handled separately by API Gateway, Lambda, and Amazon SES.
+
 https://lujuliana.github.io/bmtechsite
 
-## AWS Lambda Environment Variables
-| Variable | Required | Description | Value |
-| --- | --- | --- | --- |
-| `CONTACT_FROM_EMAIL` | Yes | SES-verified sender address. User input is never used as the sender. | `juliana.lu@bmtech.com` |
-| `CONTACT_TO_EMAIL` | Yes | Address that receives contact submissions. | `juliana.lu@bmtech.com` |
-| `ALLOWED_ORIGIN` | Yes | Exact website origin allowed by CORS, such as `https://www.example.com`; omit a trailing slash. | `http://127.0.0.1:5500` |
-| `SES_REGION` | No | Region containing the SES identity. Defaults to Lambda's managed `AWS_REGION`. | `us-east-2` |
-| `CONTACT_SUBJECT_PREFIX` | No | Email subject prefix. Defaults to `Website contact`. | `BMTech Website Contact` |
-| `HONEYPOT_DEBUG` | No | Exactly `true` exposes the diagnostic `422` honeypot response. Any other value silently discards honeypot submissions and returns normal success. | `false` |
+## Prerequisites
 
-# Todo
+- Node.js 20+ (or the version you use)
+- npm
 
-## Production Deployment
+## Project structure
 
-- [ ] Verify `bmtech.com` domain in Amazon SES
-- [ ] Add SES DNS records in Namecheap
-- [ ] Request Amazon SES production access
-- [ ] Change `CONTACT_FROM_EMAIL` to `info@bmtech.com`
-- [ ] Change `CONTACT_TO_EMAIL` to `info@bmtech.com`
-- [ ] Change `ALLOWED_ORIGIN` to `https://bmtech.com`
-- [ ] Change API Gateway's CORS origin to `https://bmtech.com`
-- [ ] Deploy latest site to Lightsail/Nginx
-- [ ] Perform final production contact form test
+```text
+.
+|-- src/
+|   |-- components/
+|   |-- data/
+|   |-- drafts/
+|   |-- layouts/
+|   `-- pages/
+|       |-- products/
+|       `-- ja/
+|           `-- products/
+|-- public/
+|-- aws/contact-form/
+|-- local-api/
+|-- astro.config.mjs
+`-- package.json
+```
 
-## Website Updates
-- [ ] Move toward a reusable templating/component workflow with Astro
-- [ ] Reduce duplicated page components (cards/header/footer/navigation)
-- [ ] Add japanese product detail pages
-- [ ] Change alt txt on japanese pages to japanese
-- [ ] Add blog/events, about, & careers page
-- [ ] Change linkedin link
-- [ ] Add factory location + pictures
-	- Headquarters → 本社
-	- Factory      → 工場
-- [ ] Add new product pictures
-- [ ] Add HV box product
+- `src/` contains all Astro source code and site data.
+- `public/` contains static files served from root-relative URLs such as `/css/...`, `/js/...`, `/images/...`, and `/videos/...`.
+- `aws/contact-form/` contains the production contact-form Lambda and its deployment dependencies and test event.
+- `local-api/` contains a development-only contact endpoint and its usage notes.
+- `astro.config.mjs` configures Astro for static output.
+- `package.json` defines the development and build commands.
 
-## Future Improvements
 
-- [ ] Add API rate limiting or AWS WAF if spam becomes an issue
-- [ ] Add automated end-to-end contact form tests
-- [ ] Configure a custom API domain (e.g. `api.bmtech.com`)
-- [ ] Review the existing SPF and DMARC records for `bmtech.com`
-- [ ] Add or improve DMARC as needed
-- [ ] Add CI checks (HTML validation, link checking, Lambda syntax checks)
+## Development and build
+
+Install dependencies once:
+
+```sh
+npm install
+```
+
+Start the Astro development server:
+
+```sh
+npm run dev
+```
+
+Create the static production site:
+
+```sh
+npm run build
+```
+
+## Deployment overview
+
+The project uses Astro's `static` output mode. A deployment should:
+
+1. install dependencies with `npm install` (or `npm ci` in an automated environment);
+2. run `npm run build`;
+3. publish the generated static site to the configured web host;
+4. serve root-relative asset URLs without rewriting their paths; and
+5. configure the contact Lambda and API Gateway independently, including SES identities and the production `ALLOWED_ORIGINS` values.
+
+The repository does not currently define a deployment workflow in `package.json` or `astro.config.mjs`.
+
+## Generated directories
+
+These directories are generated and should not be edited manually:
+
+- `dist/`
+- `node_modules/`
+- `.astro/`
