@@ -34,7 +34,7 @@ The contact-form Lambda uses:
 | --- | -- | ---- | -- | -- |
 | `CONTACT_FROM_EMAIL` | Yes | SES-verified sender address. User input is never used as the sender. | `info@bmtech.com` |`juliana.lu@bmtech.com` |
 | `CONTACT_TO_EMAIL` | Yes | Address that receives contact submissions. | `info@bmtech.com` | `juliana.lu@bmtech.com` |
-| `ALLOWED_ORIGINS` | Yes | List of exact website origins allowed by CORS; omit a trailing slash. | `https://bmtech.com, https://www.bmtech.com` | `http://localhost:4321, http://127.0.0.1:5500, https://bmtech.com, https://www.bmtech.com` |
+| `ALLOWED_ORIGINS` | Yes | List of exact website origins allowed by CORS; omit a trailing slash. | `https://bmtech.com, https://www.bmtech.com` | `https://bmtech.com, https://www.bmtech.com` |
 | `SES_REGION` | No | Region containing the SES identity. Defaults to Lambda's managed `AWS_REGION`. | `us-east-2` | `us-east-2` |
 | `CONTACT_SUBJECT_PREFIX` | No | Email subject prefix. Defaults to `Website contact`. | `BMTech Website Contact` | `BMTech Website Contact` |
 | `HONEYPOT_DEBUG` | No | Exactly `true` exposes the diagnostic `422` honeypot response. Any other value silently discards honeypot submissions and returns normal success. | `false` | `false` |

@@ -6,7 +6,7 @@
   "headers": {
     "accept": "application/json",
     "content-type": "application/json",
-    "origin": "http://127.0.0.1:5500"
+    "origin": "http://localhost:4321"
   },
   "requestContext": {
     "accountId": "123456789012",
@@ -26,6 +26,6 @@
     "time": "15/Jul/2026:12:00:00 +0000",
     "timeEpoch": 1784116800000
   },
-  "body": "{\"website\":\"\",\"name\":\"Test User\",\"email\":\"reply-to@example.com\",\"phone\":\"+1 214 555 0100\",\"subject\":\"Inquiry\",\"message\":\"This is an AWS Lambda contact form test.\",\"locale\":\"en\",\"pageUrl\":\"http://127.0.0.1:5500/contact\",\"submittedAt\":\"2026-07-15T12:00:00.000Z\"}",
+  "body": "{\"website\":\"\",\"name\":\"Test User\",\"email\":\"reply-to@example.com\",\"phone\":\"+1 214 555 0100\",\"subject\":\"Inquiry\",\"message\":\"This is an AWS Lambda contact form test.\",\"locale\":\"en\",\"pageUrl\":\"http://localhost:4321/contact\",\"submittedAt\":\"2026-07-15T12:00:00.000Z\"}",
   "isBase64Encoded": false
 }
