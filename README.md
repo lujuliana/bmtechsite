@@ -16,8 +16,7 @@ https://lujuliana.github.io/bmtechsite
 ## Production Deployment
 - [ ] Change `CONTACT_FROM_EMAIL` to `info@bmtech.com`
 - [ ] Change `CONTACT_TO_EMAIL` to `info@bmtech.com`
-- [ ] Remove local development origins from `ALLOWED_ORIGINS`
-- [ ] Change API Gateway's CORS origin to `https://bmtech.com`
+- [ ] Remove local development origins from `ALLOWED_ORIGINS` and API Gateway's CORS origin
 - [ ] Deploy latest site to Lightsail/Nginx
 - [ ] Perform final production contact form test
 
