@@ -4,7 +4,7 @@ interface Props {
   currentPath: string;
 }
 
-const { locale, currentPath } = Astro.props;
+const { locale, currentPath } = Astro.props as Props;
 
 const content = {
   en: {
@@ -12,7 +12,9 @@ const content = {
     products: 'Products',
     security: 'Security',
     contact: 'Contact',
-    address: '1255 W 15th St, Suite 325, Plano, TX 75075 USA',
+    headquarters: 'Office: 1255 W 15th St, Ste 325, Plano, TX 75075, USA',
+    factory: 'Factory: 789 N Grover Rd, Ste',
+    phone: '',
     links: {
       home: '/',
       products: '/products',
@@ -27,7 +29,9 @@ const content = {
     products: '製品情報',
     security: 'セキュリティ',
     contact: 'お問い合わせ',
-    address: '〒75075 アメリカ合衆国テキサス州プラノ W 15th St Suite 325',
+    headquarters: '本社： Suite 325, 789 W 15th St, Plano, TX 75075, USA',
+    factory: '工場: Suite 103, 789 N Grover Rd<br>Richardson, TX 75081, USA',
+    phone: '',
     links: {
       home: '/ja/',
       products: '/ja/products',
@@ -99,8 +103,9 @@ const linkClass = (href: string, baseClass: string) =>
         <div id={footer.contactId} class="footer-block">
           <a href={footer.links.contact} aria-current={isCurrent(footer.links.contact) ? 'page' : undefined} class={linkClass(footer.links.contact, 'footer-subhead3 footer-page-link')}>{footer.contact}</a>
           <a href="mailto:info@bmtech.com" class="footer-text link">info@bmtech.com</a>
-          <div class="footer-text">{footer.address}</div>
-          <!-- <a href="" class="footer-text">Phone</a> -->
+          <div class="footer-text">{footer.headquarters}</div>
+          <!-- <div class="footer-text">{footer.factory}</div> -->
+          <!-- <a href="" class="footer-text">{footer.phone}</a> -->
         </div>
       </div>
     </div>
