@@ -9,7 +9,7 @@ interface Props {
   locale: 'en' | 'ja';
 }
 
-const { product, allProducts, locale } = Astro.props;
+const { product, allProducts, locale } = Astro.props as Props;
 const relatedProducts = allProducts.filter(
   (candidate) => candidate.category === product.category && candidate.slug !== product.slug,
 );
