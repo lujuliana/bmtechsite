@@ -1,18 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProductCard from '../components/ProductCard.astro';
-import { products } from '../data/products';
+import Button from '../components/Button.astro';
+import ProductCarousel from '../components/ProductCarousel.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { products, sortProductsBySlug } from '../data/products';
 
-const homepageProductOrder = ['bbmu', 'bmmu', 'brmu', 'ems-c', 'smc-gateway', 'smc-server', 'iot-b10'];
-const homepageProducts = homepageProductOrder.map((slug) => {
-  const product = products.find((candidate) => candidate.slug === slug);
-
-  if (!product) {
-    throw new Error(`Homepage product data was not found for ${slug}.`);
-  }
-
-  return product;
-});
+const homepageProducts = sortProductsBySlug(products.filter((product) => product.featured === true));
 ---
 
 <Layout
@@ -69,26 +62,20 @@ const homepageProducts = homepageProductOrder.map((slug) => {
   <section data-w-id="78a9d919-15a5-2dad-8fd2-49055cbd634f" style="opacity:0" class="products-section">
     <div class="flex-container-y">
       <div class="flex-y">
-        <h1 class="h1 centered">Products</h1>
-        <p class="sm-txt centered gray-200 padding-bottom">Explore our Battery Management System (BMS) and Energy Management System (EMS) products.</p>
-        <a data-wf--button-primary--variant="secondary" href="/products" class="button-primary w-variant-fcb97c6f-219d-3318-ccd5-ef3516a8504d w-button">See All</a>
+        <SectionHeading
+          title="Products"
+          description="Explore our Battery Management System (BMS) and Energy Management System (EMS) products."
+          centered
+        />
+        <Button href="/products" variant="secondary">See All</Button>
       </div>
-      <div data-delay="4000" data-animation="slide" class="prod-slider w-slider" data-autoplay="false" data-easing="ease" data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="12" data-duration="500" data-infinite="true">
-        <div class="prod-slider-mask w-slider-mask">
-          {homepageProducts.map((product) => (
-            <div class="prod-slide w-slide">
-              <ProductCard product={product} locale="en" />
-            </div>
-          ))}
-        </div>
-        <div class="team-slider-arrow w-slider-arrow-left">
-          <div class="w-icon-slider-left"></div>
-        </div>
-        <div class="team-slider-arrow w-slider-arrow-right">
-          <div class="w-icon-slider-right"></div>
-        </div>
-        <div class="team-slider-nav w-slider-nav w-slider-nav-invert w-round"></div>
-      </div>
+      <ProductCarousel
+        id="homepage-products"
+        products={homepageProducts}
+        locale="en"
+        label="Featured products"
+        variant="homepage"
+      />
     </div>
   </section>
   </div>

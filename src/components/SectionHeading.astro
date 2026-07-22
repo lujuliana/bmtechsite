@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  centered?: boolean;
+}
+
+const {
+  title,
+  description,
+  centered = false,
+} = Astro.props as Props;
+
+const headingClass = `h1${centered ? ' centered' : ''}`;
+const descriptionClass = `sm-txt${centered ? ' centered' : ''} gray-200 padding-bottom`;
+---
+
+<h1 class={headingClass}>{title}</h1>
+{description && <p class={descriptionClass}>{description}</p>}

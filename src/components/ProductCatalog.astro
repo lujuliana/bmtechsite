@@ -1,0 +1,149 @@
+---
+import ProductCard from './ProductCard.astro';
+import { sortProductsBySlug, type Product, type ProductLocale } from '../data/products';
+
+interface Props {
+  products: readonly Product[];
+  locale: ProductLocale;
+}
+
+const { products, locale } = Astro.props as Props;
+const sortedProducts = sortProductsBySlug(products);
+const content = {
+  en: {
+    searchLabel: 'Search products',
+    searchPlaceholder: 'Search by product name, category, or keyword',
+    filtersLabel: 'Filter products by category',
+    all: 'All',
+    empty: 'No products match your search and filters.',
+  },
+  ja: {
+    searchLabel: '製品を検索',
+    searchPlaceholder: '製品名、カテゴリー、キーワードで検索',
+    filtersLabel: 'カテゴリーで製品を絞り込む',
+    all: 'すべて',
+    empty: '検索条件に一致する製品はありません。',
+  },
+} as const;
+const text = content[locale];
+---
+
+<div class="product-catalog" data-product-catalog data-locale={locale}>
+  <div class="product-search">
+    <label class="product-search-label" for={`product-search-${locale}`}>{text.searchLabel}</label>
+    <input
+      id={`product-search-${locale}`}
+      class="product-search-input"
+      type="search"
+      placeholder={text.searchPlaceholder}
+      autocomplete="off"
+      data-product-search
+    />
+  </div>
+
+  <div class="tabs-menu" role="group" aria-label={text.filtersLabel}>
+    <button type="button" class="button-primary tab w--current" data-category-filter="All" aria-pressed="true">
+      {text.all}
+    </button>
+    <button type="button" class="button-primary tab" data-category-filter="BMS" aria-pressed="false">BMS</button>
+    <button type="button" class="button-primary tab" data-category-filter="EMS" aria-pressed="false">EMS</button>
+  </div>
+
+  <div class="tabs-content">
+    <div class="w-layout-grid card-grid" data-product-grid>
+      {sortedProducts.map((product) => {
+        const searchFields = [
+          product.name,
+          product.slug,
+          product.category,
+          product.metadata.description,
+          product.fullName[locale],
+          ...(product.searchKeywords?.[locale] ?? []),
+        ].filter(Boolean);
+
+        return (
+          <div
+            class="product-catalog-item"
+            data-product-item
+            data-category={product.category}
+            data-search-fields={JSON.stringify(searchFields)}
+          >
+            <ProductCard product={product} locale={locale} />
+          </div>
+        );
+      })}
+    </div>
+    <p class="product-catalog-empty" data-product-empty role="status" aria-live="polite" hidden>{text.empty}</p>
+  </div>
+</div>
+
+<script>
+  const normalizeSearchValue = (value: string, locale: string) => {
+    let normalized = value;
+
+    try {
+      normalized = normalized.normalize('NFKC');
+    } catch {
+      // Unicode normalization is progressive enhancement for older browsers.
+    }
+
+    return normalized.toLocaleLowerCase(locale).trim();
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-product-catalog]').forEach((catalog) => {
+    const locale = catalog.dataset.locale ?? 'en';
+    const searchInput = catalog.querySelector<HTMLInputElement>('[data-product-search]');
+    const filterButtons = Array.from(catalog.querySelectorAll<HTMLButtonElement>('[data-category-filter]'));
+    const productItems = Array.from(catalog.querySelectorAll<HTMLElement>('[data-product-item]'));
+    const emptyState = catalog.querySelector<HTMLElement>('[data-product-empty]');
+    let activeCategory = 'All';
+
+    const searchableItems = productItems.map((item) => {
+      let fields: string[] = [];
+
+      try {
+        fields = JSON.parse(item.dataset.searchFields ?? '[]');
+      } catch {
+        fields = [];
+      }
+
+      return {
+        item,
+        fields: fields.map((field) => normalizeSearchValue(field, locale)),
+      };
+    });
+
+    const updateResults = () => {
+      const query = normalizeSearchValue(searchInput?.value ?? '', locale);
+      const tokens = query.split(/\s+/u).filter(Boolean);
+      let visibleCount = 0;
+
+      searchableItems.forEach(({ item, fields }) => {
+        const matchesCategory = activeCategory === 'All' || item.dataset.category === activeCategory;
+        const matchesQuery = tokens.every((token) => fields.some((field) => field.includes(token)));
+        const isVisible = matchesCategory && matchesQuery;
+
+        item.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      if (emptyState) emptyState.hidden = visibleCount !== 0;
+    };
+
+    searchInput?.addEventListener('input', updateResults);
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeCategory = button.dataset.categoryFilter ?? 'All';
+
+        filterButtons.forEach((candidate) => {
+          const isActive = candidate === button;
+          candidate.classList.toggle('w--current', isActive);
+          candidate.setAttribute('aria-pressed', String(isActive));
+        });
+
+        updateResults();
+      });
+    });
+  });
+</script>

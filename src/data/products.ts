@@ -4,12 +4,16 @@ export interface ProductMetadata {
   webflowPageId: string;
 }
 
+export type ProductLocale = 'en' | 'ja';
+
 export interface Product {
   slug: string;
   name: string;
+  featured?: boolean;
   fullName: { en: string; ja: string };
   fullNameJa?: string;
   category: string;
+  searchKeywords?: Partial<Record<ProductLocale, readonly string[]>>;
   image: { src: string };
   features: { en: string[]; ja: string[] };
   applications: { en: string[]; ja: string[] };
@@ -20,11 +24,16 @@ export const products: Product[] = [
   {
     slug: 'bbmu',
     name: 'BBMU',
+    featured: true,
     fullName: {
       en: 'Battery Bank Management Unit',
       ja: 'バッテリーバンク管理ユニット',
     },
     category: 'BMS',
+    searchKeywords: {
+      en: ['battery bank', 'bank management', 'battery management unit'],
+      ja: ['バッテリーバンク', '蓄電池バンク', 'バンク管理', 'バッテリー管理'],
+    },
     image: { src: 'bbmu.jpg' },
     features: {
       en: [
@@ -55,11 +64,16 @@ export const products: Product[] = [
   {
     slug: 'bmmu',
     name: 'BMMU',
+    featured: true,
     fullName: {
       en: 'Battery Module Management Unit',
       ja: 'バッテリーモジュール管理ユニット',
     },
     category: 'BMS',
+    searchKeywords: {
+      en: ['battery module', 'module management', 'battery management unit'],
+      ja: ['バッテリーモジュール', '蓄電池モジュール', 'モジュール管理', 'バッテリー管理'],
+    },
     image: { src: 'bmmu.jpg' },
     features: {
       en: [
@@ -90,11 +104,16 @@ export const products: Product[] = [
   {
     slug: 'brmu',
     name: 'BRMU',
+    featured: true,
     fullName: {
       en: 'Battery Rack Management Unit',
       ja: 'バッテリーラック管理ユニット',
     },
     category: 'BMS',
+    searchKeywords: {
+      en: ['battery rack', 'rack management', 'battery management unit'],
+      ja: ['バッテリーラック', '蓄電池ラック', 'ラック管理', 'バッテリー管理'],
+    },
     image: { src: 'brmu.jpg' },
     features: {
       en: [
@@ -127,11 +146,16 @@ export const products: Product[] = [
   {
     slug: 'ems-c',
     name: 'EMS-C',
+    featured: true,
     fullName: {
       en: 'Energy Management System - Commercial',
       ja: 'エネルギー管理システム — 業務用',
     },
     category: 'EMS',
+    searchKeywords: {
+      en: ['commercial energy management', 'commercial EMS', 'BESS cabinet controller'],
+      ja: ['業務用エネルギー管理', '商用EMS', 'BESSキャビネット', 'エネルギー管理'],
+    },
     image: { src: 'ems-c.jpg' },
     features: {
       en: [
@@ -162,8 +186,13 @@ export const products: Product[] = [
   {
     slug: 'iot-b10',
     name: 'IOT-B10',
+    featured: true,
     fullName: { en: 'IOT-B10', ja: '' },
     category: 'EMS',
+    searchKeywords: {
+      en: ['data communication terminal', 'remote monitoring', 'telemetry', 'firmware update'],
+      ja: ['データ通信端末', '遠隔監視', 'テレメトリ', 'ファームウェア更新'],
+    },
     image: { src: 'IOT-B10.jpg' },
     features: {
       en: [
@@ -188,11 +217,16 @@ export const products: Product[] = [
   {
     slug: 'smc-gateway',
     name: 'SMC-Gateway',
+    featured: true,
     fullName: {
       en: 'Station Management Controller - Gateway',
       ja: 'ステーション管理コントローラー — ゲートウェイ',
     },
     category: 'EMS',
+    searchKeywords: {
+      en: ['station management controller', 'gateway', 'battery container display'],
+      ja: ['ステーション管理コントローラー', 'ゲートウェイ', 'バッテリーコンテナ表示'],
+    },
     image: { src: 'smc-gateway.jpg' },
     features: {
       en: [
@@ -225,11 +259,16 @@ export const products: Product[] = [
   {
     slug: 'smc-server',
     name: 'SMC-Server',
+    featured: true,
     fullName: {
       en: 'Station Management Controller - Server',
       ja: 'ステーション管理コントローラー — サーバー',
     },
     category: 'EMS',
+    searchKeywords: {
+      en: ['station management controller', 'server', 'power station data'],
+      ja: ['ステーション管理コントローラー', 'サーバー', '発電所データ', '蓄電所データ'],
+    },
     image: { src: 'smc-server.jpg' },
     features: {
       en: [
@@ -258,3 +297,13 @@ export const products: Product[] = [
     },
   },
 ];
+
+export function sortProductsBySlug<T extends { slug: string }>(items: readonly T[]): T[] {
+  return [...items].sort((first, second) => first.slug.localeCompare(second.slug));
+}
+
+export function getRelatedProducts(product: Product, items: readonly Product[]): Product[] {
+  return sortProductsBySlug(
+    items.filter((candidate) => candidate.category === product.category && candidate.slug !== product.slug),
+  );
+}

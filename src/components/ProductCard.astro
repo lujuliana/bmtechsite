@@ -1,19 +1,9 @@
 ---
-interface Product {
-  slug: string;
-  name: string;
-  fullName: {
-    en: string;
-    ja: string;
-  };
-  image: {
-    src: string;
-  };
-}
+import type { Product, ProductLocale } from '../data/products';
 
 interface Props {
   product: Product;
-  locale: 'en' | 'ja';
+  locale: ProductLocale;
 }
 
 const { product, locale } = Astro.props;

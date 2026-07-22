@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  imageSrc: string;
+  imageAlt: string;
+  imageSrcSet?: string;
+  imageSizes?: string;
+  webflowVariant?: string;
+  sectionClass?: string;
+  containerClass?: string;
+  headingClass?: string;
+  headingDataWId?: string;
+  headingInitiallyHidden?: boolean;
+  overlayClass?: string;
+  imageClass?: string;
+}
+
+const {
+  title,
+  imageSrc,
+  imageAlt,
+  imageSrcSet,
+  imageSizes,
+  webflowVariant,
+  sectionClass = 'hero-section small',
+  containerClass = 'w-layout-blockcontainer hero-container w-container',
+  headingClass = 'display-lg banner w-variant-2811ceda-65e0-7f4e-8038-b25febe7c0b4',
+  headingDataWId = 'cffab803-26ef-6867-3cb2-f5ad37876f0b',
+  headingInitiallyHidden = false,
+  overlayClass = 'overlay w-variant-2811ceda-65e0-7f4e-8038-b25febe7c0b4',
+  imageClass = 'image-2',
+} = Astro.props as Props;
+---
+
+<section data-wf--banner--variant={webflowVariant} class={sectionClass}>
+  <div class={containerClass}>
+    <h1 data-w-id={headingDataWId} style={headingInitiallyHidden ? 'opacity:0' : undefined} class={headingClass}>{title}</h1>
+  </div>
+  <div class={overlayClass}></div><img sizes={imageSizes} srcset={imageSrcSet} alt={imageAlt} loading="lazy" src={imageSrc} class={imageClass}>
+</section>

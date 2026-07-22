@@ -1,0 +1,291 @@
+---
+import ProductCard from './ProductCard.astro';
+import { sortProductsBySlug, type Product, type ProductLocale } from '../data/products';
+
+interface Props {
+  id: string;
+  products: readonly Product[];
+  locale: ProductLocale;
+  label: string;
+  variant: 'homepage' | 'related';
+}
+
+const { id, products, locale, label, variant } = Astro.props as Props;
+const sortedProducts = sortProductsBySlug(products);
+const sharedLayout = {
+  minCardWidth: '10rem',
+  hoverSpace: 'calc(var(--space-4) + 8px)',
+  cardInlineClearance: 'var(--space-3)',
+} as const;
+const layouts = {
+  homepage: {
+    ...sharedLayout,
+    cards: { desktop: 3, tablet: 2, mobile: 1, narrow: 1 },
+    gaps: {
+      desktop: 'var(--space-4)',
+      tablet: 'var(--space-3)',
+      mobile: 'var(--space-3)',
+      narrow: 'var(--space-3)',
+    },
+    cardMaxWidths: {
+      desktop: '22rem',
+      tablet: '20rem',
+      mobile: '20rem',
+      narrow: 'clamp(13rem, 55vw, 16rem)',
+    },
+    controlGap: 'var(--space-2)',
+    blockSpacing: 'var(--space-7)',
+  },
+  related: {
+    ...sharedLayout,
+    cards: { desktop: 4, tablet: 3, mobile: 2, narrow: 1 },
+    gaps: {
+      desktop: '.625rem',
+      tablet: 'var(--space-2)',
+      mobile: 'var(--space-2)',
+      narrow: '.625rem',
+    },
+    cardMaxWidths: {
+      desktop: '16rem',
+      tablet: '15rem',
+      mobile: '14rem',
+      narrow: 'clamp(13rem, 55vw, 16rem)',
+    },
+    controlGap: 'var(--space-2)',
+    blockSpacing: 'var(--space-0)',
+  },
+} as const;
+const layout = layouts[variant];
+const cardBasis = (count: number) => {
+  if (count === 1) return '100%';
+
+  const deductions = Array.from({ length: count - 1 }, () => 'var(--product-carousel-gap)').join(' - ');
+
+  return `max(var(--product-carousel-card-min-width), calc((100% - ${deductions}) / ${count}))`;
+};
+const layoutStyle = [
+  `--product-carousel-gap-desktop: ${layout.gaps.desktop}`,
+  `--product-carousel-gap-tablet: ${layout.gaps.tablet}`,
+  `--product-carousel-gap-mobile: ${layout.gaps.mobile}`,
+  `--product-carousel-gap-narrow: ${layout.gaps.narrow}`,
+  `--product-carousel-card-max-width-desktop: ${layout.cardMaxWidths.desktop}`,
+  `--product-carousel-card-max-width-tablet: ${layout.cardMaxWidths.tablet}`,
+  `--product-carousel-card-max-width-mobile: ${layout.cardMaxWidths.mobile}`,
+  `--product-carousel-card-max-width-narrow: ${layout.cardMaxWidths.narrow}`,
+  `--product-carousel-control-gap: ${layout.controlGap}`,
+  `--product-carousel-hover-space: ${layout.hoverSpace}`,
+  `--product-carousel-card-inline-clearance: ${layout.cardInlineClearance}`,
+  `--product-carousel-block-spacing: ${layout.blockSpacing}`,
+  `--product-carousel-card-min-width: ${layout.minCardWidth}`,
+  `--product-carousel-card-basis-desktop: ${cardBasis(layout.cards.desktop)}`,
+  `--product-carousel-card-basis-tablet: ${cardBasis(layout.cards.tablet)}`,
+  `--product-carousel-card-basis-mobile: ${cardBasis(layout.cards.mobile)}`,
+  `--product-carousel-card-basis-narrow: ${cardBasis(layout.cards.narrow)}`,
+].join('; ');
+const controls = {
+  en: {
+    previous: 'Previous products',
+    next: 'Next products',
+    pagination: 'Product carousel pages',
+    pageLabel: 'Go to products page {page} of {total}',
+    pageStatus: 'Products page {page} of {total}',
+  },
+  ja: {
+    previous: '前の製品',
+    next: '次の製品',
+    pagination: '製品カルーセルのページ',
+    pageLabel: '製品ページ{page}/{total}へ移動',
+    pageStatus: '製品ページ{page}/{total}',
+  },
+} as const;
+const text = controls[locale];
+---
+
+<div
+  class={`product-carousel product-carousel--${variant}`}
+  style={layoutStyle}
+  data-product-carousel
+  data-page-label={text.pageLabel}
+  data-page-status={text.pageStatus}
+>
+  <div class="product-carousel-container">
+    <div class="product-carousel-viewport" data-carousel-viewport>
+      <ul id={id} class="product-carousel-track" aria-label={label} tabindex="0" data-carousel-track>
+        {sortedProducts.map((product) => (
+          <li class="product-carousel-item">
+            <ProductCard product={product} locale={locale} />
+          </li>
+        ))}
+      </ul>
+    </div>
+    <button
+      type="button"
+      class="product-carousel-button product-carousel-button--previous"
+      aria-label={text.previous}
+      aria-controls={id}
+      data-carousel-previous
+      disabled
+      hidden
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none">
+        <path d="m15 18-6-6 6-6" />
+      </svg>
+    </button>
+    <button
+      type="button"
+      class="product-carousel-button product-carousel-button--next"
+      aria-label={text.next}
+      aria-controls={id}
+      data-carousel-next
+      hidden
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none">
+        <path d="m9 18 6-6-6-6" />
+      </svg>
+    </button>
+  </div>
+  <div class="product-carousel-pagination" role="group" aria-label={text.pagination} data-carousel-pagination hidden></div>
+  <p class="product-carousel-status" aria-live="polite" aria-atomic="true" data-carousel-status></p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-product-carousel]').forEach((carousel) => {
+    const viewport = carousel.querySelector<HTMLElement>('[data-carousel-viewport]');
+    const track = carousel.querySelector<HTMLElement>('[data-carousel-track]');
+    const previousButton = carousel.querySelector<HTMLButtonElement>('[data-carousel-previous]');
+    const nextButton = carousel.querySelector<HTMLButtonElement>('[data-carousel-next]');
+    const pagination = carousel.querySelector<HTMLElement>('[data-carousel-pagination]');
+    const status = carousel.querySelector<HTMLElement>('[data-carousel-status]');
+    const items = Array.from(carousel.querySelectorAll<HTMLElement>('.product-carousel-item'));
+
+    if (!viewport || !track || !previousButton || !nextButton || !pagination || !status || items.length === 0) return;
+
+    let updateFrame = 0;
+    let pageTargets: number[] = [];
+    let currentPage = 0;
+    let cardsPerPage = 1;
+
+    const formatPageText = (template: string, page: number, total: number) => template
+      .replace('{page}', String(page))
+      .replace('{total}', String(total));
+
+    const pageLabelTemplate = carousel.dataset.pageLabel ?? 'Go to products page {page} of {total}';
+    const pageStatusTemplate = carousel.dataset.pageStatus ?? 'Products page {page} of {total}';
+
+    const setCurrentPage = (page: number, announce = true) => {
+      const nextPage = Math.max(0, Math.min(page, pageTargets.length - 1));
+      const pageChanged = nextPage !== currentPage;
+      currentPage = nextPage;
+
+      pagination.querySelectorAll<HTMLButtonElement>('[data-carousel-page]').forEach((dot, index) => {
+        if (index === currentPage) {
+          dot.setAttribute('aria-current', 'page');
+        } else {
+          dot.removeAttribute('aria-current');
+        }
+      });
+
+      previousButton.disabled = currentPage === 0;
+      nextButton.disabled = currentPage === pageTargets.length - 1;
+
+      if (announce && pageChanged) {
+        status.textContent = formatPageText(pageStatusTemplate, currentPage + 1, pageTargets.length);
+      }
+    };
+
+    const findNearestPage = () => pageTargets.reduce((nearestPage, target, index) => {
+      const nearestDistance = Math.abs(pageTargets[nearestPage] - viewport.scrollLeft);
+      const targetDistance = Math.abs(target - viewport.scrollLeft);
+      return targetDistance < nearestDistance ? index : nearestPage;
+    }, 0);
+
+    const updateControls = () => {
+      if (pageTargets.length === 0) return;
+      setCurrentPage(findNearestPage());
+    };
+
+    const requestControlUpdate = () => {
+      cancelAnimationFrame(updateFrame);
+      updateFrame = requestAnimationFrame(updateControls);
+    };
+
+    const scrollToPage = (page: number) => {
+      const nextPage = Math.max(0, Math.min(page, pageTargets.length - 1));
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      setCurrentPage(nextPage);
+      viewport.scrollTo({
+        left: pageTargets[nextPage],
+        behavior: reduceMotion ? 'auto' : 'smooth',
+      });
+    };
+
+    const buildPagination = () => {
+      pagination.replaceChildren();
+
+      pageTargets.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'product-carousel-dot';
+        dot.dataset.carouselPage = String(index);
+        dot.setAttribute('aria-label', formatPageText(pageLabelTemplate, index + 1, pageTargets.length));
+        dot.addEventListener('click', () => scrollToPage(index));
+        pagination.append(dot);
+      });
+    };
+
+    const calculatePages = () => {
+      const trackStyles = getComputedStyle(track);
+      const gap = Number.parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+      const itemWidth = items[0].getBoundingClientRect().width;
+      const usableWidth = viewport.clientWidth;
+      const measuredCardsPerPage = Math.max(1, Math.floor((usableWidth + gap + .5) / (itemWidth + gap)));
+      const maximumScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      const viewportLeft = viewport.getBoundingClientRect().left;
+
+      cardsPerPage = measuredCardsPerPage;
+      const pageCount = Math.ceil(items.length / cardsPerPage);
+      pageTargets = Array.from({ length: pageCount }, (_, page) => {
+        const itemIndex = Math.min(page * cardsPerPage, items.length - 1);
+        const itemLeft = items[itemIndex].getBoundingClientRect().left - viewportLeft + viewport.scrollLeft;
+        return Math.min(Math.max(0, itemLeft), maximumScroll);
+      });
+
+      const hasMultiplePages = pageTargets.length > 1;
+      previousButton.hidden = !hasMultiplePages;
+      nextButton.hidden = !hasMultiplePages;
+      pagination.hidden = !hasMultiplePages;
+
+      buildPagination();
+      setCurrentPage(findNearestPage(), false)
+    };
+
+    previousButton.addEventListener('click', () => scrollToPage(currentPage - 1));
+    nextButton.addEventListener('click', () => scrollToPage(currentPage + 1));
+    viewport.addEventListener('scroll', requestControlUpdate, { passive: true });
+    track.addEventListener('keydown', (event) => {
+      if (event.target !== track) return;
+
+      const keyActions: Partial<Record<string, number>> = {
+        ArrowLeft: currentPage - 1,
+        ArrowRight: currentPage + 1,
+        Home: 0,
+        End: pageTargets.length - 1,
+      };
+      const targetPage = keyActions[event.key];
+
+      if (targetPage === undefined) return;
+      event.preventDefault();
+      scrollToPage(targetPage);
+    });
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(calculatePages);
+      resizeObserver.observe(viewport);
+    } else {
+      window.addEventListener('resize', calculatePages);
+    }
+
+    calculatePages();
+  });
+</script>

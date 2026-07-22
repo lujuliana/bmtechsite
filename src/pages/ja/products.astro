@@ -1,20 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ProductCard from '../../components/ProductCard.astro';
+import PageBanner from '../../components/PageBanner.astro';
+import ProductCatalog from '../../components/ProductCatalog.astro';
 import { products } from '../../data/products';
-
-const allProductOrder = ['bbmu', 'bmmu', 'brmu', 'ems-c', 'smc-gateway', 'smc-server', 'iot-b10'];
-const allProducts = allProductOrder.map((slug) => {
-  const product = products.find((candidate) => candidate.slug === slug);
-
-  if (!product) {
-    throw new Error(`Products page data was not found for ${slug}.`);
-  }
-
-  return product;
-});
-const bmsProducts = products.filter((product) => product.category === 'BMS');
-const emsProducts = products.filter((product) => product.category === 'EMS');
 ---
 
 <Layout
@@ -32,43 +20,14 @@ const emsProducts = products.filter((product) => product.category === 'EMS');
   </Fragment>
 
   <div class="main-wrapper">
-    <section data-wf--banner--variant="overlay-dark" class="hero-section small">
-      <div class="w-layout-blockcontainer hero-container w-container">
-        <h1 data-w-id="cffab803-26ef-6867-3cb2-f5ad37876f0b" class="display-lg banner w-variant-2811ceda-65e0-7f4e-8038-b25febe7c0b4">製品情報</h1>
-      </div>
-      <div class="overlay w-variant-2811ceda-65e0-7f4e-8038-b25febe7c0b4"></div><img src="/images/bess-gemini_compressed.png" loading="lazy" alt="A battery energy storage system next to a solar farm" class="image-2">
-    </section>
+    <PageBanner
+      title="製品情報"
+      webflowVariant="overlay-dark"
+      imageSrc="/images/bess-gemini_compressed.png"
+      imageAlt="A battery energy storage system next to a solar farm"
+    />
     <section data-w-id="3017ba22-ff4d-07e5-212c-b5813f3244c8" class="w-layout-blockcontainer container w-container">
-      <div data-current="All" data-easing="ease" data-duration-in="300" data-duration-out="100" class="tabs w-tabs">
-        <div class="tabs-menu w-tab-menu">
-          <a data-w-tab="All" class="button-primary tab w-inline-block w-tab-link w--current">
-            <div><strong>すべて</strong></div>
-          </a>
-          <a data-w-tab="BMS" class="button-primary tab w-inline-block w-tab-link">
-            <div>BMS</div>
-          </a>
-          <a data-w-tab="EMS" class="button-primary tab w-inline-block w-tab-link">
-            <div>EMS</div>
-          </a>
-        </div>
-        <div class="tabs-content w-tab-content">
-          <div data-w-tab="All" class="w-tab-pane w--tab-active">
-            <div class="w-layout-grid card-grid">
-              {allProducts.map((product) => <ProductCard product={product} locale="ja" />)}
-            </div>
-          </div>
-          <div data-w-tab="BMS" class="w-tab-pane">
-            <div class="w-layout-grid card-grid">
-              {bmsProducts.map((product) => <ProductCard product={product} locale="ja" />)}
-            </div>
-          </div>
-          <div data-w-tab="EMS" class="w-tab-pane">
-            <div class="w-layout-grid card-grid">
-              {emsProducts.map((product) => <ProductCard product={product} locale="ja" />)}
-            </div>
-          </div>
-        </div>
-      </div>
+      <ProductCatalog products={products} locale="ja" />
     </section>
   </div>
 </Layout>

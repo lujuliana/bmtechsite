@@ -1,4 +1,6 @@
 ---
+import Button from './Button.astro';
+
 interface Props {
   locale: 'en' | 'ja';
   currentPath: string;
@@ -94,13 +96,13 @@ const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
             </a>
           </li>
           <li class="nav-contact-button-wrap">
-            <a data-wf--button-primary--variant="base" href={nav.contact.href} aria-current={ariaCurrent(nav.contact.href)} class={currentClass(nav.contact.href, 'button-primary w-button')}>{nav.contact.label}</a>
+            <Button href={nav.contact.href} ariaCurrent={ariaCurrent(nav.contact.href)} class={isCurrent(nav.contact.href) ? 'w--current' : ''}>{nav.contact.label}</Button>
           </li>
         </ul>
       </nav>
       <div class="nav-right">
         <div class="div-block">
-          <a data-wf--button-primary--variant="base" href={nav.contact.href} aria-current={ariaCurrent(nav.contact.href)} class={currentClass(nav.contact.href, 'button-primary w-button')}>{nav.contact.label}</a>
+          <Button href={nav.contact.href} ariaCurrent={ariaCurrent(nav.contact.href)} class={isCurrent(nav.contact.href) ? 'w--current' : ''}>{nav.contact.label}</Button>
         </div>
         <div class="menu-button w-nav-button">
           <div class="icon-2 w-icon-nav-menu"></div>

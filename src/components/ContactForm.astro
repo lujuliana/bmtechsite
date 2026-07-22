@@ -1,0 +1,85 @@
+---
+interface Props {
+  locale: 'en' | 'ja';
+  initiallyHidden?: boolean;
+}
+
+const { locale, initiallyHidden = false } = Astro.props as Props;
+
+const content = {
+  en: {
+    honeypotLabel: 'Website',
+    nameLabel: 'Name *',
+    namePlaceholder: 'e.g., John Doe',
+    emailLabel: 'Email *',
+    emailPlaceholder: 'email@example.com',
+    phoneLabel: 'Phone',
+    phonePlaceholder: '+1 (000) 000-0000',
+    subjectLabel: 'Subject *',
+    subjectPlaceholder: 'Select an option',
+    options: [
+      { value: 'Inquiry', label: 'Inquiry' },
+      { value: 'Career', label: 'Careers' },
+      { value: 'Security', label: 'Security or Vulnerability' },
+      { value: 'Other', label: 'Other' },
+    ],
+    messageLabel: 'Message *',
+    messagePlaceholder: 'Enter your message',
+    submittingLabel: 'Please wait...',
+    submitLabel: 'Submit',
+    successMessage: 'Thank you! Your submission has been received.',
+    errorMessage: 'Oops! Something went wrong while submitting the form.',
+  },
+  ja: {
+    honeypotLabel: 'ウェブサイト',
+    nameLabel: 'お名前 *',
+    namePlaceholder: '例：山田 太郎',
+    emailLabel: 'メールアドレス *',
+    emailPlaceholder: '例：example@domain.com',
+    phoneLabel: '電話番号',
+    phonePlaceholder: '例：+81-90-1234-5678',
+    subjectLabel: '件名 *',
+    subjectPlaceholder: '選択してください',
+    options: [
+      { value: 'Inquiry', label: '一般のお問い合わせ' },
+      { value: 'Career', label: '採用情報' },
+      { value: 'Security', label: 'セキュリティ関連' },
+      { value: 'Other', label: 'その他' },
+    ],
+    messageLabel: 'お問い合わせ内容 *',
+    messagePlaceholder: '内容を入力してください',
+    submittingLabel: '送信中...',
+    submitLabel: '送信',
+    successMessage: '送信が完了しました。お問い合わせいただき、ありがとうございます。',
+    errorMessage: 'エラーが発生しました。お手数ですが、もう一度お試しください。',
+  },
+} as const;
+
+const text = content[locale];
+---
+
+<div
+  data-w-id="31f30811-b254-762b-b994-04dbeda6df32"
+  style={initiallyHidden ? 'opacity:0' : undefined}
+  class="form-main"
+>
+  <form id="email-form" name="email-form" action="https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact" method="post" class="form js-contact-form" data-locale={locale}>
+    <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;"><label for="website">{text.honeypotLabel}</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+    <div class="single-block"><label for="name" class="input-label">{text.nameLabel}</label><input class="form-input w-input" maxlength="256" name="name" placeholder={text.namePlaceholder} type="text" id="name" autocomplete="name" required /></div>
+    <div class="single-block"><label for="email" class="input-label">{text.emailLabel}</label><input class="form-input w-input" maxlength="256" name="email" placeholder={text.emailPlaceholder} type="email" id="email" autocomplete="email" required /></div>
+    <div class="single-block"><label for="phone" class="input-label">{text.phoneLabel}</label><input class="form-input w-input" maxlength="50" name="phone" placeholder={text.phonePlaceholder} type="tel" id="phone" autocomplete="tel" /></div>
+    <div class="single-block"><label for="field" class="input-label">{text.subjectLabel}</label>
+      <div class="form-input select"><select id="field" name="subject" required class="form-select w-select">
+          <option value="" disabled selected>{text.subjectPlaceholder}</option>
+          {text.options.map((option) => <option value={option.value}>{option.label}</option>)}
+        </select></div>
+    </div>
+    <div class="single-block"><label for="message" class="input-label">{text.messageLabel}</label><textarea required placeholder={text.messagePlaceholder} minlength="10" maxlength="5000" id="message" name="message" class="form-input message w-input"></textarea></div><input type="submit" data-wait={text.submittingLabel} class="btn-submit btn-primary w-button" value={text.submitLabel} />
+  </form>
+  <div class="success-message" role="status" aria-live="polite" tabindex="-1" hidden>
+    <div>{text.successMessage}</div>
+  </div>
+  <div class="error-message" role="alert" aria-live="assertive" tabindex="-1" hidden>
+    <div>{text.errorMessage}</div>
+  </div>
+</div>

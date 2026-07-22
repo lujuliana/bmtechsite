@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PageBanner from '../../components/PageBanner.astro';
 ---
 
 <Layout
@@ -16,12 +17,20 @@ import Layout from '../../layouts/Layout.astro';
   </Fragment>
 
   <div class="main-wrapper">
-    <section class="hero-section small overlay-dark-6">
-      <div class="w-layout-blockcontainer hero-container overlay-dark-7 w-container">
-        <h1 data-w-id="96edadfd-23a4-b9be-c473-0bee37c09d26" style="opacity:0" class="display-lg banner overlay-dark-8">セキュリティ</h1>
-      </div>
-      <div class="overlay overlay-dark-9"></div><img sizes="(max-width: 3168px) 100vw, 3168px" srcset="/images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-500.png 500w, /images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-800.png 800w, /images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-1080.png 1080w, /images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-1600.png 1600w, /images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-2000.png 2000w, /images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-2600.png 2600w, /images/Security.png 3168w" alt="Picture of a lock" loading="lazy" src="/images/Security.png" class="image-2 overlay-dark-10">
-    </section>
+    <PageBanner
+      title="セキュリティ"
+      imageSrc="/images/Security.png"
+      imageAlt="Picture of a lock"
+      imageSizes="(max-width: 3168px) 100vw, 3168px"
+      imageSrcSet="/images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-500.png 500w, /images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-800.png 800w, /images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-1080.png 1080w, /images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-1600.png 1600w, /images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-2000.png 2000w, /images/c1865db2c43258d52e18e2b66f359ec0_thedigitalartist-banner-5217685-p-2600.png 2600w, /images/Security.png 3168w"
+      sectionClass="hero-section small overlay-dark-6"
+      containerClass="w-layout-blockcontainer hero-container overlay-dark-7 w-container"
+      headingClass="display-lg banner overlay-dark-8"
+      headingDataWId="96edadfd-23a4-b9be-c473-0bee37c09d26"
+      headingInitiallyHidden
+      overlayClass="overlay overlay-dark-9"
+      imageClass="image-2 overlay-dark-10"
+    />
     <section class="section">
       <div class="w-richtext">
         <h1>脆弱性開示方針</h1>

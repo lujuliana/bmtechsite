@@ -1,0 +1,41 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'large';
+  ariaCurrent?: 'page';
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  ariaCurrent,
+  class: className = '',
+} = Astro.props as Props;
+
+const variants = {
+  primary: { className: '', dataValue: 'base' },
+  secondary: {
+    className: 'w-variant-fcb97c6f-219d-3318-ccd5-ef3516a8504d',
+    dataValue: 'secondary',
+  },
+  large: {
+    className: 'w-variant-9f4e8c27-5b86-86be-f241-d06a0af72488',
+    dataValue: 'large',
+  },
+} as const;
+const buttonVariant = variants[variant];
+const variantClass = buttonVariant.className;
+const classes = ['button-primary', variantClass, 'w-button', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<a
+  data-wf--button-primary--variant={buttonVariant.dataValue}
+  href={href}
+  aria-current={ariaCurrent}
+  class={classes}
+>
+  <slot />
+</a>

@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import PageBanner from '../../components/PageBanner.astro';
 ---
 
 <Layout
@@ -21,12 +23,19 @@ import Layout from '../../layouts/Layout.astro';
   </Fragment>
 
   <div class="main-wrapper">
-    <section class="hero-section small overlay-dark">
-      <div class="w-layout-blockcontainer hero-container overlay-dark-2 w-container">
-        <h1 data-w-id="cffab803-26ef-6867-3cb2-f5ad37876f0b" style="opacity:0" class="display-lg banner">お問い合わせ</h1>
-      </div>
-      <div class="overlay overlay-dark-4"></div><img sizes="(max-width: 1919px) 100vw, 1920px" srcset="/images/zbynek-burival-V4ZYJZJ3W4M-unsplash-p-500.jpg 500w, /images/zbynek-burival-V4ZYJZJ3W4M-unsplash-p-800.jpg 800w, /images/zbynek-burival-V4ZYJZJ3W4M-unsplash-p-1080.jpg 1080w, /images/zbynek-burival-V4ZYJZJ3W4M-unsplash-p-1600.jpg 1600w, /images/zbynek-burival-V4ZYJZJ3W4M-unsplash.jpg 1920w" alt="Solar panels in a field" loading="lazy" src="/images/zbynek-burival-V4ZYJZJ3W4M-unsplash.jpg" class="image-2 overlay-dark-5">
-    </section>
+    <PageBanner
+      title="お問い合わせ"
+      imageSrc="/images/zbynek-burival-V4ZYJZJ3W4M-unsplash.jpg"
+      imageAlt="Solar panels in a field"
+      imageSizes="(max-width: 1919px) 100vw, 1920px"
+      imageSrcSet="/images/zbynek-burival-V4ZYJZJ3W4M-unsplash-p-500.jpg 500w, /images/zbynek-burival-V4ZYJZJ3W4M-unsplash-p-800.jpg 800w, /images/zbynek-burival-V4ZYJZJ3W4M-unsplash-p-1080.jpg 1080w, /images/zbynek-burival-V4ZYJZJ3W4M-unsplash-p-1600.jpg 1600w, /images/zbynek-burival-V4ZYJZJ3W4M-unsplash.jpg 1920w"
+      sectionClass="hero-section small overlay-dark"
+      containerClass="w-layout-blockcontainer hero-container overlay-dark-2 w-container"
+      headingClass="display-lg banner"
+      headingInitiallyHidden
+      overlayClass="overlay overlay-dark-4"
+      imageClass="image-2 overlay-dark-5"
+    />
     <div class="w-layout-blockcontainer container w-container">
       <div class="contact-wrap">
         <div class="contact-left">
@@ -58,30 +67,7 @@ import Layout from '../../layouts/Layout.astro';
           </div>
           <a data-w-id="31f30811-b254-762b-b994-04dbeda6df2d" href="https://www.google.com/maps/place/1255+W+15th+St,+Plano,+TX+75075/" target="_blank" rel="noopener noreferrer" class="map-link-2 map-link w-inline-block"><img src="/images/map-md.png" loading="lazy" sizes="(max-width: 923px) 100vw, 923px" srcset="/images/a02cef54fca28df437cab64ae64b2a51_map-md-p-500.png 500w, /images/a02cef54fca28df437cab64ae64b2a51_map-md-p-800.png 800w, /images/map-md.png 923w" alt="Map" class="map-2 map"></a>
         </div>
-        <div data-w-id="31f30811-b254-762b-b994-04dbeda6df32" class="form-main">
-          <form id="email-form" name="email-form" action="https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact" method="post" class="form js-contact-form" data-locale="ja">
-            <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;"><label for="website">ウェブサイト</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
-            <div class="single-block"><label for="name" class="input-label">お名前 *</label><input class="form-input w-input" maxlength="256" name="name" placeholder="例：山田 太郎" type="text" id="name" autocomplete="name" required></div>
-            <div class="single-block"><label for="email" class="input-label">メールアドレス *</label><input class="form-input w-input" maxlength="256" name="email" placeholder="例：example@domain.com" type="email" id="email" autocomplete="email" required></div>
-            <div class="single-block"><label for="phone" class="input-label">電話番号</label><input class="form-input w-input" maxlength="50" name="phone" placeholder="例：+81-90-1234-5678" type="tel" id="phone" autocomplete="tel"></div>
-            <div class="single-block"><label for="field" class="input-label">件名 *</label>
-              <div class="form-input select"><select id="field" name="subject" required class="form-select w-select">
-                  <option value="" disabled selected>選択してください</option>
-                  <option value="Inquiry">一般のお問い合わせ</option>
-                  <option value="Career">採用情報</option>
-                  <option value="Security">セキュリティ関連</option>
-                  <option value="Other">その他</option>
-                </select></div>
-            </div>
-            <div class="single-block"><label for="message" class="input-label">お問い合わせ内容 *</label><textarea required placeholder="内容を入力してください" minlength="10" maxlength="5000" id="message" name="message" class="form-input message w-input"></textarea></div><input type="submit" data-wait="送信中..." class="btn-submit btn-primary w-button" value="送信">
-          </form>
-          <div class="success-message" role="status" aria-live="polite" tabindex="-1" hidden>
-            <div>送信が完了しました。お問い合わせいただき、ありがとうございます。</div>
-          </div>
-          <div class="error-message" role="alert" aria-live="assertive" tabindex="-1" hidden>
-            <div>エラーが発生しました。お手数ですが、もう一度お試しください。</div>
-          </div>
-        </div>
+        <ContactForm locale="ja" />
       </div>
     </div>
   </div>

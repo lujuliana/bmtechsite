@@ -1,18 +1,17 @@
 ---
 import Layout from './Layout.astro';
-import ProductCard from '../components/ProductCard.astro';
-import type { Product } from '../data/products';
+import Button from '../components/Button.astro';
+import ProductCarousel from '../components/ProductCarousel.astro';
+import { getRelatedProducts, type Product } from '../data/products';
 
 interface Props {
   product: Product;
-  allProducts: Product[];
+  allProducts: readonly Product[];
   locale: 'en' | 'ja';
 }
 
 const { product, allProducts, locale } = Astro.props as Props;
-const relatedProducts = allProducts.filter(
-  (candidate) => candidate.category === product.category && candidate.slug !== product.slug,
-);
+const relatedProducts = getRelatedProducts(product, allProducts);
 const metadata = product.metadata;
 const englishFullName = product.fullName.en;
 const japaneseFullName = product.fullName.ja || product.fullNameJa;
@@ -86,15 +85,19 @@ const imageWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('s
         <div class="prod-details">{product.category}</div>
         <div class="divider"></div>
         <h2 class="product-h2">{text.consulting}</h2>
-        <a data-wf--button-primary--variant="large" href={consultingLink} class="button-primary w-variant-9f4e8c27-5b86-86be-f241-d06a0af72488 w-button">{text.contact}</a>
+        <Button href={consultingLink} variant="large">{text.contact}</Button>
       </div>
     </div>
     <section class="related-products">
       <div class="w-layout-vflex product-info">
         <h2 class="product-h2">{text.relatedProducts}</h2>
-        <div class="w-layout-grid card-list">
-          {relatedProducts.map((relatedProduct) => <ProductCard product={relatedProduct} locale={locale} />)}
-        </div>
+        <ProductCarousel
+          id={`related-products-${product.slug}`}
+          products={relatedProducts}
+          locale={locale}
+          label={text.relatedProducts}
+          variant="related"
+        />
       </div>
     </section>
   </div>
