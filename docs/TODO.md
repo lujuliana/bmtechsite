@@ -19,13 +19,13 @@
 
 ## Future Improvements
 
-- [ ] Improve contact form email formatting (HTML + plain text)
 - [ ] Configure a custom API domain (e.g. `api.bmtech.com`)
 - [ ] Add API rate limiting or AWS WAF if spam becomes an issue
 - [ ] Review SPF and DMARC records for `bmtech.com`
 
 ## Completed
 
+- [x] Improve contact form email formatting (HTML + plain text)
 - [x] Update Lambda `ALLOWED_ORIGINS` to production values
 - [x] Update API Gateway CORS to allow only production origins
 - [x] Migrate the website from exported Webflow pages to Astro
