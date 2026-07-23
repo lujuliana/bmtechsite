@@ -1,7 +1,6 @@
 export interface ProductMetadata {
   title: string;
   description: string;
-  webflowPageId: string;
 }
 
 export type ProductLocale = 'en' | 'ja';
@@ -58,7 +57,6 @@ export const products: Product[] = [
     metadata: {
       title: 'BBMU Battery Bank Management Unit | BMTech',
       description: 'Optimize your power infrastructure with the BBMU Battery Bank Management Unit. Ideal for grid, renewable energy systems, and uninterruptible UPS.',
-      webflowPageId: '6a51185dd736e3f6fb833c91',
     },
   },
   {
@@ -98,7 +96,6 @@ export const products: Product[] = [
     metadata: {
       title: 'BMMU Battery Module Management Unit | BMTech',
       description: 'Optimize your power infrastructure with the BMMU Battery Module Management Unit. Ideal for grid, renewable, residential energy storage, and UPS.',
-      webflowPageId: '6a511f0d67ba8f952b9be265',
     },
   },
   {
@@ -140,7 +137,6 @@ export const products: Product[] = [
     metadata: {
       title: 'BRMU Battery Rack Management Unit | BMTech',
       description: 'Optimize your power infrastructure with the BRMU Battery Rack Management Unit. Ideal for grid, renewable, residential energy storage, and UPS.',
-      webflowPageId: '6a511f2c1be522a1302e3368',
     },
   },
   {
@@ -180,7 +176,6 @@ export const products: Product[] = [
     metadata: {
       title: 'EMS-C Commercial Energy Management | BMTech',
       description: 'Optimize your power infrastructure with the EMS-C Commercial Energy Management System. Ideal for grid energy storage and renewable energy systems.',
-      webflowPageId: '6a511fc01f9d3448d884eae8',
     },
   },
   {
@@ -211,7 +206,6 @@ export const products: Product[] = [
     metadata: {
       title: 'IOT-B10 Data Communication Terminal | BMTech',
       description: 'Optimize your power infrastructure with the IOT-B10 system. Ideal for high-performance grid energy storage and renewable energy systems. Learn more.',
-      webflowPageId: '6a511f88424b9b9f6e2f3bf1',
     },
   },
   {
@@ -253,7 +247,6 @@ export const products: Product[] = [
     metadata: {
       title: 'SMC-Gateway Station Controller | BMTech',
       description: 'Optimize your power infrastructure with the SMC-Gateway Station Management Controller. Ideal for grid energy storage and renewable energy systems.',
-      webflowPageId: '6a511f53c38a8aee43e0eefd',
     },
   },
   {
@@ -293,7 +286,6 @@ export const products: Product[] = [
     metadata: {
       title: 'SMC-Server Station Controller | BMTech',
       description: 'Optimize your power infrastructure with the SMC-Server Station Management Controller. Ideal for grid energy storage and renewable energy systems.',
-      webflowPageId: '6a511f9df296c929b9c83c8d',
     },
   },
 ];
