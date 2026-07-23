@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import ProductCarousel from '../components/ProductCarousel.astro';
-import SectionHeading from '../components/SectionHeading.astro';
 import { products, sortProductsBySlug } from '../data/products';
 
 const homepageProducts = sortProductsBySlug(products.filter((product) => product.featured === true));
@@ -44,11 +43,45 @@ const homepageProducts = sortProductsBySlug(products.filter((product) => product
   </section>
   <section class="section">
     <div class="section-container">
-      <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec" style="opacity:0" class="section-col-aside"><img class="section-col-img" src="images/metal-sign.png" alt="A metal sign reading: BMTech; empower a sustainable future" style="opacity:0" sizes="(max-width: 2093px) 100vw, 2093px" data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ed" loading="lazy" srcset="images/metal-sign-500.png 500w, images/metal-sign-800.png 800w, images/metal-sign-1080.png 1080w, images/metal-sign-1600.png 1600w, images/metal-sign-2000.png 2000w, images/metal-sign.png 2093w" /></div>
+      <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec" style="opacity:0" class="section-col-aside">
+        <img 
+          class="section-col-img" 
+          src="images/metal-sign.png" 
+          alt="A metal sign reading: BMTech; empower a sustainable future" 
+          style="opacity:0" 
+          sizes="(max-width: 2093px) 100vw, 2093px" 
+          srcset="images/metal-sign-500.png 500w, images/metal-sign-800.png 800w, images/metal-sign-1080.png 1080w, images/metal-sign-1600.png 1600w, images/metal-sign-2000.png 2000w, images/metal-sign.png 2093w" 
+          loading="lazy" 
+          data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ed" 
+        />
+      </div>
       <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ee" style="opacity:0" class="section-col-content">
         <h1 class="h1">Who We Are</h1>
-        <p class="sm-txt gray-200">Battery Management Technology Corporation (BMTech) is a Dallas-based cleantech leader specializing in cutting-edge Battery Management Systems (BMS) and Energy Management Systems (EMS). Since 2019, we have engineered high-performance infrastructure designed to meet the complex challenges of modern energy ecosystems.</p>
-        <p class="sm-txt gray-200">With a robust portfolio of innovative solutions, BMTech delivers secure, intelligent, and highly adaptable systems that optimize battery lifespan, maximize safety, and streamline operations for global clients.</p>
+        <p class="body-txt gray">
+          Battery Management Technology Corporation (BMTech) is a Dallas, Texas-based cleantech company dedicated to advancing battery and energy management technologies. Since 2019, we have developed innovative solutions that support the growing demand for safe, reliable, and efficient energy storage.
+        </p>
+        <p class="body-txt gray">
+          Our integrated hardware and software solutions help customers optimize battery performance, improve operational reliability, and maximize the value of their energy systems.
+        </p>
+      </div>
+    </div>
+    <div class="section-container">
+      <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ee" style="opacity:0" class="section-col-content">
+        <h1 class="h1">American Engineering, Global Impact</h1>
+        <p class="body-txt gray">
+          Built on American engineering principles, BMTech is committed to delivering high-quality, reliable technology backed by responsive technical expertise. We believe strong customer relationships are built through dependable products, practical engineering, and long-term support.
+        </p>
+      </div>
+      <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec" style="opacity:0" class="section-col-aside">
+        <img 
+          class="section-col-img" 
+          src="images/texas-usa-flags.jpg" 
+          alt="A metal sign reading: BMTech; empower a sustainable future" 
+          style="opacity:0" 
+          sizes="(max-width: 2093px) 100vw, 2093px" 
+          loading="lazy" 
+          data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ed" 
+        />
       </div>
     </div>
   </section>
@@ -62,11 +95,8 @@ const homepageProducts = sortProductsBySlug(products.filter((product) => product
   <section data-w-id="78a9d919-15a5-2dad-8fd2-49055cbd634f" style="opacity:0" class="products-section">
     <div class="flex-container-y">
       <div class="flex-y">
-        <SectionHeading
-          title="Products"
-          description="Explore our Battery Management System (BMS) and Energy Management System (EMS) products."
-          centered
-        />
+        <h1 class="h1 centered">Products</h1>
+        <p class="body-txt centered gray padding-bottom">Explore our Battery Management System (BMS) and Energy Management System (EMS) products.</p>
         <Button href="/products" variant="secondary">See All</Button>
       </div>
       <ProductCarousel

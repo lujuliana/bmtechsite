@@ -30,15 +30,30 @@ const text = content[locale];
 
 <div class="product-catalog" data-product-catalog data-locale={locale}>
   <div class="product-search">
-    <label class="product-search-label" for={`product-search-${locale}`}>{text.searchLabel}</label>
-    <input
-      id={`product-search-${locale}`}
-      class="product-search-input"
-      type="search"
-      placeholder={text.searchPlaceholder}
-      autocomplete="off"
-      data-product-search
-    />
+    <!-- <label class="product-search-label" for={`product-search-${locale}`}>{text.searchLabel}</label> -->
+     <div class="product-search-field">
+      <svg
+        class="product-search-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.3-4.3"/>
+      </svg>
+      <input
+        id={`product-search-${locale}`}
+        class="product-search-input"
+        type="search"
+        placeholder={text.searchLabel}
+        autocomplete="off"
+        data-product-search
+      />
+     </div>
   </div>
 
   <div class="tabs-menu" role="group" aria-label={text.filtersLabel}>

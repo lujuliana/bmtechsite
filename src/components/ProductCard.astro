@@ -26,7 +26,7 @@ const sourceWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('
     />
     <div class="card-info">
       <h3 class="prod-card-name">{product.name}</h3>
-      <p class="sm-txt gray-200 card">
+      <p class="sm-txt gray card">
         {locale === 'ja' && product.fullName.ja && <>{product.fullName.ja}<br /></>}
         {product.fullName.en}
       </p>

@@ -1,6 +1,6 @@
 :root {
   /* Foundation: font families, font weights, radii, spacing, and shared sizes */
-  --font-family-body: Manrope, sans-serif;
+  --font-family-body: "Inter", sans-serif;
   --font-family-display: "Instrument Sans", sans-serif;
   --font-family-locale-ja: "Noto Sans JP", sans-serif;
 
@@ -166,8 +166,8 @@ html:lang(ja) .hero-section.overlay-dark .display-lg.banner {
   font-weight: var(--font-weight-regular);
 }
 h1 {
-  margin-top: var(--space-4);
-  margin-bottom: var(--space-2);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-4);
   font-size: 38px;
   font-weight: 700;
   line-height: 44px;
@@ -579,14 +579,14 @@ html:lang(ja) .footer-text {
 .sm-txt.centered, .h1.centered {
   text-align: center;
 }
-.sm-txt.centered.gray-200.padding-bottom {
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-2);
+.body-txt.centered.gray.padding-bottom {
+  /* margin-bottom: var(--space-4); */
+  padding-bottom: var(--space-3);
 }
-.sm-txt.gray-200 {
+.sm-txt.gray {
   color: var(--color-text-muted);
 }
-.sm-txt.gray-200.card {
+.sm-txt.gray.card {
   width: var(--size-full-width);
   margin-bottom: var(--space-0);
 }
@@ -675,28 +675,75 @@ html:lang(ja) .footer-text {
 }
 .product-search {
   width: var(--size-full-width);
-  max-width: 36rem;
+  max-width: 25rem;
   margin-bottom: var(--space-5);
+  font-size: var(--font-size-xs)
 }
-.product-search-label {
+.product-catalog {
+  display: grid;
+  grid-template-areas: "filters search" "content content";
+  grid-template-columns: minmax(0, 1fr) minmax(0, 25rem);
+  grid-column-gap: var(--space-6);
+  align-items: start;
+}
+.product-catalog > .product-search {
+  grid-area: search;
+  justify-self: end;
+}
+.product-catalog > .tabs-menu {
+  grid-area: filters;
+  flex-wrap: nowrap;
+}
+.product-catalog > .tabs-content {
+  grid-area: content;
+  min-width: 0;
+}
+@media screen and (max-width: 767px) {
+  .product-catalog {
+    grid-template-areas: "filters" "search" "content";
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .product-catalog > .product-search {
+    justify-self: start;
+  }
+}
+@media screen and (max-width: 479px) {
+  .product-catalog > .product-search {
+    max-width: none;
+    justify-self: stretch;
+  }
+}
+/* .product-search-label {
   margin-bottom: var(--space-2);
   color: var(--color-text);
   font-weight: var(--font-weight-semibold);
   display: block;
+} */
+.product-search-field {
+  position: relative;
+}
+.product-search-icon {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
 }
 .product-search-input {
   width: var(--size-full-width);
   min-height: var(--tap-target-min-size);
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-3) var(--space-4) var(--space-3) calc(var(--space-4) + 1rem + var(--space-3));
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
   background-color: var(--color-white);
   color: var(--color-text);
   font: inherit;
 }
 .product-search-input:focus-visible {
-  outline: 2px solid var(--color-brand);
-  outline-offset: 2px;
+  outline: 0.875px solid var(--color-link);
 }
 .tabs-menu .button-primary.tab {
   cursor: pointer;
@@ -1069,7 +1116,7 @@ html:lang(ja) .footer-text {
   object-fit: contain;
 }
 .product-full-name {
-  margin-top: var(--space-3);
+  margin-top: var(--space-1);
   margin-bottom: var(--space-0);
   font-family: var(--font-family-display);
   color: var(--color-text-muted);
@@ -1206,6 +1253,7 @@ html:lang(ja) .footer-text {
 }
 .body-txt.gray {
   color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
 }
 .vuln-link-block {
   grid-column-gap: var(--space-2);
@@ -1601,12 +1649,12 @@ html:lang(ja) .form-select {
     grid-row-gap: var(--space-6);
     justify-content: center;
     align-items: center;
+    margin-bottom: var(--space-4);
   }
   .section-col-content {
     max-width: 100%;
-    margin-bottom: 40px;
   }
-  .sm-txt.centered.gray-200, .h1.centered {
+  .sm-txt.centered.gray, .h1.centered {
     width: var(--size-full-width);
   }
   .section-col-aside {
