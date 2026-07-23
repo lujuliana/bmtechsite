@@ -16,6 +16,7 @@ const sharedLayout = {
   minCardWidth: '10rem',
   hoverSpace: 'calc(var(--space-4) + 8px)',
   cardInlineClearance: 'var(--space-3)',
+  controlGap: 'var(--space-2)'
 } as const;
 const layouts = {
   homepage: {
@@ -33,7 +34,6 @@ const layouts = {
       mobile: '20rem',
       narrow: 'clamp(13rem, 55vw, 16rem)',
     },
-    controlGap: 'var(--space-2)',
     blockSpacing: 'var(--space-7)',
   },
   related: {
@@ -51,7 +51,6 @@ const layouts = {
       mobile: '14rem',
       narrow: 'clamp(13rem, 55vw, 16rem)',
     },
-    controlGap: 'var(--space-2)',
     blockSpacing: 'var(--space-0)',
   },
 } as const;

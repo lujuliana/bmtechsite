@@ -314,9 +314,6 @@ html:lang(ja) .navbar {
   color: #fff;
   letter-spacing: 3px;
 }
-.button-primary:hover:where(.w-variant-fcb97c6f-219d-3318-ccd5-ef3516a8504d) {
-  border-width: 0;
-}
 .button-primary:active {
   background-color: var(--color-brand-active);
 }
