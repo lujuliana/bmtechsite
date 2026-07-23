@@ -551,7 +551,7 @@ html:lang(ja) .footer-text {
   display: flex;
   position: relative;
 }
-.about-container {
+.section-container {
   width: var(--size-full-width);
   max-width: var(--container-max-width);
   flex-flow: wrap;
@@ -559,14 +559,14 @@ html:lang(ja) .footer-text {
   align-items: center;
   display: flex;
 }
-.about-right {
+.section-col-content {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   max-width: 55%;
   display: flex;
 }
-.about-img {
+.section-col-img {
   border-radius: var(--radius-md);
   overflow: clip;
 }
@@ -590,7 +590,7 @@ html:lang(ja) .footer-text {
   width: var(--size-full-width);
   margin-bottom: var(--space-0);
 }
-.about-left {
+.section-col-aside {
   flex-flow: column;
   max-width: 40%;
   display: flex;
@@ -960,7 +960,7 @@ html:lang(ja) .footer-text {
     transform: translateY(-50%);
   }
 }
-.image-section {
+.image-divider {
   width: var(--size-full-width);
   grid-column-gap: 0px;
   grid-row-gap: 16px;
@@ -1596,20 +1596,20 @@ html:lang(ja) .form-select {
     padding-right: var(--section-padding-block);
     padding-left: var(--section-padding-block);
   }
-  .about-container {
+  .section-container {
     grid-column-gap: var(--space-5);
     grid-row-gap: var(--space-6);
     justify-content: center;
     align-items: center;
   }
-  .about-right {
+  .section-col-content {
     max-width: 100%;
     margin-bottom: 40px;
   }
   .sm-txt.centered.gray-200, .h1.centered {
     width: var(--size-full-width);
   }
-  .about-left {
+  .section-col-aside {
     max-width: 60%;
   }
   .flex-container-y {
@@ -1802,10 +1802,10 @@ html:lang(ja) .form-select {
   .footer-text.link {
     font-size: var(--font-size-xs);
   }
-  .about-container {
+  .section-container {
     max-width: none;
   }
-  .about-left {
+  .section-col-aside {
     max-width: 100%;
   }
   .card-img {
