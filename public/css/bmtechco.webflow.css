@@ -1158,8 +1158,8 @@ html:lang(ja) .footer-text {
   box-sizing: border-box;
   width: var(--size-full-width);
   max-width: var(--container-max-width);
-  padding-right: var(--page-padding-inline);
-  padding-left: var(--page-padding-inline);
+  padding-right: var(--space-7);
+  padding-left: var(--space-7);
 }
 .related-products > .product-info {
   box-sizing: border-box;
