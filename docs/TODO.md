@@ -8,8 +8,6 @@
 
 ## Website
 
-- [ ] Change language switcher to an english-first dropdown
-- [ ] Add a section about being an AMERICAN company
 - [ ] Translate Japanese image alt text and page metadata
 - [ ] Add About page
 - [ ] Add Careers page
@@ -38,3 +36,4 @@
 - [x] Implement the contact form with AWS Lambda, API Gateway, and Amazon SES
 - [x] Deploy the Astro site to AWS Lightsail
 - [x] Configure Nginx to serve the production site
+- [x] Change language switcher to an English-first dropdown
