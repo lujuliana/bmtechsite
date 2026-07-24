@@ -176,6 +176,9 @@ a {
   color: var(--color-link);
   text-decoration: none;
 }
+a:hover {
+  color: var(--color-link-inverse);
+}
 ul {
   margin-top: var(--space-0);
   margin-bottom: 10px;
@@ -1313,6 +1316,9 @@ html:lang(ja) .footer-text {
 .section-content.link {
   color: var(--color-brand);
   font-weight: var(--font-weight-medium);
+}
+.section-content.link:hover {
+  color: var(--color-link-inverse);
 }
 .map-link {
   margin-top: var(--space-4);
