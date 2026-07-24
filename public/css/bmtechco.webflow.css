@@ -1104,7 +1104,7 @@ html:lang(ja) .footer-text {
 .prod-page-grid {
   width: var(--size-full-width);
   max-width: var(--container-max-width);
-  padding: var(--page-padding-inline);
+  padding: var(--space-7);
   grid-column-gap: var(--grid-gap);
   grid-row-gap: var(--grid-gap);
   grid-template-rows: auto;
