@@ -193,10 +193,12 @@ export const products: Product[] = [
       en: [
         'Supports remote BMS program and firmware updates',
         'Enables continuous, real-time telemetry and system data uploads',
+        'Facilitates network communication between BMS and Energy Management Systems (EMS)',
       ],
       ja: [
-        '遠隔でのBMSプログラムおよびファームウェアのアップデートに対応',
-        '継続的なリアルタイムのテレメトリ（遠隔測定）およびシステムデータのアップロードが可能',
+        'BMSのプログラムおよびファームウェアのリモート更新に対応',
+        'リアルタイムのテレメトリおよびシステムデータの継続的なアップロードを実現',
+        'BMSとエネルギーマネジメントシステム（EMS）間のネットワーク通信を実現'
       ],
     },
     applications: {
