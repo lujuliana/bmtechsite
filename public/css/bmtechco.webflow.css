@@ -1490,10 +1490,15 @@ html:lang(ja) .form-select {
   position: relative;
 }
 .language-menu-trigger {
+  appearance: none;
+  -webkit-appearance: none;
   border: 0;
   background: transparent;
   cursor: pointer;
+  color: inherit;
+  line-height: inherit;
   font-family: inherit;
+  padding: 0 var(--space-2);
 }
 .language-menu-chevron {
   width: 1rem;
@@ -1503,6 +1508,13 @@ html:lang(ja) .form-select {
 }
 .language-menu-trigger[aria-expanded="true"] .language-menu-chevron {
   transform: rotate(180deg);
+}
+html:lang(ja) .language-menu-trigger {
+  transform: translateY(1px);
+  gap: 1px;
+}
+html:lang(en) .language-menu-icon {
+  transform: translateY(-0.75px);
 }
 .language-menu-options {
   z-index: 1000;
@@ -1518,6 +1530,7 @@ html:lang(ja) .form-select {
 }
 .language-menu-option {
   font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
   min-height: var(--tap-target-min-size);
   padding: var(--space-2) var(--space-3);
   grid-column-gap: var(--space-2);
@@ -1530,6 +1543,7 @@ html:lang(ja) .form-select {
 .language-menu-option:hover, .language-menu-option:focus-visible {
   color: var(--color-brand-hover);
   background-color: var(--color-surface-muted);
+  border-radius: var(--radius-sm)
 }
 .language-menu-option.is-selected {
   color: var(--color-brand);
