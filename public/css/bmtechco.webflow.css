@@ -1514,7 +1514,7 @@ html:lang(ja) .language-menu-trigger {
   gap: 1px;
 }
 html:lang(en) .language-menu-icon {
-  transform: translateY(-0.75px);
+  transform: translateY(-1px);
 }
 .language-menu-options {
   z-index: 1000;
