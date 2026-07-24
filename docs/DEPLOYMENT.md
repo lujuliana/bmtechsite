@@ -8,50 +8,73 @@
 | Operating system | Debian 12 |
 | Web server | Nginx |
 | Repository clone | `/home/admin/bmtechsite` |
-| Nginx document root | `/usr/share/nginx/html/bmtechco.webflow` |
+| Nginx document root | `/usr/share/nginx/html` |
 | Astro build output | `dist/` |
 | AWS region | `us-east-2` |
 
-The production website is static. Node.js is used to build the site on the server, but Nginx serves the generated files directly.
+The production website is a static Astro build. Node.js is used only to build the site on the server. Nginx serves the generated files directly from the document root.
+
+---
 
 ## Routine deployment
 
-Push and commit changes from the local development machine first.
+Commit and push changes from the local development machine first.
 
-On the Lightsail browser terminal:
+On the Lightsail terminal:
 
 ```sh
 cd ~/bmtechsite
-git pull
+git checkout main
+git pull origin main
+npm ci
 npm run build
-sudo rm -rf /usr/share/nginx/html/bmtechco.webflow/*
-sudo cp -a dist/. /usr/share/nginx/html/bmtechco.webflow/
+sudo rm -rf /usr/share/nginx/html/*
+sudo cp -a dist/. /usr/share/nginx/html/
 sudo nginx -t
 sudo systemctl reload nginx
+curl -Ik -H "Host: bmtech.com" https://localhost
 ```
 
-`sudo nginx -t` should report that the configuration syntax is valid before Nginx is reloaded.
+Expected results:
+
+- `sudo nginx -t`
+
+```
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+- `curl -Ik -H "Host: bmtech.com" https://localhost`
+
+```
+HTTP/1.1 200 OK
+```
+
+Optionally verify the deployed commit:
+
+```sh
+git log -1 --oneline
+```
+
+---
 
 ## Dependency changes
 
-Run `npm install` after `git pull` when `package.json` or `package-lock.json` has changed:
+If `package.json` or `package-lock.json` changes:
 
 ```sh
 cd ~/bmtechsite
-git pull
-npm install
+git pull origin main
+npm ci
 npm run build
 ```
 
-For a clean, lockfile-based installation, use:
+Use `npm ci` for all production deployments to ensure a clean, lockfile-based installation.
 
-```sh
-npm ci
-```
+---
 
 ## Deployment verification
 
-After deployment, verify:
+Verify the following pages:
 
 - `/`
 - `/ja/`
@@ -61,36 +84,56 @@ After deployment, verify:
 - `/ja/contact`
 - `/security-vuln`
 - `/ja/security-vuln`
-- at least one English product page;
-- at least one Japanese product page; and
-- an unknown URL to confirm the 404 behavior.
+- at least one English product page
+- at least one Japanese product page
+- an unknown URL (verify the custom 404 page)
 
-Also inspect the browser console and network panel for missing CSS, JavaScript, images, or videos.
+Also verify:
+
+- Language switcher
+- Product carousel
+- Contact form
+- Browser console has no JavaScript errors
+- Network tab shows no missing CSS, JS, images, fonts, or videos
+
+---
 
 ## Backup
 
-Create a timestamped backup before a risky deployment:
+Before a risky deployment:
 
 ```sh
-sudo cp -a   /usr/share/nginx/html/bmtechco.webflow   /usr/share/nginx/html/bmtechco.webflow-backup-$(date +%Y%m%d-%H%M%S)
+sudo cp -a \
+/usr/share/nginx/html \
+/usr/share/nginx/html-backup-$(date +%Y%m%d-%H%M%S)
 ```
+
+---
 
 ## Rollback
 
-List available backups:
+List backups:
 
 ```sh
-ls -d /usr/share/nginx/html/bmtechco.webflow-backup-*
+ls -d /usr/share/nginx/html-backup-*
 ```
 
-Replace `<backup-directory>` with the selected backup path:
+Restore a backup:
 
 ```sh
-sudo rm -rf /usr/share/nginx/html/bmtechco.webflow
-sudo cp -a <backup-directory> /usr/share/nginx/html/bmtechco.webflow
+sudo rm -rf /usr/share/nginx/html
+sudo cp -a <backup-directory> /usr/share/nginx/html
 sudo nginx -t
 sudo systemctl reload nginx
 ```
+
+Verify:
+
+```sh
+curl -Ik -H "Host: bmtech.com" https://localhost
+```
+
+---
 
 ## Contact-form backend
 
@@ -109,7 +152,7 @@ Lambda
 Amazon SES
 ```
 
-Changing Lambda environment variables or API Gateway CORS settings does not require rebuilding or redeploying the Lightsail website.
+Changes to Lambda or API Gateway do **not** require redeploying the Astro website unless the frontend code changes.
 
 ### Lambda production values
 
@@ -122,50 +165,53 @@ CONTACT_SUBJECT_PREFIX=BMTech Website Contact
 HONEYPOT_DEBUG=false
 ```
 
-Do not include spaces after commas in `ALLOWED_ORIGINS` unless the Lambda explicitly trims each value.
+Do not include spaces after commas in `ALLOWED_ORIGINS`.
 
 ### API Gateway CORS
 
-Allow these origins:
+Allowed origins:
 
 ```text
 https://bmtech.com
 https://www.bmtech.com
 ```
 
-Allow the methods required by the contact endpoint:
+Allowed methods:
 
 ```text
 POST
 OPTIONS
 ```
 
-Keep the allowed headers aligned with the browser request, including `Content-Type`.
+Allowed headers:
 
-For an HTTP API with automatic deployment enabled, saved CORS changes normally become active without a separate manual stage deployment. Confirm the stage settings in the AWS console.
+```text
+Content-Type
+```
+
+---
 
 ## Production contact test
 
-After updating Lambda and API Gateway:
+After updating Lambda or API Gateway:
 
-1. Open the live English contact page.
-2. Submit a valid test message.
-3. Confirm the browser receives a successful response.
-4. Confirm the email reaches `info@bmtech.com`.
-5. Reply to verify that the visitor's address is used as `Reply-To`.
-6. Repeat the test from the Japanese contact page.
+1. Submit a test message from the English contact page.
+2. Confirm the browser receives a successful response.
+3. Confirm the email arrives at `info@bmtech.com`.
+4. Verify replies go to the visitor's email address.
+5. Repeat from the Japanese contact page.
 
-No Lightsail deployment is needed unless website code or the configured API endpoint in the frontend changes.
+---
 
-## README-only or documentation-only changes
+## Documentation-only changes
 
-Documentation files are not part of the generated public website unless explicitly imported by Astro.
+Documentation is not included in the generated Astro site.
 
-To update the repository clone on Lightsail after a documentation-only change:
+To update the repository clone after documentation-only changes:
 
 ```sh
 cd ~/bmtechsite
-git pull
+git pull origin main
 ```
 
-A build, file copy, and Nginx reload are not required.
+No build, deployment, or Nginx reload is required.
