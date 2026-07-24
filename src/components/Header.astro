@@ -65,7 +65,8 @@ const languages = {
   },
   ja: {
     nativeLabel: '日本語',
-    englishLabel: 'Japanese (日本語)',
+    // englishLabel: 'Japanese (日本語)',
+    englishLabel: 'Japanese',
     flagAlt: 'Japan flag',
     flagSrc: '/images/jpn-flag.png',
   },
@@ -124,8 +125,11 @@ const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
           <li class="horiz-nav-item">
             <a href={nav.security.href} aria-current={ariaCurrent(nav.security.href)} class={currentClass(nav.security.href, 'nav-link')}>{nav.security.label}</a>
           </li>
+
+          <!-- Desktop language selector -->
           <li class="horiz-nav-item language-menu" data-language-menu>
-            <button
+            <!-- v1: button + dropdown -->
+            <!-- <button
               type="button"
               class="nav-link w-inline-block language-menu-trigger"
               data-language-trigger
@@ -134,13 +138,7 @@ const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
               aria-expanded="false"
               aria-controls={`language-options-${locale}`}
             >
-              <img
-                src={currLang.flagSrc}
-                width="20"
-                height="13"
-                alt={currLang.flagAlt}
-                class="flag-icon"
-              />
+              <img src={currLang.flagSrc} width="20" height="13" alt={currLang.flagAlt} class="flag-icon"/>
               <span>{currLang.label}</span>
               <svg class="language-menu-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
             </button>
@@ -152,18 +150,26 @@ const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
                   role="menuitem"
                   aria-current={language.selected ? 'page' : undefined}
                 >
-                  <img
-                    src={language.flagSrc}
-                    width="20"
-                    height="13"
-                    alt={language.flagAlt}
-                    class="flag-icon"
-                  />
+                  <img src={language.flagSrc} width="20" height="13" alt={language.flagAlt} class="flag-icon"/>
                   <span>{language.label}</span>
                 </a>
               ))}
-            </div>
+            </div> -->
+
+            <!-- v2: link -->
+            <a href={altLang.href} class="nav-link w-inline-block">
+              <img
+                src={altLang.flagSrc}
+                width="20"
+                height="13"
+                alt={altLang.flagAlt}
+                class="flag-icon"
+              />
+              <span>{altLang.label}</span>
+            </a>
           </li>
+
+          <!-- Mobile language switcher -->
           <li class="horiz-nav-item mobile-language-link">
             <a href={altLang.href} class="nav-link w-inline-block">
               <img
