@@ -9,6 +9,8 @@ export interface Product {
   slug: string;
   name: string;
   featured?: boolean;
+  /** Optional explicit related-product references, validated during production builds. */
+  relatedProductSlugs?: readonly string[];
   fullName: { en: string; ja: string };
   fullNameJa?: string;
   category: string;

@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import PageBanner from "../components/PageBanner.astro";
-import JobList from "../components/JobList.astro";
-import { jobs } from "../data/jobs";
+import Layout from "../../layouts/Layout.astro";
+import PageBanner from "../../components/PageBanner.astro";
+import JobList from "../../components/JobList.astro";
+import { jobs } from "../../data/jobs";
 ---
 
 <Layout
@@ -27,7 +27,9 @@ import { jobs } from "../data/jobs";
       title="Careers"
       webflowVariant="overlay-dark"
       imageSrc="/images/wiring-test.jpg"
-      imageAlt="A battery energy storage system next to a solar farm"
+      imageAlt="An electrician testing wires"
+      imageWidth={4000}
+      imageHeight={3000}
     />
 
     <section class="section careers-content">
@@ -44,13 +46,13 @@ import { jobs } from "../data/jobs";
         <div class="section-col-content">
           <h2 class="h1">Our Culture</h2>
 
-          <p class="body-txt gray">
+          <p class="body-txt text-muted">
             At BMTech, engineers and specialists work across disciplines to
             develop reliable technologies for battery management and energy
             storage.
           </p>
 
-          <p class="body-txt gray">
+          <p class="body-txt text-muted">
             We value practical problem-solving, continuous learning, individual
             initiative, and meaningful contributions. As part of a growing team,
             employees have opportunities to take ownership of their work and
@@ -62,7 +64,7 @@ import { jobs } from "../data/jobs";
       <div class="flex-container-y">
         <div class="flex-y">
           <h2 class="h1 centered">Open Positions</h2>
-          <p class="body-txt centered gray">
+          <p class="body-txt centered text-muted">
             Explore current opportunities to join BMTech.
           </p>
         </div>

@@ -23,7 +23,7 @@ const { job } = Astro.props as Props;
     <style>html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo) {visibility: hidden !important;}</style>
   </Fragment>
 
-  <main class="main-wrapper">
+  <div class="main-wrapper">
     <section class="section">
       <div class="job-detail-layout">
         <div class="w-richtext job-detail-content">
@@ -34,7 +34,7 @@ const { job } = Astro.props as Props;
 
           <!-- block 2: Overview -->
           <h2>Position Overview</h2>
-          <p class="body-txt gray">{job.overview}</p>
+          <p class="body-txt text-muted">{job.overview}</p>
 
           <!-- block 3: Responsibilities -->
           <h2>Responsibilities</h2>
@@ -62,7 +62,7 @@ const { job } = Astro.props as Props;
         <!-- block 6: Apply -->
         <aside class="job-apply-card" aria-labelledby="job-apply-title">
           <h2 id="job-apply-title">Apply</h2>
-          <p class="body-txt gray" style="margin-bottom: 0px">
+          <p class="body-txt text-muted" style="margin-bottom: 0px">
             Send your resume and a brief introduction to BMTech.
           </p>
           <Button
@@ -76,5 +76,5 @@ const { job } = Astro.props as Props;
         </aside>
       </div>
     </section>
-  </main>
+  </div>
 </Layout>

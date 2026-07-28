@@ -1,16 +1,13 @@
 ---
 import ProductLayout from '../../../layouts/ProductLayout.astro';
 import { products } from '../../../data/products';
+import { getProductBySlug, getProductStaticPaths } from '../../../lib/product-routes';
 
 export function getStaticPaths() {
-  return products.map((product) => ({ params: { slug: product.slug } }));
+  return getProductStaticPaths();
 }
 
-const product = products.find((candidate) => candidate.slug === Astro.params.slug);
-
-if (!product) {
-  throw new Error(`Product not found for slug: ${Astro.params.slug}`);
-}
+const product = getProductBySlug(Astro.params.slug);
 ---
 
 <ProductLayout product={product} allProducts={products} locale="ja" />

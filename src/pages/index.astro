@@ -27,7 +27,7 @@ const homepageProducts = sortProductsBySlug(products.filter((product) => product
 
   <div class="w-layout-vflex main-wrapper">
   <section class="hero-section">
-    <div data-poster-url="videos/windfarm2-1_poster.0000000.jpg" data-video-urls="videos/windfarm2-1_mp4.mp4,videos/windfarm2-1_webm.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="hero-video w-background-video w-background-video-atom"><video id="68e50f0e-89e1-74b9-230c-fb6f5dbc2fd2-video" autoplay="" loop="" style="background-image:url(&quot;videos/windfarm2-1_poster.0000000.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
+    <div data-poster-url="videos/windfarm2-1_poster.0000000.jpg" data-video-urls="videos/windfarm2-1_mp4.mp4,videos/windfarm2-1_webm.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="hero-video w-background-video w-background-video-atom"><video id="68e50f0e-89e1-74b9-230c-fb6f5dbc2fd2-video" autoplay="" loop="" preload="auto" poster="videos/windfarm2-1_poster.0000000.jpg" width="1280" height="720" style="background-image:url(&quot;videos/windfarm2-1_poster.0000000.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
         <source src="videos/windfarm2-1_mp4.mp4" data-wf-ignore="true">
         <source src="videos/windfarm2-1_webm.webm" data-wf-ignore="true">
       </video></div>
@@ -57,10 +57,10 @@ const homepageProducts = sortProductsBySlug(products.filter((product) => product
       </div>
       <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ee" style="opacity:0" class="section-col-content">
         <h1 class="h1">Who We Are</h1>
-        <p class="body-txt gray">
+        <p class="body-txt text-muted">
           Battery Management Technology Corporation (BMTech) is a Dallas, Texas-based cleantech company dedicated to advancing battery and energy management technologies. We devolp innovative solutions that support the growing demand for safe, reliable, and efficient energy storage.
         </p>
-        <p class="body-txt gray">
+        <p class="body-txt text-muted">
           Our integrated hardware and software solutions help customers optimize battery performance, improve operational reliability, and maximize the value of their energy systems.
         </p>
       </div>
@@ -68,7 +68,7 @@ const homepageProducts = sortProductsBySlug(products.filter((product) => product
     <div class="section-container">
       <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ee" style="opacity:0" class="section-col-content">
         <h1 class="h1">American Engineering, Global Impact</h1>
-        <p class="body-txt gray">
+        <p class="body-txt text-muted">
           Built on American engineering principles, BMTech develops innovative battery and energy management solutions designed for safety, reliability, and performance. We believe strong customer relationships are built through dependable products, practical engineering, and long-term support.
         </p>
       </div>
@@ -76,7 +76,7 @@ const homepageProducts = sortProductsBySlug(products.filter((product) => product
         <img 
           class="section-col-img" 
           src="images/texas-usa-flags.jpg" 
-          alt="A metal sign reading: BMTech; empower a sustainable future" 
+          alt="Texas and United States flags"
           style="opacity:0" 
           sizes="(max-width: 2093px) 100vw, 2093px" 
           loading="lazy" 
@@ -87,7 +87,7 @@ const homepageProducts = sortProductsBySlug(products.filter((product) => product
   </section>
   <section class="image-divider">
     <div class="left-img-wrap"><img src="images/bess_compressed.jpeg" loading="lazy" sizes="(max-width: 1500px) 100vw, 1500px" srcset="images/bess_compressed-p-500.jpeg 500w, images/bess_compressed-p-800.jpeg 800w, images/bess_compressed-p-1080.jpeg 1080w, images/bess_compressed.jpeg 1500w" alt="A Battery Energy Storage System in the desert" class="image" /></div>
-    <div data-poster-url="videos/solar-sky-poster.jpg" data-video-urls="videos/solar-sky.mp4,videos/solar-sky.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="background-video w-background-video w-background-video-atom"><video id="b6856f96-fb76-76a6-6ec9-9a81c2960e88-video" autoplay="" loop="" style="background-image:url(&quot;videos/solar-sky-poster.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
+    <div data-poster-url="videos/solar-sky-poster.jpg" data-video-urls="videos/solar-sky.mp4,videos/solar-sky.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="background-video w-background-video w-background-video-atom"><video id="b6856f96-fb76-76a6-6ec9-9a81c2960e88-video" autoplay="" loop="" poster="videos/solar-sky-poster.jpg" width="1280" height="720" style="background-image:url(&quot;videos/solar-sky-poster.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
         <source src="videos/solar-sky.mp4" data-wf-ignore="true">
         <source src="videos/solar-sky.webm" data-wf-ignore="true">
       </video></div>
@@ -96,7 +96,7 @@ const homepageProducts = sortProductsBySlug(products.filter((product) => product
     <div class="flex-container-y">
       <div class="flex-y">
         <h1 class="h1 centered">Products</h1>
-        <p class="body-txt centered gray padding-bottom">Explore our Battery Management System (BMS) and Energy Management System (EMS) products.</p>
+        <p class="body-txt centered text-muted padding-bottom">Explore our Battery Management System (BMS) and Energy Management System (EMS) products.</p>
         <Button href="/products" variant="secondary">See All</Button>
       </div>
       <ProductCarousel

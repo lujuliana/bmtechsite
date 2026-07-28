@@ -19,21 +19,15 @@ import PageBanner from '../../components/PageBanner.astro';
   <div class="main-wrapper">
     <PageBanner
       title="セキュリティ"
+      webflowVariant="overlay-dark"
       imageSrc="/images/security-banner.png"
       imageAlt="Picture of a lock"
-      imageSizes="(max-width: 3168px) 100vw, 3168px"
-      imageSrcSet="/images/security-banner-p-500.png 500w, /images/security-banner-p-800.png 800w, /images/security-banner-p-1080.png 1080w, /images/security-banner-p-1600.png 1600w, /images/security-banner-p-2000.png 2000w, /images/security-banner-p-2600.png 2600w, /images/security-banner.png 3168w"
-      sectionClass="hero-section small overlay-dark-6"
-      containerClass="w-layout-blockcontainer hero-container overlay-dark-7 w-container"
-      headingClass="display-lg banner overlay-dark-8"
-      headingDataWId="96edadfd-23a4-b9be-c473-0bee37c09d26"
-      headingInitiallyHidden
-      overlayClass="overlay overlay-dark-9"
-      imageClass="image-2 overlay-dark-10"
+      imageWidth={3168}
+      imageHeight={953}
     />
     <section class="section">
       <div class="w-richtext">
-        <h1>脆弱性開示方針</h1>
+        <h1 class="security-policy-title">脆弱性開示方針</h1>
 
         <h2><strong>目的</strong></h2>
         <p>BMTechは、当社が提供する製品およびサービスのセキュリティの維持・向上に真摯に取り組んでいます。当社は、お客様、セキュリティ研究者、およびセキュリティコミュニティの皆様から、潜在的な脆弱性について責任ある方法でご報告いただくことで、迅速な調査および適切な対応を行えるよう、ご協力をお願いしています。</p>
@@ -45,7 +39,7 @@ import PageBanner from '../../components/PageBanner.astro';
 
         <h2><strong>脆弱性の報告方法</strong></h2>
         <p>BMTechの製品またはサービスにおいてセキュリティ上の脆弱性を発見された場合は、以下のメールアドレスまでご連絡ください。</p>
-        <p><strong>メール: <a href="mailto:cybersecurity@bmtech.com" style="text-decoration: underline;">cybersecurity@bmtech.com</a></strong></p>
+        <p><strong>メール: <a href="mailto:cybersecurity@bmtech.com" class="security-policy-link">cybersecurity@bmtech.com</a></strong></p>
         <p>迅速かつ適切な調査を行うため、可能な範囲で以下の情報を含めてご報告ください。</p>
         <ul role="list">
           <li>影響を受ける製品またはサービスの名称</li>
@@ -104,3 +98,20 @@ import PageBanner from '../../components/PageBanner.astro';
     </section>
   </div>
 </Layout>
+
+<style>
+  .security-policy-title {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-4);
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 44px;
+  }
+  .security-policy-link {
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+  .security-policy-link:hover {
+    color: var(--color-link-inverse);
+  }
+</style>

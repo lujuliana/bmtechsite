@@ -1,5 +1,11 @@
 ---
-type Locale = 'en' | 'ja';
+import {
+  activeAriaCurrent,
+  activeLinkClass,
+  normalizePath,
+  resolveLocaleRoute,
+  type Locale,
+} from '../lib/routes';
 
 interface Props {
   locale: Locale;
@@ -15,6 +21,7 @@ const navigation = {
     home: { label: 'Home', href: '/' },
     products: { label: 'Products', href: '/products' },
     security: { label: 'Security', href: '/security-vuln' },
+    careers: { label: 'Careers', href: '/careers' },
     contact: { label: 'Contact', href: '/contact' },
   },
   ja: {
@@ -27,32 +34,9 @@ const navigation = {
   },
 } as const;
 
-const normalizePath = (path: string) => {
-  let pathname = path.trim();
-
-  if (/^[a-z][a-z\d+.-]*:\/\//i.test(pathname)) {
-    pathname = new URL(pathname).pathname;
-  } else {
-    pathname = pathname.split(/[?#]/)[0];
-  }
-
-  pathname = `/${pathname.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '')}`;
-  pathname = pathname.replace(/\/{2,}/g, '/');
-
-  pathname = pathname.replace(/\/index(?:\.html)?$/i, '') || '/';
-  pathname = pathname.replace(/\.html$/i, '');
-
-  if (/^\/home$/i.test(pathname)) return '/';
-  if (/^\/ja(?:\/home)?$/i.test(pathname)) return '/ja';
-
-  return pathname;
-};
-
 const nav = navigation[locale];
+const careersLink = locale === 'en' ? navigation.en.careers : undefined;
 const normalizedCurrentPath = normalizePath(currentPath);
-const langSwitchPath = locale === 'en'
-  ? (normalizedCurrentPath === '/' ? '/ja/' : `/ja${normalizedCurrentPath}`)
-  : (normalizedCurrentPath === '/ja' ? '/' : normalizedCurrentPath.replace(/^\/ja(?=\/)/, ''));
 
 const languages = {
   en: {
@@ -64,15 +48,16 @@ const languages = {
   ja: {
     nativeLabel: '日本語',
     englishLabel: 'Japanese (日本語)',
-    // englishLabel: 'Japanese',
     flagAlt: 'Japan flag',
     flagSrc: '/images/jpn-flag.png',
   },
 } as const;
 
 const altLocale: Locale = locale === 'en' ? 'ja' : 'en';
+const alternatePath = resolveLocaleRoute(currentPath, altLocale);
+const currentLocalePath = resolveLocaleRoute(currentPath, locale) ?? normalizedCurrentPath;
 
-const getLangOption = (langLocale: Locale) => {
+const getLangOption = (langLocale: Locale, href: string) => {
   const language = languages[langLocale];
 
   return {
@@ -81,24 +66,20 @@ const getLangOption = (langLocale: Locale) => {
       locale === 'en'
         ? language.englishLabel
         : language.nativeLabel,
-    href:
-      langLocale === locale
-        ? normalizedCurrentPath
-        : langSwitchPath,
+    href,
     selected: langLocale === locale,
   };
 };
 
-const currLang = getLangOption(locale);
-const altLang = getLangOption(altLocale);
-const langOptions = [currLang, altLang];
+const currLang = getLangOption(locale, currentLocalePath);
+const altLang = alternatePath ? getLangOption(altLocale, alternatePath) : undefined;
+const langOptions = altLang ? [currLang, altLang] : [];
 const mobileLanguageLabel = altLocale === 'ja' ? 'Japanese' : 'English';
 
 const langMenuLabel = locale === 'en' ? 'Select language' : '言語を選択';
-const isCurrent = (href: string) => normalizedCurrentPath === normalizePath(href);
 const currentClass = (href: string, baseClass: string) =>
-  `${baseClass}${isCurrent(href) ? ' w--current' : ''}`;
-const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
+  activeLinkClass(baseClass, normalizedCurrentPath, href);
+const ariaCurrent = (href: string) => activeAriaCurrent(normalizedCurrentPath, href);
 ---
 
 <header data-wf-component-id={nav.componentId} data-wf-variant-state="base" class="header">
@@ -108,7 +89,7 @@ const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
         <img
           sizes={locale === 'en' ? '(max-width: 479px) 98vw, (max-width: 3344px) 100vw, 3344px' : '(max-width: 3344px) 100vw, 3344px'}
           srcset="/images/BMT-logo-blue-p-500.png 500w, /images/BMT-logo-blue-p-800.png 800w, /images/BMT-logo-blue-p-1080.png 1080w, /images/BMT-logo-blue-p-1600.png 1600w, /images/BMT-logo-blue-p-2000.png 2000w, /images/BMT-logo-blue-p-2600.png 2600w, /images/logo-blue.png 3344w"
-          alt="logo"
+          alt="BMTech logo"
           src="/images/logo-blue.png"
           class="navbar-logo"
         />
@@ -124,6 +105,11 @@ const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
           <li class="horiz-nav-item">
             <a href={nav.security.href} aria-current={ariaCurrent(nav.security.href)} class={currentClass(nav.security.href, 'nav-link')}>{nav.security.label}</a>
           </li>
+          {careersLink && (
+            <li class="horiz-nav-item">
+              <a href={careersLink.href} aria-current={ariaCurrent(careersLink.href)} class={currentClass(careersLink.href, 'nav-link')}>{careersLink.label}</a>
+            </li>
+          )}
           <li class="horiz-nav-item">
             <a href={nav.contact.href} aria-current={ariaCurrent(nav.contact.href)} class={currentClass(nav.contact.href, 'nav-link')}>{nav.contact.label}</a>
           </li>
@@ -131,6 +117,8 @@ const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
         </ul>
       </nav>
       <div class="nav-right">
+        {altLang && (
+          <>
         <div class="language-menu nav-right-language-menu" data-language-menu>
           <button
             type="button"
@@ -199,6 +187,8 @@ const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
           </svg>
           <span>{mobileLanguageLabel}</span>
         </a>
+          </>
+        )}
         <div class="menu-button w-nav-button">
           <div class="icon-2 w-icon-nav-menu"></div>
         </div>

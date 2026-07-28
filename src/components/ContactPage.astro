@@ -1,0 +1,211 @@
+---
+import ContactForm from './ContactForm.astro';
+import PageBanner from './PageBanner.astro';
+
+type Locale = 'en' | 'ja';
+
+interface ContactCopy {
+  heading: string;
+  introduction: string;
+  officeLabel: string;
+  officeAddress: readonly [string, string];
+  factoryLabel: string;
+  factoryAddress: readonly [string, string];
+  emailLabel: string;
+  socialLabel: string;
+}
+
+interface Props {
+  locale: Locale;
+  bannerTitle: string;
+  bannerImageAlt: string;
+  copy: ContactCopy;
+}
+
+const { locale, bannerTitle, bannerImageAlt, copy } = Astro.props as Props;
+---
+
+<div class="main-wrapper">
+  <PageBanner
+    title={bannerTitle}
+    imageSrc="/images/solar-field.jpg"
+    imageAlt={bannerImageAlt}
+    imageWidth={1920}
+    imageHeight={1272}
+    webflowVariant="overlay-dark"
+  />
+  <div class="w-layout-blockcontainer container w-container">
+    <div class="contact-wrap">
+      <div class="contact-left">
+        <h2 data-w-id="31f30811-b254-762b-b994-04dbeda6df14" style="opacity:0" class="contact-h2">{copy.heading}</h2>
+        <p data-w-id="31f30811-b254-762b-b994-04dbeda6df16" style="opacity:0" class="body-txt text-muted">{copy.introduction}</p>
+        <div data-w-id="31f30811-b254-762b-b994-04dbeda6df28" style="opacity:0" class="contact-info-item _1st">
+          <p class="contact-info-title">{copy.officeLabel}</p>
+          <p class="section-content">{copy.officeAddress[0]}<br />{copy.officeAddress[1]}</p>
+        </div>
+        <div data-w-id="31f30811-b254-762b-b994-04dbeda6df2d" style="opacity:0" class="contact-info-item">
+          <p class="contact-info-title">{copy.factoryLabel}</p>
+          <p class="section-content">{copy.factoryAddress[0]}<br />{copy.factoryAddress[1]}</p>
+        </div>
+        <div data-w-id="31f30811-b254-762b-b994-04dbeda6df2d" style="opacity:0" class="contact-info-item">
+          <p class="contact-info-title">{copy.emailLabel}</p>
+          <a href="mailto:info@bmtech.com?subject=Inquiry" class="section-content link">info@bmtech.com</a>
+        </div>
+        <div data-w-id="31f30811-b254-762b-b994-04dbeda6df2d" class="contact-info-item">
+          <p class="contact-info-title">{copy.socialLabel}</p>
+          <ul role="list" class="social-list">
+            <li class="social-item">
+              <a href="https://www.linkedin.com/company/battery-management-technology-corporation" target="_blank" rel="noopener noreferrer" class="social-link-two w-inline-block"><img src="/images/linkedin.svg" loading="lazy" alt="LinkedIn" class="social-icon" /></a>
+            </li>
+          </ul>
+        </div>
+        <a data-w-id="31f30811-b254-762b-b994-04dbeda6df2d" href="https://www.google.com/maps/place/1255+W+15th+St,+Plano,+TX+75075/" target="_blank" rel="noopener noreferrer" class="map-link-2 map-link w-inline-block"><img src="/images/map-md.png" loading="lazy" sizes="(max-width: 923px) 100vw, 923px" srcset="/images/map-md-500.png 500w, /images/map-md-800.png 800w, /images/map-md.png 923w" alt="Map to BMTech's Plano office" class="map-2 map" /></a>
+      </div>
+      <ContactForm locale={locale} initiallyHidden />
+    </div>
+  </div>
+</div>
+
+<style>
+.contact-info-item {
+  min-height: var(--space-8);
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid #6a6a6a1a;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.contact-info-item._1st {
+  margin-top: var(--space-6);
+  border-top: 1px solid #6a6a6a1a;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.section-content {
+  max-width: 21rem;
+  color: var(--color-text-muted);
+  text-align: right;
+  white-space: normal;
+  margin-bottom: 0;
+}
+a.section-content.link {
+  color: var(--color-brand);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+a.section-content.link:hover {
+  color: var(--color-link-inverse);
+}
+.map-link {
+  margin-top: var(--space-4);
+  color: var(--color-link);
+  text-decoration: none;
+}
+.map-link:hover {
+  color: var(--color-link-inverse);
+}
+.social-list {
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin-top: var(--space-0);
+  margin-bottom: 0;
+  padding-left: 0;
+  display: flex;
+}
+.contact-wrap {
+  margin-top: var(--page-padding-inline);
+  grid-column-gap: var(--space-8);
+  grid-row-gap: var(--space-8);
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: 1fr;
+  display: grid;
+}
+.map {
+  border-radius: 16px;
+}
+.contact-info-title {
+  margin-bottom: var(--space-0);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+.social-item {
+  list-style-type: none;
+}
+.social-link-two {
+  background-color: #f5f5f5;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+  color: var(--color-link);
+  text-decoration: none;
+  display: flex;
+}
+.social-link-two:hover {
+  color: var(--color-link-inverse);
+}
+.contact-h2 {
+  margin-top: var(--space-0);
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-heading-1);
+  line-height: var(--line-height-heading-1);
+  font-weight: var(--font-weight-semibold);
+}
+.map-link-2 {
+  margin-top: var(--space-7);
+}
+.map-2 {
+  border-radius: 16px;
+  margin-top: 0;
+}
+@media screen and (min-width: 1440px) {
+  .section-content {
+    max-width: none;
+  }
+  .contact-info-title {
+    margin-bottom: 0;
+  }
+}
+@media screen and (max-width: 991px) {
+  .section-content {
+    max-width: none;
+  }
+  .contact-left {
+    padding-right: var(--space-6);
+    padding-left: var(--space-6);
+  }
+  .contact-wrap {
+    grid-template-columns: 1fr;
+  }
+  .contact-h2 {
+    font-size: var(--font-size-display-lg);
+  }
+}
+@media screen and (max-width: 479px) {
+  .map, .map-2 {
+    display: none;
+  }
+  .contact-info-item {
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+  }
+  .contact-info-item._1st {
+    grid-column-gap: var(--space-6);
+    grid-row-gap: var(--space-6);
+  }
+  .section-content {
+    margin-bottom: 11px;
+  }
+  .map-link, .map-link-2 {
+    width: 100%;
+  }
+  .contact-wrap {
+    grid-column-gap: var(--space-8);
+    grid-row-gap: var(--space-8);
+  }
+}
+</style>

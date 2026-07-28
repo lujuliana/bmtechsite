@@ -1,7 +1,18 @@
 ---
+import ContactPage from '../components/ContactPage.astro';
 import Layout from '../layouts/Layout.astro';
-import ContactForm from '../components/ContactForm.astro';
-import PageBanner from '../components/PageBanner.astro';
+
+const copy = {
+  heading: 'Get in touch',
+  introduction: 'Have a question, interested in our products, or looking to collaborate? Fill out the form or send an email, and our team will follow up with you shortly.',
+  officeLabel: 'Office',
+  officeAddress: ['1255 W 15th St, Ste 325', 'Plano, TX 75075'],
+  factoryLabel: 'Factory',
+  factoryAddress: ['789 N Grover Rd, Ste 103', 'Richardson, TX 75081'],
+  emailLabel: 'Email',
+  socialLabel: 'LinkedIn',
+} as const;
+
 ---
 
 <Layout
@@ -22,46 +33,5 @@ import PageBanner from '../components/PageBanner.astro';
     <script src="/js/contact-form.js" type="text/javascript"></script>
   </Fragment>
 
-  <div class="main-wrapper">
-    <PageBanner
-      title="Contact Us"
-      webflowVariant="overlay-dark"
-      imageSrc="/images/solar-field.jpg"
-      imageAlt="A field of solar panels"
-    />
-    <div class="w-layout-blockcontainer container w-container">
-      <div class="contact-wrap">
-        <div class="contact-left">
-          <h2 data-w-id="31f30811-b254-762b-b994-04dbeda6df14" style="opacity:0" class="contact-h2">Get in touch</h2>
-          <p data-w-id="31f30811-b254-762b-b994-04dbeda6df16" style="opacity:0" class="body-txt gray">Have a question, interested in our products, or looking to collaborate? Fill out the form or send an email, and our team will follow up with you shortly.</p>
-          <div data-w-id="31f30811-b254-762b-b994-04dbeda6df28" style="opacity:0" class="contact-info-item _1st">
-            <p class="contact-info-title">Office</p>
-            <p class="section-content">1255 W 15th St, Ste 325<br>Plano, TX 75075</p>
-          </div>
-          <div data-w-id="31f30811-b254-762b-b994-04dbeda6df2d" style="opacity:0" class="contact-info-item">
-            <p class="contact-info-title">Factory</p>
-            <p class="section-content">789 N Grover Rd, Ste 103<br>Richardson, TX 75081</p>
-          </div>
-          <div data-w-id="31f30811-b254-762b-b994-04dbeda6df2d" style="opacity:0" class="contact-info-item">
-            <p class="contact-info-title">Email</p>
-            <a href="mailto:info@bmtech.com?subject=Inquiry" class="section-content link">info@bmtech.com</a>
-          </div>
-          <!-- <div data-w-id="d1b609b2-14cf-2074-c3a7-c99485231387" style="opacity:0" class="contact-info-item">
-            <p class="contact-info-title">Phone</p>
-            <a href="" class="section-content link"></a>
-          </div> -->
-          <div data-w-id="31f30811-b254-762b-b994-04dbeda6df2d" class="contact-info-item">
-            <p class="contact-info-title">LinkedIn</p>
-            <ul role="list" class="social-list">
-              <li class="social-item">
-                <a href="https://www.linkedin.com/company/battery-management-technology-corporation" target="_blank" rel="noopener noreferrer" class="social-link-two w-inline-block"><img src="/images/linkedin.svg" loading="lazy" alt="Icon" class="social-icon"></a>
-              </li>
-            </ul>
-          </div>
-          <a data-w-id="31f30811-b254-762b-b994-04dbeda6df2d" href="https://www.google.com/maps/place/1255+W+15th+St,+Plano,+TX+75075/" target="_blank" rel="noopener noreferrer" class="map-link-2 map-link w-inline-block"><img src="/images/map-md.png" loading="lazy" sizes="(max-width: 923px) 100vw, 923px" srcset="/images/map-md-500.png 500w, /images/map-md-800.png 800w, /images/map-md.png 923w" alt="Map" class="map-2 map"></a>
-        </div>
-        <ContactForm locale="en" initiallyHidden />
-      </div>
-    </div>
-  </div>
+  <ContactPage locale="en" bannerTitle="Contact Us" bannerImageAlt="A field of solar panels" {copy} />
 </Layout>

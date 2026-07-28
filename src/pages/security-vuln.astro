@@ -17,10 +17,17 @@ import PageBanner from '../components/PageBanner.astro';
   </Fragment>
 
   <div class="main-wrapper">
-    <PageBanner title="Security" webflowVariant="overlay-dark" imageSrc="/images/security-banner.png" imageAlt="Picture of a lock" />
+    <PageBanner
+      title="Security"
+      webflowVariant="overlay-dark"
+      imageSrc="/images/security-banner.png"
+      imageAlt="Picture of a lock"
+      imageWidth={3168}
+      imageHeight={953}
+    />
     <section class="section">
       <div class="w-richtext">
-        <h1>Vulnerability Information Disclosure Policy</h1>
+        <h1 class="security-policy-title">Vulnerability Information Disclosure Policy</h1>
 
         <h2><strong>Purpose</strong></h2>
         <p>BMTech is committed to maintaining the security of our products and services. We encourage customers, security researchers, and members of the security community to responsibly report potential security vulnerabilities so they can be investigated and addressed in a timely manner.</p>
@@ -31,7 +38,7 @@ import PageBanner from '../components/PageBanner.astro';
         <p>Reports relating solely to third-party products or services that are not developed or maintained by BMTech should be directed to the appropriate vendor whenever possible.</p>
 
         <h2><strong>Reporting a Vulnerability</strong></h2>
-        <p>If you believe you have identified a security vulnerability in a BMTech product or service, please report it by sending an email to <strong><a href="mailto:cybersecurity@bmtech.com" style="text-decoration: underline;">cybersecurity@bmtech.com</a></strong>.</p>
+        <p>If you believe you have identified a security vulnerability in a BMTech product or service, please report it by sending an email to <strong><a href="mailto:cybersecurity@bmtech.com" class="security-policy-link">cybersecurity@bmtech.com</a></strong>.</p>
         <p>To help us investigate your report, please include as much of the following information as possible: </p>
         <ul role="list">
           <li>The affected product or service</li>
@@ -87,3 +94,20 @@ import PageBanner from '../components/PageBanner.astro';
     </section>
   </div>
 </Layout>
+
+<style>
+  .security-policy-title {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-4);
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 44px;
+  }
+  .security-policy-link {
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+  .security-policy-link:hover {
+    color: var(--color-link-inverse);
+  }
+</style>

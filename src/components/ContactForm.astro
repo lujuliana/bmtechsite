@@ -83,3 +83,92 @@ const text = content[locale];
     <div>{text.errorMessage}</div>
   </div>
 </div>
+
+<style>
+.single-block {
+  padding-bottom: var(--space-4);
+}
+.form-main {
+  padding: var(--space-7);
+  background-color: var(--color-white);
+  border: 1px solid #e9e9e9;
+  border-radius: 16px;
+}
+.success-message {
+  padding: var(--space-6) var(--space-2);
+  border-radius: var(--radius-sm);
+  color: var(--color-brand);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-heading-4);
+  text-align: center;
+  background-color: #d4e8ff;
+}
+.form-select {
+  height: 100%;
+  margin-bottom: var(--space-0);
+  padding: var(--space-4) var(--space-5);
+  color: var(--color-text-muted);
+  background-color: #0000;
+  border: 0 solid #000;
+}
+html:lang(ja) .form-select {
+  font-family: var(--font-family-locale-ja);
+  font-weight: var(--font-weight-regular);
+}
+.error-message {
+  margin-top: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-sm);
+  color: #a00000;
+  background-color: #ffd2d2;
+}
+.form-input {
+  height: auto;
+  margin-bottom: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid #c8c8c8;
+  border-radius: 8px;
+}
+.form-input.message {
+  padding-bottom: 100px;
+}
+.form-input.select {
+  margin-bottom: var(--space-3);
+  padding: var(--space-0) var(--space-4) var(--space-0) var(--space-0);
+}
+.btn-submit {
+  color: #fff;
+  background-color: #010101;
+  border-radius: 100px;
+  width: 100%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  transition: background-color .4s;
+  display: block;
+}
+.btn-submit:hover {
+  background-color: #4a4a4a;
+}
+.btn-submit.btn-primary {
+  background-color: #002957;
+}
+.btn-submit.btn-primary:hover {
+  background-color: #355e8a;
+}
+.btn-submit.btn-primary:active {
+  background-color: #5c7999;
+}
+.input-label {
+  margin-bottom: var(--space-0);
+  padding-bottom: var(--space-2);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-semibold);
+}
+@media screen and (min-width: 1440px) {
+  .form {
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+</style>

@@ -3,6 +3,8 @@ interface Props {
   title: string;
   imageSrc: string;
   imageAlt: string;
+  imageWidth: number;
+  imageHeight: number;
   imageSrcSet?: string;
   imageSizes?: string;
   webflowVariant?: string;
@@ -19,6 +21,8 @@ const {
   title,
   imageSrc,
   imageAlt,
+  imageWidth,
+  imageHeight,
   imageSrcSet,
   imageSizes,
   webflowVariant,
@@ -36,5 +40,5 @@ const {
   <div class={containerClass}>
     <h1 data-w-id={headingDataWId} style={headingInitiallyHidden ? 'opacity:0' : undefined} class={headingClass}>{title}</h1>
   </div>
-  <div class={overlayClass}></div><img sizes={imageSizes} srcset={imageSrcSet} alt={imageAlt} loading="lazy" src={imageSrc} class={imageClass}>
+  <div class={overlayClass}></div><img sizes={imageSizes} srcset={imageSrcSet} alt={imageAlt} loading="eager" fetchpriority="high" decoding="async" width={imageWidth} height={imageHeight} src={imageSrc} class={imageClass}>
 </section>

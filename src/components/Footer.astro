@@ -1,4 +1,6 @@
 ---
+import { activeAriaCurrent, activeLinkClass } from '../lib/routes';
+
 interface Props {
   locale: 'en' | 'ja';
   currentPath: string;
@@ -13,8 +15,6 @@ const content = {
     security: 'Security',
     contact: 'Contact',
     headquarters: 'OFFICE: 1255 W 15th St, Ste 325, Plano, TX 75075, USA',
-    factory: 'FACTORY: 789 N Grover Rd, Ste',
-    phone: '',
     links: {
       home: '/',
       products: '/products',
@@ -30,8 +30,6 @@ const content = {
     security: 'セキュリティ',
     contact: 'お問い合わせ',
     headquarters: '本社： Suite 325, 789 W 15th St, Plano, TX 75075, USA',
-    factory: '工場: Suite 103, 789 N Grover Rd<br>Richardson, TX 75081, USA',
-    phone: '',
     links: {
       home: '/ja/',
       products: '/ja/products',
@@ -44,36 +42,11 @@ const content = {
 } as const;
 
 const footer = content[locale];
-const normalizePath = (path: string) => {
-  let pathname = path.trim();
-
-  if (/^[a-z][a-z\d+.-]*:\/\//i.test(pathname)) {
-    pathname = new URL(pathname).pathname;
-  } else {
-    pathname = pathname.split(/[?#]/)[0];
-  }
-
-  pathname = `/${pathname.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '')}`;
-  pathname = pathname.replace(/\/{2,}/g, '/');
-  pathname = pathname.replace(/\/index(?:\.html)?$/i, '') || '/';
-  pathname = pathname.replace(/\.html$/i, '');
-
-  if (/^\/home$/i.test(pathname)) return '/';
-  if (/^\/ja(?:\/home)?$/i.test(pathname)) return '/ja';
-
-  return pathname;
-};
-
-const normalizedCurrentPath = normalizePath(currentPath);
-const isCurrent = (href: string) => {
-  const normalizedHref = normalizePath(href);
-  const isProductsRoute = normalizedHref === '/products' || normalizedHref === '/ja/products';
-
-  return normalizedCurrentPath === normalizedHref
-    || (isProductsRoute && normalizedCurrentPath.startsWith(`${normalizedHref}/`));
-};
+const productsPath = footer.links.products;
 const linkClass = (href: string, baseClass: string) =>
-  `${baseClass}${isCurrent(href) ? ' w--current' : ''}`;
+  activeLinkClass(baseClass, currentPath, href, href === productsPath ? 'descendant' : 'exact');
+const ariaCurrent = (href: string) =>
+  activeAriaCurrent(currentPath, href, href === productsPath ? 'descendant' : 'exact');
 ---
 
 <footer class="footer" lang={locale}>
@@ -84,30 +57,51 @@ const linkClass = (href: string, baseClass: string) =>
         <nav id={footer.navId} class="footer-block">
           <ul role="list" class="footer-nav">
             <li class="footer-subhead3">
-              <a href={footer.links.home} aria-current={isCurrent(footer.links.home) ? 'page' : undefined} class={linkClass(footer.links.home, 'footer-page-link w-inline-block')}>
-                <div class="nav-link-two">{footer.home}</div><img src="/images/arrow-right.svg" loading="lazy" alt="Right arrow" class="arrow-right" />
+              <a href={footer.links.home} aria-current={ariaCurrent(footer.links.home)} class={linkClass(footer.links.home, 'footer-page-link w-inline-block')}>
+                <div class="nav-link-two">{footer.home}</div><img src="/images/arrow-right.svg" loading="lazy" alt="" class="arrow-right" />
               </a>
             </li>
             <li class="footer-subhead3">
-              <a href={footer.links.products} aria-current={isCurrent(footer.links.products) ? 'page' : undefined} class={linkClass(footer.links.products, 'footer-page-link w-inline-block')}>
-                <div class="nav-link-two">{footer.products}</div><img src="/images/arrow-right.svg" loading="lazy" alt="Right arrow" class="arrow-right" />
+              <a href={footer.links.products} aria-current={ariaCurrent(footer.links.products)} class={linkClass(footer.links.products, 'footer-page-link w-inline-block')}>
+                <div class="nav-link-two">{footer.products}</div><img src="/images/arrow-right.svg" loading="lazy" alt="" class="arrow-right" />
               </a>
             </li>
             <li class="footer-subhead3">
-              <a href={footer.links.security} aria-current={isCurrent(footer.links.security) ? 'page' : undefined} class={linkClass(footer.links.security, 'footer-page-link w-inline-block')}>
-                <div class="nav-link-two">{footer.security}</div><img src="/images/arrow-right.svg" loading="lazy" alt="Right arrow" class="arrow-right" />
+              <a href={footer.links.security} aria-current={ariaCurrent(footer.links.security)} class={linkClass(footer.links.security, 'footer-page-link w-inline-block')}>
+                <div class="nav-link-two">{footer.security}</div><img src="/images/arrow-right.svg" loading="lazy" alt="" class="arrow-right" />
               </a>
             </li>
           </ul>
         </nav>
         <div id={footer.contactId} class="footer-block">
-          <a href={footer.links.contact} aria-current={isCurrent(footer.links.contact) ? 'page' : undefined} class={linkClass(footer.links.contact, 'footer-subhead3 footer-page-link')}>{footer.contact}</a>
+          <a href={footer.links.contact} aria-current={ariaCurrent(footer.links.contact)} class={linkClass(footer.links.contact, 'footer-subhead3 footer-page-link')}>{footer.contact}</a>
           <a href="mailto:info@bmtech.com" class="footer-text link">info@bmtech.com</a>
           <div class="footer-text">{footer.headquarters}</div>
-          <!-- <div class="footer-text">{footer.factory}</div> -->
-          <!-- <a href="" class="footer-text">{footer.phone}</a> -->
         </div>
       </div>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer { width: var(--size-full-width); padding: var(--space-7) var(--section-padding-block) var(--space-6); background-color: var(--color-text); font-family: var(--font-family-display); color: var(--color-white); border-bottom: 1px solid #e4ebf3; justify-content: space-between; align-items: flex-start; display: flex; position: relative; inset: auto 0% 0%; }
+  :global(html:lang(ja)) .footer { font-family: var(--font-family-locale-ja); font-weight: var(--font-weight-regular); }
+  .footer-container { width: var(--container-max-width); max-width: var(--size-full-width); justify-content: space-between; align-items: flex-start; display: flex; }
+  .footer-wrapper { width: var(--size-full-width); grid-column-gap: var(--space-8); grid-row-gap: var(--grid-gap); justify-content: space-between; align-items: flex-start; display: flex; }
+  .footer-logo { max-width: 16rem; flex-shrink: 0; }
+  .footer-content { width: min(100%, 35rem); margin-left: auto; grid-column-gap: var(--grid-gap); grid-row-gap: var(--grid-gap); grid-template-rows: auto; grid-template-columns: 1fr 1fr; grid-auto-columns: 1fr; display: grid; justify-content: end; }
+  .footer-block { width: var(--size-full-width); flex-direction: column; justify-content: flex-start; align-items: flex-start; display: flex; }
+  .footer-text { margin-top: var(--space-2); margin-bottom: var(--space-2); font-family: var(--font-family-body); color: var(--color-white); font-size: var(--font-size-xs); line-height: var(--line-height-xs); text-decoration: none; }
+  .footer-text.link { font-family: var(--font-family-body); color: var(--color-link-inverse); font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); }
+  .footer-text.link:hover { color: var(--color-border); }
+  :global(html:lang(ja)) .footer-text { font-family: var(--font-family-locale-ja); }
+  .footer-nav { width: var(--size-full-width); margin-top: var(--space-0); margin-bottom: var(--space-0); padding-left: var(--space-0); list-style-type: none; }
+  .footer-subhead3 { width: var(--size-full-width); margin-bottom: var(--space-4); padding-bottom: var(--space-4); line-height: var(--line-height-heading-4); font-weight: var(--font-weight-regular); text-transform: uppercase; border-bottom: 1px solid #6a6a6a70; }
+  .footer-page-link { color: var(--color-white); text-decoration: none; -webkit-text-decoration-color: var(--color-white); text-decoration-color: var(--color-white); justify-content: space-between; align-items: center; display: flex; }
+  .footer-page-link:hover { color: var(--color-link-inverse); font-weight: var(--font-weight-semibold); }
+  .nav-link-two { text-decoration: none; }
+  .nav-link-two:global(.w--current) { color: #d5d5d5; }
+  @media screen and (max-width: 991px) { .footer { position: relative; inset: auto 0% 0%; } .footer-logo { max-width: 12rem; } }
+  @media screen and (max-width: 767px) { .footer { padding-right: var(--page-padding-inline); padding-left: var(--page-padding-inline); } .footer-wrapper { flex-direction: column; grid-template-columns: .5fr; align-items: center; } .footer-content { width: 100%; margin-top: var(--space-6); margin-left: 0; grid-column-gap: var(--space-6); grid-row-gap: var(--space-6); grid-template-columns: 1fr; justify-content: start; } }
+  @media screen and (max-width: 479px) { .footer-container { max-width: none; } .footer-logo { max-width: 10rem; } .footer-text.link { font-size: var(--font-size-xs); } }
+</style>

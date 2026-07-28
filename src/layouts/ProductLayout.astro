@@ -42,6 +42,7 @@ const imagePath = `/images/${product.image.src}`;
 const imageExtensionIndex = product.image.src.lastIndexOf('.');
 const responsiveImagePath = `/images/${product.image.src.slice(0, imageExtensionIndex)}-p-500${product.image.src.slice(imageExtensionIndex)}`;
 const imageWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('smc-') ? 640 : 800;
+const imageHeight = imageWidth * 0.75;
 ---
 
 <Layout
@@ -61,7 +62,11 @@ const imageWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('s
     <div class="w-layout-grid prod-page-grid">
       <img
         src={imagePath}
-        loading="lazy"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        width={imageWidth}
+        height={imageHeight}
         sizes="(max-width: 800px) 100vw, 800px"
         srcset={`${responsiveImagePath} 500w, ${imagePath} ${imageWidth}w`}
         alt={product.name}
