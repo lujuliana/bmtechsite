@@ -53,7 +53,9 @@ Localized pages should pass the correct `locale` and `currentPath` values to the
 - shared browser scripts; and
 - page-level layout structure.
 
-`ProductLayout.astro` builds product-detail pages from the centralized product catalog. Product route files remain small and primarily select a product record and locale.
+`ProductLayout.astro` builds product-detail pages from the centralized product catalog. Locale-specific dynamic routes (`products/[slug].astro` and `ja/products/[slug].astro`) generate every product URL from that catalog at build time.
+
+`ProductCatalogLayout.astro` owns the shared products-index structure and leaves only localized metadata and the banner title in each locale page.
 
 ## Product data
 

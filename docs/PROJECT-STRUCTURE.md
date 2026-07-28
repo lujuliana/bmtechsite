@@ -83,6 +83,10 @@ Provides the shared product-detail layout. It:
 - renders the main product page structure; and
 - generates related-product cards.
 
+#### `ProductCatalogLayout.astro`
+
+Provides the shared products-index page structure, metadata wiring, and Webflow attributes. Locale routes provide only localized copy and their banner.
+
 ### `src/components/`
 
 #### `Header.astro`
@@ -107,7 +111,7 @@ Astro creates public routes from files in this directory.
 
 - Top-level page files generate English routes.
 - `src/pages/ja/` generates Japanese routes.
-- Each locale's `products/` directory contains small data-driven product route files.
+- Each locale's `products/[slug].astro` dynamic route generates data-driven product detail pages from the catalog.
 - `404.astro` and `ja/404.astro` provide localized not-found pages.
 
 ### `src/data/`
@@ -157,7 +161,7 @@ Use `npm ci` for clean or automated installations when appropriate.
 ### Add or update a product
 
 1. Update the product record in `src/data/products.ts`.
-2. Add any required images under `public/images/`.
+2. Add any required images under `/images/`.
 3. Confirm the English and Japanese product routes use the product record.
 4. Run `npm run build`.
 5. Review both localized pages before deployment.

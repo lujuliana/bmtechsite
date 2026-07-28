@@ -1,0 +1,74 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageBanner from "../components/PageBanner.astro";
+import JobList from "../components/JobList.astro";
+import { jobs } from "../data/jobs";
+---
+
+<Layout
+  locale="en"
+  title="Careers | BMTech"
+  currentPath="/careers"
+  description="Explore career opportunities at BMTech and help develop advanced battery management and energy storage technologies."
+  ogTitle="Careers at BMTech"
+  ogDescription="Join BMTech and help develop reliable technologies for battery management and energy storage."
+  ogImage="/images/metal-sign.png"
+>
+  <Fragment slot="head">
+    <style>
+      html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo) {
+        visibility: hidden !important;
+      }
+    </style>
+  </Fragment>
+
+  <div class="w-layout-vflex main-wrapper">
+    <PageBanner
+      title="Careers"
+      webflowVariant="overlay-dark"
+      imageSrc="/images/wiring-test.jpg"
+      imageAlt="A battery energy storage system next to a solar farm"
+    />
+
+    <section class="section careers-content">
+      <div class="section-container">
+        <div class="section-col-aside">
+          <img
+            class="section-col-img"
+            src="/images/teamwork.jpeg"
+            alt="BMTech team members collaborating"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="section-col-content">
+          <h2 class="h1">Our Culture</h2>
+
+          <p class="body-txt gray">
+            At BMTech, engineers and specialists work across disciplines to
+            develop reliable technologies for battery management and energy
+            storage.
+          </p>
+
+          <p class="body-txt gray">
+            We value practical problem-solving, continuous learning, individual
+            initiative, and meaningful contributions. As part of a growing team,
+            employees have opportunities to take ownership of their work and
+            contribute directly to products used in real-world energy systems.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex-container-y">
+        <div class="flex-y">
+          <h2 class="h1 centered">Open Positions</h2>
+          <p class="body-txt centered gray">
+            Explore current opportunities to join BMTech.
+          </p>
+        </div>
+
+        <JobList jobs={jobs} />
+      </div>
+    </section>
+  </div>
+</Layout>

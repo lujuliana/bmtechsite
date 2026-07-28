@@ -1,0 +1,23 @@
+---
+import JobCard from "./JobCard.astro";
+import type { Job } from "../data/jobs";
+
+interface Props {
+  jobs: Job[];
+}
+
+const { jobs } = Astro.props as Props;
+---
+
+<style>
+  .job-card-list {
+    width: var(--size-full-width);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>
+
+<ul class="job-card-list">
+  {jobs.map((job) => <JobCard job={job} />)}
+</ul>

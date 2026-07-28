@@ -1,6 +1,4 @@
 ---
-import Button from './Button.astro';
-
 type Locale = 'en' | 'ja';
 
 interface Props {
@@ -94,6 +92,7 @@ const getLangOption = (langLocale: Locale) => {
 const currLang = getLangOption(locale);
 const altLang = getLangOption(altLocale);
 const langOptions = [currLang, altLang];
+const mobileLanguageLabel = altLocale === 'ja' ? 'Japanese' : 'English';
 
 const langMenuLabel = locale === 'en' ? 'Select language' : '言語を選択';
 const isCurrent = (href: string) => normalizedCurrentPath === normalizePath(href);
@@ -125,89 +124,81 @@ const ariaCurrent = (href: string) => isCurrent(href) ? 'page' : undefined;
           <li class="horiz-nav-item">
             <a href={nav.security.href} aria-current={ariaCurrent(nav.security.href)} class={currentClass(nav.security.href, 'nav-link')}>{nav.security.label}</a>
           </li>
-
-          <!-- Desktop language selector -->
-          <li class="horiz-nav-item language-menu" data-language-menu>
-            <!-- v1: button + dropdown -->
-            <button
-              type="button"
-              class="nav-link w-inline-block language-menu-trigger"
-              data-language-trigger
-              aria-label={langMenuLabel}
-              aria-haspopup="menu"
-              aria-expanded="false"
-              aria-controls={`language-options-${locale}`}
-            >
-              <!-- <img src={currLang.flagSrc} width="20" height="13" alt={currLang.flagAlt} class="flag-icon"/> -->
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="18" 
-                height="18" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="1.75" 
-                stroke-linecap="round" 
-                stroke-linejoin="round" 
-                aria-hidden="true"
-                class="lucide lucide-globe-icon lucide-globe language-menu-icon"
-              >
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-                <path d="M2 12h20"/>
-              </svg>
-              <span>{currLang.label}</span>
-              <svg class="language-menu-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
-            </button>
-            <div id={`language-options-${locale}`} class="language-menu-options" data-language-options role="menu" hidden>
-              {langOptions.map((language) => (
-                <a
-                  href={language.href}
-                  class:list={['language-menu-option', { 'is-selected': language.selected }]}
-                  role="menuitem"
-                  aria-current={language.selected ? 'page' : undefined}
-                >
-                  <img src={language.flagSrc} width="20" height="13" alt={language.flagAlt} class="flag-icon"/>
-                  <span>{language.label}</span>
-                </a>
-              ))}
-            </div>
-
-            <!-- v2: link -->
-            <!-- <a href={altLang.href} class="nav-link w-inline-block">
-              <img
-                src={altLang.flagSrc}
-                width="20"
-                height="13"
-                alt={altLang.flagAlt}
-                class="flag-icon"
-              />
-              <span>{altLang.label}</span>
-            </a> -->
+          <li class="horiz-nav-item">
+            <a href={nav.contact.href} aria-current={ariaCurrent(nav.contact.href)} class={currentClass(nav.contact.href, 'nav-link')}>{nav.contact.label}</a>
           </li>
 
-          <!-- Mobile language switcher -->
-          <li class="horiz-nav-item mobile-language-link">
-            <a href={altLang.href} class="nav-link w-inline-block">
-              <img
-                src={altLang.flagSrc}
-                width="20"
-                height="13"
-                alt={altLang.flagAlt}
-                class="flag-icon"
-              />
-              <span>{altLang.label}</span>
-            </a>
-          </li>
-          <li class="nav-contact-button-wrap">
-            <Button href={nav.contact.href} ariaCurrent={ariaCurrent(nav.contact.href)} class={isCurrent(nav.contact.href) ? 'w--current' : ''}>{nav.contact.label}</Button>
-          </li>
         </ul>
       </nav>
       <div class="nav-right">
-        <div class="div-block">
-          <Button href={nav.contact.href} ariaCurrent={ariaCurrent(nav.contact.href)} class={isCurrent(nav.contact.href) ? 'w--current' : ''}>{nav.contact.label}</Button>
+        <div class="language-menu nav-right-language-menu" data-language-menu>
+          <button
+            type="button"
+            class="nav-link w-inline-block language-menu-trigger"
+            data-language-trigger
+            aria-label={langMenuLabel}
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls={`language-options-${locale}`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              class="lucide lucide-globe-icon lucide-globe language-menu-icon"
+            >
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+              <path d="M2 12h20"/>
+            </svg>
+            <span>{currLang.label}</span>
+            <svg class="language-menu-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+          </button>
+          <div id={`language-options-${locale}`} class="language-menu-options" data-language-options role="menu" hidden>
+            {langOptions.map((language) => (
+              <a
+                href={language.href}
+                class:list={['language-menu-option', { 'is-selected': language.selected }]}
+                role="menuitem"
+                aria-current={language.selected ? 'page' : undefined}
+              >
+                <img src={language.flagSrc} width="20" height="13" alt={language.flagAlt} class="flag-icon"/>
+                <span>{language.label}</span>
+              </a>
+            ))}
+          </div>
         </div>
+        <a
+          href={altLang.href}
+          class="nav-link w-inline-block nav-right-language-link"
+          aria-label={`Switch to ${mobileLanguageLabel}`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            class="lucide lucide-globe-icon lucide-globe language-menu-icon"
+          >
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+            <path d="M2 12h20"/>
+          </svg>
+          <span>{mobileLanguageLabel}</span>
+        </a>
         <div class="menu-button w-nav-button">
           <div class="icon-2 w-icon-nav-menu"></div>
         </div>

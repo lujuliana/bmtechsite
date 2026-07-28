@@ -1,8 +1,7 @@
-// export type careersLocale = 'en' | 'ja';
-
-export interface Jobs {
+export interface Job {
   slug: string;
   title: string;
+  isOpen: boolean;
   location: string;
   employmentType: string;
   overview: string;
@@ -11,27 +10,27 @@ export interface Jobs {
   preferred: string[];
 }
 
-export const jobs: Jobs[] = [
-  // QA manager
+export const jobs: Job[] = [
+  // Quality Assurance Engineer
   {
     slug: "quality-assurance-engineer",
     title: "Quality Assurance Engineer",
+    isOpen: true,
     location: "Dallas, TX",
     employmentType: "Full-time",
     overview:
-      "BMTech is seeking a Quality Assurance Manager or Quality Assurance Engineer to help ensure the quality and reliability of our battery management and energy storage products. In this role, you will collaborate with engineering, manufacturing, and cross-functional teams to support new product development, drive continuous improvement, and maintain high-quality standards throughout the product lifecycle.",
+      "BMTech is seeking a Quality Assurance Engineer to help ensure the quality and reliability of our battery management and energy storage products. In this role, you will collaborate with engineering and manufacturing teams to support new product development, maintain quality standards, and drive continuous improvement.",
     responsibilities: [
       "Lead quality assurance activities throughout new product development.",
       "Identify quality issues, perform root cause analysis, and implement corrective and preventive actions.",
-      "Coordinate with engineering and manufacturing to review and implement design changes.",
-      "Monitor product quality metrics and drive continuous improvement initiatives.",
-      "Support Advanced Product Quality Planning(APQP) and R& D quality assurance activities.",
-      "Maintain quality documentation, issue tracking, and engineering change records.",
+      "Coordinate with engineering and manufacturing to review design changes and support product quality improvements.",
+      "Support Advanced Product Quality Planning (APQP), R&D quality assurance activities, and continuous improvement initiatives.",
+      "Maintain quality documentation, issue tracking, engineering change records, and quality metrics.",
       "Conduct quality reviews and help establish quality standards and best practices.",
-      "Collaborate with cross - functional teams to support company quality initiatives.",
+      "Collaborate with cross-functional teams to support company quality initiatives.",
     ],
     requirements: [
-      "Bachelor's degree in engineering or a related technical field.",
+      "Bachelor's degree in Engineering or a related technical field.",
       "3+ years of experience in quality assurance or quality management within automotive electronics, battery systems, energy storage, or a related industry.",
       "Experience with IATF 16949, ISO 9001, APQP, and quality auditing.",
       "Knowledge of battery systems, inverters, energy storage systems, or other power electronics.",
@@ -42,23 +41,24 @@ export const jobs: Jobs[] = [
     preferred: [
       "Experience with photovoltaic (PV) or energy storage products.",
       "Experience handling customer quality issues and preparing 8D reports.",
-      "Mandarin Chinese language proficiency. ",
+      "Mandarin Chinese language proficiency.",
     ],
   },
-  // business analytics
+
+  // Business Analytics Specialist
   {
     slug: "business-analytics-specialist",
     title: "Business Analytics Specialist",
+    isOpen: true,
     location: "Dallas, TX",
     employmentType: "Full-time",
     overview:
-      "BMTech is seeking a Business Analytics Specialist to transform data into actionable insights that drive business decisions. In this role, you will work with cross-functional teams to develop analytical solutions, improve business processes, and support strategic initiatives across the organization.",
+      "BMTech is seeking a Business Analytics Specialist to transform data into actionable insights that support business decisions. In this role, you will develop analytical solutions, improve business processes, and collaborate with cross-functional teams across the organization.",
     responsibilities: [
       "Design, maintain, and query relational databases to ensure data accuracy and integrity.",
-      "Develop dashboards, reports, and data visualizations to communicate business insights.",
+      "Develop dashboards, reports, and data visualizations to communicate business insights and recommendations.",
       "Integrate data from multiple internal and external sources to support analytics initiatives.",
       "Work across cross-functional teams to solve business challenges using data-driven solutions.",
-      "Present analytical findings and recommendations to technical and non-technical stakeholders.",
       "Support business planning and executive decision-making through reporting, performance analysis, and forecasting.",
       "Identify opportunities to improve processes, reporting, and data quality.",
     ],
@@ -78,23 +78,23 @@ export const jobs: Jobs[] = [
       "Mandarin Chinese language proficiency.",
     ],
   },
-  // SWE
+
+  // Software Engineer
   {
     slug: "software-engineer",
     title: "Software Engineer",
+    isOpen: true,
     location: "Dallas, TX",
     employmentType: "Full-time",
     overview:
-      "BMTech is seeking a Software Engineer to join our engineering team developing embedded software for advanced battery management systems (BMS). This is an excellent opportunity for recent graduates and early-career engineers to gain hands-on experience designing, testing, and optimizing embedded software while working alongside experienced engineers in the clean energy industry.",
+      "BMTech is seeking a Software Engineer to join our engineering team developing embedded software for advanced battery management systems (BMS). This is an excellent opportunity for recent graduates and early-career engineers to gain hands-on experience designing, testing, and optimizing embedded software in the clean energy industry.",
     responsibilities: [
       "Develop and maintain embedded software for battery management systems using C.",
       "Design, implement, test, and debug firmware for microcontroller-based platforms.",
-      "Develop and execute unit tests and support software validation activities.",
+      "Develop unit tests and support software validation, hardware-in-the-loop (HIL) testing, and system integration.",
       "Collaborate with hardware, test, and manufacturing teams to integrate and troubleshoot embedded systems.",
       "Participate in code reviews and contribute to software quality and continuous improvement.",
       "Create and maintain technical documentation, including design specifications and test reports.",
-      "Support hardware-in-the-loop (HIL) testing and system integration.",
-      "Stay current with embedded software development tools and industry best practices. ",
     ],
     requirements: [
       "Bachelor's degree in Computer Science, Computer Engineering, Electrical Engineering, or a related technical field.",
@@ -102,7 +102,7 @@ export const jobs: Jobs[] = [
       "Solid understanding of data structures, algorithms, computer architecture, and operating systems.",
       "Experience using Git or other version control systems.",
       "Strong analytical, problem-solving, and communication skills.",
-      "Ability to work effectively both independently and in a collaborative team environment. ",
+      "Ability to work effectively both independently and in a collaborative team environment.",
     ],
     preferred: [
       "Coursework, internship, or project experience with ARM, STM32, AVR, PIC, or similar microcontrollers.",
@@ -110,7 +110,7 @@ export const jobs: Jobs[] = [
       "Exposure to real-time operating systems (RTOS) such as FreeRTOS.",
       "Programming experience with Python or MATLAB.",
       "Familiarity with Linux development environments.",
-      "Coursework, internship, or project experience with battery management systems (BMS), power electronics, or energy storage technologies.",
+      "Coursework or project experience with battery management systems (BMS), power electronics, or energy storage technologies.",
       "Mandarin Chinese language proficiency.",
     ],
   },

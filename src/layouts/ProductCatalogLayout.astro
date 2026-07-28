@@ -1,0 +1,46 @@
+---
+import Layout from './Layout.astro';
+import ProductCatalog from '../components/ProductCatalog.astro';
+import { products, type ProductLocale } from '../data/products';
+
+interface Props {
+  locale: ProductLocale;
+  title: string;
+  description: string;
+  currentPath?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  webflowPageId?: string;
+  initiallyHidden?: boolean;
+}
+
+const { locale, title, description, currentPath, ogTitle, ogDescription, ogImage, webflowPageId, initiallyHidden = false } = Astro.props as Props;
+const resolvedCurrentPath = currentPath ?? (locale === 'ja' ? '/ja/products' : '/products');
+---
+
+<Layout
+  locale={locale}
+  title={title}
+  currentPath={resolvedCurrentPath}
+  description={description}
+  ogTitle={ogTitle ?? title}
+  ogDescription={ogDescription ?? description}
+  ogImage={ogImage ?? "/images/metal-sign.png"}
+  webflowPageId={webflowPageId}
+>
+  <Fragment slot="head">
+    <style>html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo) {visibility: hidden !important;}</style>
+  </Fragment>
+
+  <div class="main-wrapper">
+    <slot />
+    <section
+      data-w-id="3017ba22-ff4d-07e5-212c-b5813f3244c8"
+      style={initiallyHidden ? 'opacity:0' : undefined}
+      class="w-layout-blockcontainer container w-container"
+    >
+      <ProductCatalog products={products} locale={locale} />
+    </section>
+  </div>
+</Layout>

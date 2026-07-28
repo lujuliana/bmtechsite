@@ -1,33 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import ProductCatalogLayout from '../layouts/ProductCatalogLayout.astro';
 import PageBanner from '../components/PageBanner.astro';
-import ProductCatalog from '../components/ProductCatalog.astro';
-import { products } from '../data/products';
 ---
 
-<Layout
+<ProductCatalogLayout
   locale="en"
   title="Products | BMTech"
-  currentPath="/products"
   description="Explore BMTech's advanced products and systems engineered for high-performance battery power and energy storage infrastructure. View full specs."
-  ogTitle="Products | BMTech"
-  ogDescription="Explore BMTech's advanced products and systems engineered for high-performance battery power and energy storage infrastructure. View full specs."
-  ogImage="/images/metal-sign.png"
   webflowPageId="6a160510355148a0dbcd6f8c"
+  initiallyHidden
 >
-  <Fragment slot="head">
-    <style>html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo) {visibility: hidden !important;}</style>
-  </Fragment>
-
-  <div class="main-wrapper">
-    <PageBanner
-      title="Products"
-      webflowVariant="overlay-dark"
-      imageSrc="/images/bess-solar.png"
-      imageAlt="A battery energy storage system next to a solar farm"
-    />
-    <section data-w-id="3017ba22-ff4d-07e5-212c-b5813f3244c8" style="opacity:0" class="w-layout-blockcontainer container w-container">
-      <ProductCatalog products={products} locale="en" />
-    </section>
-  </div>
-</Layout>
+  <PageBanner
+    title="Products"
+    webflowVariant="overlay-dark"
+    imageSrc="/images/bess-solar.png"
+    imageAlt="A battery energy storage system next to a solar farm"
+  />
+</ProductCatalogLayout>

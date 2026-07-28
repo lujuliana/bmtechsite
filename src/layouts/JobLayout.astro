@@ -1,0 +1,80 @@
+---
+import Layout from "./Layout.astro";
+import Button from "../components/Button.astro";
+import type { Job } from "../data/jobs";
+
+interface Props {
+  job: Job;
+}
+
+const { job } = Astro.props as Props;
+---
+
+<Layout
+  locale="en"
+  title={`${job.title} | Careers | BMTech`}
+  currentPath={`/careers/${job.slug}`}
+  description={job.overview}
+  ogTitle={`${job.title} at BMTech`}
+  ogDescription={job.overview}
+  ogImage="/images/metal-sign.png"
+>
+  <Fragment slot="head">
+    <style>html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo) {visibility: hidden !important;}</style>
+  </Fragment>
+
+  <main class="main-wrapper">
+    <section class="section">
+      <div class="job-detail-layout">
+        <div class="w-richtext job-detail-content">
+          <!-- block 1: Header -->
+          <h1 class="h1">{job.title}</h1>
+          <p>{job.location} &bull; {job.employmentType}</p>
+          <div class="divider" style="margin-bottom: var(--space-7)"></div>
+
+          <!-- block 2: Overview -->
+          <h2>Position Overview</h2>
+          <p class="body-txt gray">{job.overview}</p>
+
+          <!-- block 3: Responsibilities -->
+          <h2>Responsibilities</h2>
+          <ul class="job-detail-list">
+            {job.responsibilities.map((item) => <li>{item}</li>)}
+          </ul>
+
+          <!-- block 4: Required -->
+          <h2>Required Qualifications</h2>
+          <ul class="job-detail-list">
+            {job.requirements.map((item) => <li>{item}</li>)}
+          </ul>
+
+          <!-- block 5: Preferred -->
+          {job.preferred.length > 0 && (
+            <>
+              <h2>Preferred Qualifications</h2>
+              <ul class="job-detail-list">
+                {job.preferred.map((item) => <li>{item}</li>)}
+              </ul>
+            </>
+          )}
+        </div>
+
+        <!-- block 6: Apply -->
+        <aside class="job-apply-card" aria-labelledby="job-apply-title">
+          <h2 id="job-apply-title">Apply</h2>
+          <p class="body-txt gray" style="margin-bottom: 0px">
+            Send your resume and a brief introduction to BMTech.
+          </p>
+          <Button
+            href={`mailto:hr@bmtech.com?subject=${encodeURIComponent(
+              `${job.title} Application`
+            )}`}
+            variant="primary"
+          >
+            Apply Now
+          </Button>
+        </aside>
+      </div>
+    </section>
+  </main>
+</Layout>

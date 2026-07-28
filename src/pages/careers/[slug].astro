@@ -1,0 +1,23 @@
+---
+import JobLayout from "../../layouts/JobLayout.astro";
+import { jobs } from "../../data/jobs";
+
+export function getStaticPaths() {
+  return jobs
+    .filter((job) => job.isOpen)
+    .map((job) => ({
+      params: {
+        slug: job.slug,
+      },
+    }));
+}
+
+const { slug } = Astro.params;
+const job = jobs.find((job) => job.slug === slug);
+
+if (!job) {
+  throw new Error(`Job not found for slug: ${slug}`);
+}
+---
+
+<JobLayout job={job} />

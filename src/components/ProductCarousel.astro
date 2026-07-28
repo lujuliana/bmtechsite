@@ -169,11 +169,11 @@ const text = controls[locale];
       .replace('{total}', String(total));
 
     const pageLabelTemplate = carousel.dataset.pageLabel ?? 'Go to products page {page} of {total}';
-    const pageStatusTemplate = carousel.dataset.pageStatus ?? 'Products page {page} of {total}';
+    // const pageStatusTemplate = carousel.dataset.pageStatus ?? 'Products page {page} of {total}';
 
     const setCurrentPage = (page: number, announce = true) => {
       const nextPage = Math.max(0, Math.min(page, pageTargets.length - 1));
-      const pageChanged = nextPage !== currentPage;
+      // const pageChanged = nextPage !== currentPage;
       currentPage = nextPage;
 
       pagination.querySelectorAll<HTMLButtonElement>('[data-carousel-page]').forEach((dot, index) => {
@@ -187,9 +187,9 @@ const text = controls[locale];
       previousButton.disabled = currentPage === 0;
       nextButton.disabled = currentPage === pageTargets.length - 1;
 
-      if (announce && pageChanged) {
-        status.textContent = formatPageText(pageStatusTemplate, currentPage + 1, pageTargets.length);
-      }
+      // if (announce && pageChanged) {
+      //   status.textContent = formatPageText(pageStatusTemplate, currentPage + 1, pageTargets.length);
+      // }
     };
 
     const findNearestPage = () => pageTargets.reduce((nearestPage, target, index) => {
