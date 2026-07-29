@@ -440,33 +440,6 @@ html:lang(ja) .navbar {
   margin-right: auto;
   margin-left: auto;
 }
-.job-detail-layout {
-  width: var(--size-full-width);
-  grid-column-gap: var(--space-7);
-  grid-row-gap: var(--space-7);
-  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
-  align-items: start;
-  display: grid;
-}
-.job-apply-card {
-  padding: var(--card-padding);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-white);
-  text-align: center;
-  gap: var(--space-4);
-  flex-flow: column;
-  align-items: center;
-  display: flex;
-}
-.job-apply-card > h2,
-.job-apply-card > p {
-  margin-top: var(--space-0);
-  margin-bottom: var(--space-0);
-}
-.job-apply-card > p {
-  max-width: 24rem;
-}
 .section-container {
   width: var(--size-full-width);
   max-width: var(--container-max-width);
@@ -979,9 +952,6 @@ html:lang(en) .language-menu-icon {
   .section {
     padding-right: var(--section-padding-block);
     padding-left: var(--section-padding-block);
-  }
-  .job-detail-layout {
-    grid-template-columns: minmax(0, 1fr);
   }
   .section-container {
     grid-column-gap: var(--space-5);

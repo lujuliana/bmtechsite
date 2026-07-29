@@ -10,6 +10,80 @@ interface Props {
 const { job } = Astro.props as Props;
 ---
 
+<style>
+  .job-detail-layout {
+    width: var(--size-full-width);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 24rem;
+    grid-template-areas:
+      "header header"
+      "content apply";
+    column-gap: var(--space-9);
+    row-gap: var(--space-7);
+    align-items: start;
+  }
+
+  .job-detail-header {
+    grid-area: header;
+  }
+
+  .job-detail-header .divider {
+    margin-top: var(--space-5);
+  }
+
+  .job-detail-content {
+    grid-area: content;
+    min-width: 0;
+  }
+
+  .job-apply-card {
+    grid-area: apply;
+    padding: var(--card-padding);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-white);
+    text-align: center;
+    gap: var(--space-4);
+    flex-flow: column;
+    align-items: center;
+    display: flex;
+  }
+
+  .job-apply-card > h2 {
+    margin-top: var(--space-1);
+    margin-bottom: var(--space-0);
+  }
+
+  .job-apply-card > p {
+    max-width: 90%;
+    margin-top: var(--space-0);
+    margin-bottom: var(--space-0);
+  }
+
+  @media screen and (max-width: 991px) {
+    .job-apply-card {
+      width: min(26rem, 100%);
+      justify-self: center;
+    }
+
+    .job-detail-layout {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "header"
+        "content"
+        "apply";
+    }
+  }
+
+  .job-detail-header {
+    grid-area: header;
+  }
+
+  .job-detail-header .divider {
+    margin-top: var(--space-4);
+  }
+</style>
+
 <Layout
   locale="en"
   title={`${job.title} | Careers | BMTech`}
@@ -26,11 +100,15 @@ const { job } = Astro.props as Props;
   <div class="main-wrapper">
     <section class="section">
       <div class="job-detail-layout">
-        <div class="w-richtext job-detail-content">
-          <!-- block 1: Header -->
+        <!-- header -->
+        <header class="job-detail-header">
           <h1 class="h1">{job.title}</h1>
           <p>{job.location} &bull; {job.employmentType}</p>
-          <div class="divider" style="margin-bottom: var(--space-7)"></div>
+          <div class="divider"></div>
+        </header>
+
+
+        <div class="w-richtext job-detail-content">
 
           <!-- block 2: Overview -->
           <h2>Position Overview</h2>
@@ -61,9 +139,9 @@ const { job } = Astro.props as Props;
 
         <!-- block 6: Apply -->
         <aside class="job-apply-card" aria-labelledby="job-apply-title">
-          <h2 id="job-apply-title">Apply</h2>
-          <p class="body-txt text-muted" style="margin-bottom: 0px">
-            Send your resume and a brief introduction to BMTech.
+          <h2 id="job-apply-title">Interested?</h2>
+          <p class="body-txt text-muted">
+            Send your resume and a brief introduction to apply.
           </p>
           <Button
             href={`mailto:hr@bmtech.com?subject=${encodeURIComponent(
