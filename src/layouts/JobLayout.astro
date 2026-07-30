@@ -38,7 +38,7 @@ const { job } = Astro.props as Props;
 
   .job-apply-card {
     grid-area: apply;
-    padding: var(--card-padding);
+    padding: var(--space-6) var(--card-padding);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-lg);
     background-color: var(--color-white);
@@ -55,7 +55,7 @@ const { job } = Astro.props as Props;
   }
 
   .job-apply-card > p {
-    max-width: 90%;
+    max-width: 18rem;
     margin-top: var(--space-0);
     margin-bottom: var(--space-0);
   }
@@ -101,14 +101,14 @@ const { job } = Astro.props as Props;
     <section class="section">
       <div class="job-detail-layout">
         <!-- header -->
-        <header class="job-detail-header">
-          <h1 class="h1">{job.title}</h1>
+        <header class="job-detail-header" data-scroll-reveal>
+          <h1>{job.title}</h1>
           <p>{job.location} &bull; {job.employmentType}</p>
           <div class="divider"></div>
         </header>
 
 
-        <div class="w-richtext job-detail-content">
+        <div class="w-richtext job-detail-content" data-scroll-reveal data-scroll-reveal-delay="100">
 
           <!-- block 2: Overview -->
           <h2>Position Overview</h2>
@@ -138,7 +138,7 @@ const { job } = Astro.props as Props;
         </div>
 
         <!-- block 6: Apply -->
-        <aside class="job-apply-card" aria-labelledby="job-apply-title">
+        <aside class="job-apply-card" data-scroll-reveal data-scroll-reveal-delay="200" aria-labelledby="job-apply-title">
           <h2 id="job-apply-title">Interested?</h2>
           <p class="body-txt text-muted">
             Send your resume and a brief introduction to apply.

@@ -3,9 +3,10 @@ import type { Job } from "../data/jobs";
 
 interface Props {
   job: Job;
+  revealDelay?: number;
 }
 
-const { job } = Astro.props as Props;
+const { job, revealDelay = 0 } = Astro.props as Props;
 ---
 
 <style>
@@ -71,7 +72,7 @@ const { job } = Astro.props as Props;
     }
 </style>
 
-<li class="job-card-item">
+<li class="job-card-item" data-scroll-reveal data-scroll-reveal-delay={revealDelay}>
   <article class="job-card">
     <a class="job-card-link" href={`/careers/${job.slug}`}>
         <div class="job-card-content">

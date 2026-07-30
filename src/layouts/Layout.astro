@@ -87,6 +87,70 @@ const absoluteRoute = (path: string) => new URL(path, 'https://bmtech.com').href
     ></script>
     <script src="/js/webflow.js" type="text/javascript"></script>
     <script src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js" type="text/javascript"></script>
+    <script>
+      const revealSelector = '[data-scroll-reveal]';
+      const revealedClass = 'is-scroll-revealed';
+
+      document.querySelectorAll<HTMLElement>('[data-scroll-reveal-group]').forEach((group) => {
+        const children = Array.from(group.children);
+        let reveal: HTMLDivElement | undefined;
+
+        children.forEach((child) => {
+          if (child.tagName === 'H1' || child.tagName === 'H2' || !reveal) {
+            reveal = document.createElement('div');
+            reveal.dataset.scrollReveal = '';
+            group.insertBefore(reveal, child);
+          }
+          reveal.appendChild(child);
+        });
+      });
+
+      const reveals = Array.from(document.querySelectorAll<HTMLElement>(revealSelector));
+      const show = (element: HTMLElement) => element.classList.add(revealedClass);
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+        reveals.forEach(show);
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            show(entry.target as HTMLElement);
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0, rootMargin: '0px 0px -5% 0px' });
+
+        reveals.forEach((element) => {
+          const delay = Number(element.dataset.scrollRevealDelay ?? 0);
+          if (Number.isFinite(delay) && delay > 0) {
+            element.style.setProperty('--scroll-reveal-delay', `${delay}ms`);
+          }
+          observer.observe(element);
+        });
+      }
+    </script>
     <slot name="scripts" />
   </body>
 </html>
+
+<style is:global>
+  html.w-mod-js [data-scroll-reveal] {
+    opacity: 0;
+    transform: translateY(-100px);
+    transition:
+      opacity 1000ms cubic-bezier(0.165, 0.84, 0.44, 1) var(--scroll-reveal-delay, 0ms),
+      transform 1000ms cubic-bezier(0.165, 0.84, 0.44, 1) var(--scroll-reveal-delay, 0ms);
+  }
+
+  html.w-mod-js [data-scroll-reveal].is-scroll-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.w-mod-js [data-scroll-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>

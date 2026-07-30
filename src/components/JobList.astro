@@ -19,5 +19,5 @@ const { jobs } = Astro.props as Props;
 </style>
 
 <ul class="job-card-list">
-  {jobs.map((job) => <JobCard job={job} />)}
+  {jobs.map((job, index) => <JobCard job={job} revealDelay={index * 75} />)}
 </ul>
