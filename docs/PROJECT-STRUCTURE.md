@@ -5,203 +5,121 @@
 ```text
 .
 |-- aws/
-|   `-- contact-form/
-|-- docs/
-|   |-- ARCHITECTURE.md
-|   |-- DEPLOYMENT.md
-|   `-- PROJECT-STRUCTURE.md
-|-- local-api/
-|-- public/
+|   `-- contact-form/       # Lambda source, package lock, and test event
+|-- docs/                   # Project and operational documentation
+|-- local-api/              # Dependency-free local contact API
+|-- public/                 # Files copied unchanged to the site root
+|   |-- css/
+|   |-- images/
+|   |-- js/
+|   `-- videos/
 |-- src/
 |   |-- components/
 |   |-- data/
 |   |-- drafts/
 |   |-- layouts/
+|   |-- lib/
 |   `-- pages/
-|       |-- products/
-|       `-- ja/
-|           `-- products/
-|-- TODO.md
-|-- README.md
+|       |-- careers/
+|       |-- ja/
+|       `-- products/
 |-- astro.config.mjs
+|-- package.json
 |-- package-lock.json
-`-- package.json
+|-- README.md
+`-- tsconfig.json
 ```
 
-## Top-level directories
+Generated directories (`dist/`, `node_modules/`, and `.astro/`) are intentionally excluded from this layout and must not be edited.
 
-### `src/`
-
-Contains all Astro source code and site data.
-
-### `public/`
-
-Contains static files copied directly into the generated site.
-
-These files are served from root-relative URLs such as:
-
-```text
-/css/...
-/js/...
-/images/...
-/videos/...
-```
-
-### `aws/contact-form/`
-
-Contains the production contact-form Lambda, its dependencies, configuration notes, and test event.
-
-### `local-api/`
-
-Contains the development-only contact endpoint and its usage notes. It validates and logs contact requests without sending email.
-
-### `docs/`
-
-Contains internal project documentation for architecture, deployment, and repository structure.
-
-## Source directories
-
-### `src/layouts/`
-
-#### `Layout.astro`
-
-Provides the shared page shell, including:
-
-- metadata;
-- fonts and stylesheets;
-- Webflow attributes;
-- header and footer;
-- shared scripts; and
-- common document structure.
-
-#### `ProductLayout.astro`
-
-Provides the shared product-detail layout. It:
-
-- selects localized content;
-- supplies product metadata;
-- renders the main product page structure; and
-- generates related-product cards.
-
-#### `ProductCatalogLayout.astro`
-
-Provides the shared products-index page structure, metadata wiring, and Webflow attributes. Locale routes provide only localized copy and their banner.
-
-### `src/components/`
-
-#### `Header.astro`
-
-Renders:
-
-- localized navigation;
-- active-page state; and
-- links to equivalent English and Japanese routes.
-
-#### `Footer.astro`
-
-Renders localized footer navigation, contact information, and address content.
-
-#### `ProductCard.astro`
-
-Renders a reusable localized product card linked to the correct product route.
+## Source ownership
 
 ### `src/pages/`
 
-Astro creates public routes from files in this directory.
+Astro creates routes from this directory. Top-level pages are English; `src/pages/ja/` contains Japanese routes. Product detail pages use locale-specific `[slug].astro` dynamic routes. `careers/[slug].astro` creates English job detail pages, and the locale-specific `404.astro` files provide not-found pages.
 
-- Top-level page files generate English routes.
-- `src/pages/ja/` generates Japanese routes.
-- Each locale's `products/[slug].astro` dynamic route generates data-driven product detail pages from the catalog.
-- `404.astro` and `ja/404.astro` provide localized not-found pages.
+### `src/layouts/`
+
+- `Layout.astro`: document shell, metadata, alternate-language tags, shared assets/scripts, header, footer, and scroll reveals.
+- `ProductLayout.astro`: localized product detail structure and related products.
+- `ProductCatalogLayout.astro`: shared products-index structure.
+- `JobLayout.astro`: English job detail content and application call to action.
+
+### `src/components/`
+
+Shared presentational and interactive UI. The main families are:
+
+- navigation: `Header.astro`, `Footer.astro`, `Button.astro`;
+- page building: `PageBanner.astro`;
+- products: `ProductCatalog.astro`, `ProductCard.astro`, `ProductCarousel.astro`; and
+- careers/contact: `JobCard.astro`, `JobList.astro`, `ContactPage.astro`, `ContactForm.astro`.
 
 ### `src/data/`
 
-`products.ts` is the centralized product catalog.
+- `products.ts`: product records and localized content.
+- `jobs.ts`: careers data and open/closed status.
+- `validate.ts`: production-build validation of slugs and related products.
 
-Product records include:
+### `src/lib/`
 
-- slug;
-- category;
-- image information;
-- localized content;
-- metadata; and
-- related-product data.
+- `routes.ts`: locale route mapping, path normalization, language-switch resolution, and active-link utilities.
+- `product-routes.ts`: static-path generation and product lookup for dynamic product pages.
 
 ### `src/drafts/`
 
-Contains preserved page drafts that are not published as routes.
+Unpublished Astro page drafts. Files in this directory do not create public routes. Move or copy a draft under `src/pages/` only when it is ready to publish.
 
-To preview a draft, temporarily move or copy it into `src/pages/`.
+## Static and backend code
 
-## Configuration files
+### `public/`
 
-### `astro.config.mjs`
+Contains root-served files such as `/css/...`, `/js/...`, `/images/...`, and `/videos/...`. `contact-form.js` implements browser-side validation and submission; `webflow.js` is the preserved Webflow interaction runtime.
 
-Configures Astro to generate a static site.
+### `aws/contact-form/`
 
-### `package.json`
+Contains the deployable ESM Lambda (`index.mjs`), its isolated npm dependency lockfile, and `test-event.json`. Run its syntax check from this directory with `npm run check` after changing the handler.
 
-Defines project scripts and dependencies.
+### `local-api/`
 
-Common commands:
+Contains `server.mjs`, a dependency-free local implementation of the contact API contract, and its usage guide. It is separate from the production Lambda and never sends email.
+
+## Configuration and commands
+
+`astro.config.mjs` selects static output and registers the build-start data validation hook. The root `package.json` defines:
 
 ```sh
-npm run dev
-npm run build
+npm run dev    # Start Astro development server
+npm run check  # Run Astro/TypeScript checks
+npm run build  # Validate data and generate dist/
 ```
 
-### `package-lock.json`
-
-Locks dependency versions for repeatable installations.
-
-Use `npm ci` for clean or automated installations when appropriate.
+Use `npm ci` instead of `npm install` for clean, repeatable installations such as a production deployment.
 
 ## Common maintenance tasks
 
 ### Add or update a product
 
-1. Update the product record in `src/data/products.ts`.
-2. Add any required images under `/images/`.
-3. Confirm the English and Japanese product routes use the product record.
-4. Run `npm run build`.
-5. Review both localized pages before deployment.
+1. Edit the record in `src/data/products.ts`, including both locale values and valid related-product slugs.
+2. Add required assets under `public/images/`.
+3. Run `npm run check` and `npm run build`.
+4. Review the English and Japanese index and detail pages.
 
-### Update shared navigation
+### Add or update a job
 
-Edit:
+1. Edit `src/data/jobs.ts`; set `isOpen` to control whether the detail route is available to the routing utility.
+2. Run `npm run check` and `npm run build`.
+3. Review `/careers` and the job detail URL. Careers do not have Japanese routes.
 
-```text
-src/components/Header.astro
-```
+### Change routes or language-switch behavior
 
-### Update the shared footer
+Update `src/lib/routes.ts`, then verify navigation, footer links, active state, and `hreflang` output on each affected locale route.
 
-Edit:
+### Change shared page chrome
 
-```text
-src/components/Footer.astro
-```
+- Navigation or language menu: `src/components/Header.astro`
+- Footer links and details: `src/components/Footer.astro`
+- Site-wide metadata, scripts, or document structure: `src/layouts/Layout.astro`
 
-### Update product-page structure
+### Change the contact form
 
-Edit:
-
-```text
-src/layouts/ProductLayout.astro
-```
-
-### Update shared page metadata or scripts
-
-Edit:
-
-```text
-src/layouts/Layout.astro
-```
-
-## Generated directories
-
-Do not edit these directories manually:
-
-- `dist/`
-- `node_modules/`
-- `.astro/`
+Keep `ContactForm.astro`, `public/js/contact-form.js`, `local-api/server.mjs`, and `aws/contact-form/index.mjs` aligned on fields and validation. Test the local API and production API separately; changing Lambda/API Gateway code does not rebuild the static site unless the frontend is also changed.
