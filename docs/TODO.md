@@ -1,16 +1,8 @@
 # TODO
 
-## Production
-
-- [ ] Change `CONTACT_FROM_EMAIL` to `info@bmtech.com`
-- [ ] Change `CONTACT_TO_EMAIL` to `info@bmtech.com`
-- [ ] Retest the English and Japanese contact forms
-
-## Website
-
+- [ ] Strengthen contact form spam filters (API rate limiting or AWS WAF)
 - [ ] Translate Japanese image alt text and page metadata
 - [ ] Add About page
-- [ ] Add Careers page
 - [ ] Add Blog or News section
 - [ ] Update the LinkedIn link
 - [ ] Add factory photographs
@@ -20,11 +12,11 @@
 ## Future Improvements
 
 - [ ] Configure a custom API domain (e.g. `api.bmtech.com`)
-- [ ] Add API rate limiting or AWS WAF if spam becomes an issue
 - [ ] Review SPF and DMARC records for `bmtech.com`
 
 ## Completed
 
+- [x] Add Careers page
 - [x] Improve contact form email formatting (HTML + plain text)
 - [x] Update Lambda `ALLOWED_ORIGINS` to production values
 - [x] Update API Gateway CORS to allow only production origins
