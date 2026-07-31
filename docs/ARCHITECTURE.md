@@ -32,6 +32,8 @@ English routes have no locale prefix. Japanese equivalents use `/ja`.
 | Security | `/security-vuln` | `/ja/security-vuln` |
 | Products | `/products` | `/ja/products` |
 | Product detail | `/products/<slug>` | `/ja/products/<slug>` |
+| Careers | `/careers` | `none` |
+| Career details | `/careers/<slug>` | `none` |
 | Contact | `/contact` | `/ja/contact` |
 
 The shared header receives the current locale and path so it can:
