@@ -2,159 +2,157 @@
 
 ## Production environment
 
+The documented production configuration is:
+
 | Component | Configuration |
 | --- | --- |
 | Hosting | AWS Lightsail |
 | Operating system | Debian 12 |
 | Web server | Nginx |
-| Repository clone | `/home/admin/bmtechsite` |
-| Nginx document root | `/usr/share/nginx/html` |
-| Astro build output | `dist/` |
 | AWS region | `us-east-2` |
+| Repository | `/home/admin/bmtechsite` |
+| Build output | `/home/admin/bmtechsite/dist` |
+| Nginx document root | `/usr/share/nginx/html/bmtechco.webflow` |
 
-The production website is a static Astro build. Node.js is used only to build the site on the server. Nginx serves the generated files directly from the document root.
+The production deployment consists of two locations:
 
----
+- **Repository:** `/home/admin/bmtechsite` contains the Astro source code, Git repository, and build tools. All Git operations and builds are performed here.
+- **Document root:** `/usr/share/nginx/html/bmtechco.webflow` is the directory served by Nginx. It should contain only the generated contents of `dist/`.
 
-## Routine deployment
+The production build is generated on the Lightsail server using Node.js 20 or later. Nginx serves the static files produced by Astro.
 
-Commit and push changes from the local development machine first.
+## Server prerequisites
 
-On the Lightsail terminal:
+The deployment commands assume the following tools are installed on the Lightsail server:
+
+- Git
+- Node.js 20+
+- npm
+- rsync
+- curl
+- Nginx
+
+Verify the required tools:
 
 ```sh
-cd ~/bmtechsite
+command -v git node npm rsync curl nginx
+```
+
+## Routine static-site deployment
+
+Commit and push the intended revision first. On the Lightsail server, deploy from the production branch (main) unless intentionally deploying a different revision.
+
+```sh
+cd /home/admin/bmtechsite
+
+git fetch origin
 git checkout main
-git pull origin main
+git pull --ff-only origin main
+
 npm ci
+npm run check
 npm run build
-sudo rm -rf /usr/share/nginx/html/*
-sudo cp -a dist/. /usr/share/nginx/html/
+
+sudo rsync -av --delete \
+    dist/ \
+    /usr/share/nginx/html/bmtechco.webflow/
+
 sudo nginx -t
 sudo systemctl reload nginx
-curl -Ik -H "Host: bmtech.com" https://localhost
+
+curl -Ik --resolve bmtech.com:443:127.0.0.1 https://bmtech.com/
 ```
 
-Expected results:
+`rsync --delete` synchronizes the Nginx document root with the latest build and removes obsolete files from previous deployments.
 
-- `sudo nginx -t`
+Expected results include:
 
-```
-nginx: configuration file /etc/nginx/nginx.conf test is successful
-```
+- `sudo nginx -t` (Nginx configuration test):
+    - Expected:
 
-- `curl -Ik -H "Host: bmtech.com" https://localhost`
+        ```sh
+        nginx: configuration file syntax is ok
+        nginx: configuration file test is successful
+        ```
 
-```
-HTTP/1.1 200 OK
-```
+- `curl -Ik --resolve bmtech.com:443:127.0.0.1 https://bmtech.com/`
 
-Optionally verify the deployed commit:
+    - Expected: a successful `HTTP 200` response.
+
+Record the deployed revision when needed:
 
 ```sh
 git log -1 --oneline
 ```
 
----
-
-## Dependency changes
-
-If `package.json` or `package-lock.json` changes:
-
-```sh
-cd ~/bmtechsite
-git pull origin main
-npm ci
-npm run build
-```
-
-Use `npm ci` for all production deployments to ensure a clean, lockfile-based installation.
-
----
+`npm ci` is appropriate for every production deployment because it installs exactly what `package-lock.json` specifies. A dependency-only change still requires a new build and file copy.
 
 ## Deployment verification
 
-Verify the following pages:
+Verify at least these routes:
 
-- `/`
-- `/ja/`
-- `/products`
-- `/ja/products`
-- `/contact`
-- `/ja/contact`
-- `/security-vuln`
-- `/ja/security-vuln`
-- at least one English product page
-- at least one Japanese product page
-- an unknown URL (verify the custom 404 page)
+- `/` and `/ja/`
+- `/products` and `/ja/products`
+- at least one English and one Japanese product detail page
+- `/careers` and one open career detail page
+- `/contact` and `/ja/contact`
+- `/security-vuln` and `/ja/security-vuln`
+- an unknown URL, confirming the not-found experience
 
 Also verify:
 
-- Language switcher
-- Product carousel
-- Contact form
-- Browser console has no JavaScript errors
-- Network tab shows no missing CSS, JS, images, fonts, or videos
+- The language menu only appears when an equivalent localized page exists.
+- Active navigation state.
+- Product carousel controls.
+- Reduced-motion behavior.
+- Browser console/network requests for missing assets or JavaScript errors.
 
----
+Submit a contact-form test only if the production backend is intended to receive it.
 
-## Backup
+## Backup and rollback
 
-Before a risky deployment:
+Before a risky deployment, create a timestamped copy outside the live document root:
 
 ```sh
 sudo cp -a \
-/usr/share/nginx/html \
-/usr/share/nginx/html-backup-$(date +%Y%m%d-%H%M%S)
+  /usr/share/nginx/html/bmtechco.webflow \
+  /usr/share/nginx/html/bmtechco.webflow-backup-$(date +%Y%m%d-%H%M%S)
 ```
-
----
-
-## Rollback
 
 List backups:
 
 ```sh
-ls -d /usr/share/nginx/html-backup-*
+ls -d /usr/share/nginx/html/bmtechco.webflow-backup-*
 ```
 
-Restore a backup:
+To restore a selected backup, first confirm the exact backup directory, then replace the live root. Replace `YYYYMMDD-HHMMSS` with the backup's timestamp:
 
 ```sh
-sudo rm -rf /usr/share/nginx/html
-sudo cp -a <backup-directory> /usr/share/nginx/html
+BACKUP=/usr/share/nginx/html/bmtechco.webflow-backup-YYYYMMDD-HHMMSS
+
+sudo test -d "$BACKUP" || exit 1
+sudo rm -rf /usr/share/nginx/html/bmtechco.webflow
+sudo cp -a "$BACKUP" /usr/share/nginx/html/bmtechco.webflow
+
 sudo nginx -t
 sudo systemctl reload nginx
+
+curl -Ik --resolve bmtech.com:443:127.0.0.1 https://bmtech.com/
 ```
-
-Verify:
-
-```sh
-curl -Ik -H "Host: bmtech.com" https://localhost
-```
-
----
 
 ## Contact-form backend
 
-The contact backend is deployed independently from the static website.
+The contact backend is deployed independently from the static site:
 
 ```text
-Website
-  |
-  v
-API Gateway
-  |
-  v
-Lambda
-  |
-  v
-Amazon SES
+Website -> API Gateway (POST /contact) -> Lambda -> Amazon SES
 ```
 
-Changes to Lambda or API Gateway do **not** require redeploying the Astro website unless the frontend code changes.
+The frontend endpoint is configured in `src/components/ContactForm.astro`. If that endpoint changes, update the frontend and redeploy the static site. Lambda-only or API Gateway-only changes do not require a static-site deployment.
 
-### Lambda production values
+### Lambda configuration
+
+Configure the production Lambda with these documented values:
 
 ```text
 CONTACT_FROM_EMAIL=info@bmtech.com
@@ -165,53 +163,29 @@ CONTACT_SUBJECT_PREFIX=BMTech Website Contact
 HONEYPOT_DEBUG=false
 ```
 
-Do not include spaces after commas in `ALLOWED_ORIGINS`.
+`CONTACT_FROM_EMAIL` must be verified in SES. Keep `ALLOWED_ORIGINS` as exact comma-separated origins, with no trailing slash; the handler trims incidental spaces but deployment configuration should remain unambiguous. Ensure the Lambda execution role can send through the configured SES identity in `SES_REGION`.
 
 ### API Gateway CORS
 
-Allowed origins:
+Allow these origins:
 
 ```text
 https://bmtech.com
 https://www.bmtech.com
 ```
 
-Allowed methods:
+Allow methods `POST` and `OPTIONS`, and the `Content-Type` request header. Keep API Gateway CORS aligned with the Lambda's `ALLOWED_ORIGINS` list.
 
-```text
-POST
-OPTIONS
-```
+### Backend verification
 
-Allowed headers:
+After changing Lambda or API Gateway:
 
-```text
-Content-Type
-```
-
----
-
-## Production contact test
-
-After updating Lambda or API Gateway:
-
-1. Submit a test message from the English contact page.
-2. Confirm the browser receives a successful response.
-3. Confirm the email arrives at `info@bmtech.com`.
-4. Verify replies go to the visitor's email address.
-5. Repeat from the Japanese contact page.
-
----
+1. Run the Lambda package check in `aws/contact-form/` with `npm run check` before deployment.
+2. Confirm CORS preflight succeeds from an allowed origin.
+3. Submit a valid English and Japanese contact form.
+4. Confirm each response succeeds, the email reaches `info@bmtech.com`, and replies target the visitor address.
+5. Confirm an unapproved origin is rejected and a filled honeypot does not deliver email.
 
 ## Documentation-only changes
 
-Documentation is not included in the generated Astro site.
-
-To update the repository clone after documentation-only changes:
-
-```sh
-cd ~/bmtechsite
-git pull origin main
-```
-
-No build, deployment, or Nginx reload is required.
+Documentation is not included in the generated site. Updating only repository documentation requires only updating the server clone if desired; no build, file copy, or Nginx reload is necessary.
