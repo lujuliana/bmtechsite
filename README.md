@@ -10,6 +10,7 @@ The project supports English and Japanese pages, shared layouts and components, 
 - Japanese routes under `/ja/`
 - Shared Astro layouts, navigation, footer, and product cards
 - Centralized product content in `src/data/products.ts`
+- Centralized careers content in `src/data/jobs.ts`
 - Static production output generated in `dist/`
 - Webflow-compatible markup, styling, and browser interactions
 - Local contact-form development server
