@@ -78,6 +78,23 @@ Each product record contains shared identifiers and localized page content, incl
 
 This avoids duplicating complete product-page markup across English and Japanese routes.
 
+## Job data
+Job content is centralized in:
+
+```text
+src/data/jobs.ts
+```
+
+Each job record contains shared identifiers and localized page content, including:
+
+- route slug;
+- title;
+- status;
+- location;
+- employment type;
+- overview;
+- responsibilities and minimum + preferred requirements
+
 ## Contact form flow
 
 ```text
