@@ -22,6 +22,9 @@ export interface Product {
 }
 
 export const products: Product[] = [
+  /*
+   * BBMU: Battery Bank Management Unit
+   */
   {
     slug: "bbmu",
     name: "BBMU",
@@ -70,6 +73,10 @@ export const products: Product[] = [
         "Optimize your power infrastructure with the BBMU Battery Bank Management Unit. Ideal for grid, renewable energy systems, and uninterruptible UPS.",
     },
   },
+
+  /*
+   * BMMU: Battery Module Management Unit
+   */
   {
     slug: "bmmu",
     name: "BMMU",
@@ -125,6 +132,10 @@ export const products: Product[] = [
         "Optimize your power infrastructure with the BMMU Battery Module Management Unit. Ideal for grid, renewable, residential energy storage, and UPS.",
     },
   },
+
+  /*
+   * BRMU: Battery Rack Management Unit
+   */
   {
     slug: "brmu",
     name: "BRMU",
@@ -177,6 +188,10 @@ export const products: Product[] = [
         "Optimize your power infrastructure with the BRMU Battery Rack Management Unit. Ideal for grid, renewable, residential energy storage, and UPS.",
     },
   },
+
+  /*
+   * EMS-C: Energy Management System - Commercial
+   */
   {
     slug: "ems-c",
     name: "EMS-C",
@@ -226,6 +241,10 @@ export const products: Product[] = [
         "Optimize your power infrastructure with the EMS-C Commercial Energy Management System. Ideal for grid energy storage and renewable energy systems.",
     },
   },
+
+  /*
+   * IOT-B10
+   */
   {
     slug: "iot-b10",
     name: "IOT-B10",
@@ -264,6 +283,10 @@ export const products: Product[] = [
         "Optimize your power infrastructure with the IOT-B10 system. Ideal for high-performance grid energy storage and renewable energy systems. Learn more.",
     },
   },
+
+  /*
+   * SMC-Gateway: Station Management Controller - Gateway
+   */
   {
     slug: "smc-gateway",
     name: "SMC-Gateway",
@@ -314,6 +337,10 @@ export const products: Product[] = [
         "Optimize your power infrastructure with the SMC-Gateway Station Management Controller. Ideal for grid energy storage and renewable energy systems.",
     },
   },
+
+  /*
+   * SMC-Server: Station Management Controller - Server
+   */
   {
     slug: "smc-server",
     name: "SMC-Server",
