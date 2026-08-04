@@ -769,8 +769,8 @@ html:lang(ja) .language-menu-trigger {
   transform: translateY(1px);
   gap: 1px;
 }
-html:lang(en) .language-menu-icon {
-  transform: translateY(-1px);
+html:lang(ja) .language-menu-icon {
+  transform: translateY(1px);
 }
 .language-menu-options {
   z-index: 1000;
