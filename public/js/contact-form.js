@@ -86,19 +86,26 @@
     }
   };
 
-  const buildPayload = (form) => ({
-    website: form.elements.website.value,
-    name: form.elements.name.value.trim(),
-    email: form.elements.email.value.trim(),
-    phone: form.elements.phone.value.trim(),
-    subject: form.elements.subject.value,
-    message: form.elements.message.value.trim(),
-    locale: form.dataset.locale || document.documentElement.lang || "en",
-    pageUrl: window.location.href,
-    submittedAt: new Date().toISOString()
-  });
+  const buildPayload = (form) => {
+    const formLoadedAt = form.elements.formLoadedAt.value;
+
+    return {
+      website: form.elements.website.value,
+      name: form.elements.name.value.trim(),
+      email: form.elements.email.value.trim(),
+      phone: form.elements.phone.value.trim(),
+      subject: form.elements.subject.value,
+      message: form.elements.message.value.trim(),
+      locale: form.dataset.locale || document.documentElement.lang || "en",
+      pageUrl: window.location.href,
+      formLoadedAt,
+      timeToSubmit: Date.now() - Number(formLoadedAt),
+      submittedAt: new Date().toISOString()
+    };
+  };
 
   document.querySelectorAll(".js-contact-form").forEach((form) => {
+    form.elements.formLoadedAt.value = String(Date.now());
     const container = form.closest(".form-main");
     const successMessage = container && container.querySelector(".success-message");
     const errorMessage = container && container.querySelector(".error-message");

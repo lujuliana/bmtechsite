@@ -9,6 +9,7 @@ const ALLOWED_ORIGINS = new Set(
     .filter(Boolean)
 );
 const MAX_BODY_BYTES = 64 * 1024;
+const MIN_SUBMISSION_TIME_MS = 3000;
 const SUBJECTS = new Set(["Inquiry", "Career", "Security", "Other"]);
 const HONEYPOT_DEBUG = process.env.HONEYPOT_DEBUG === "false";
 
@@ -81,6 +82,8 @@ const validateSubmission = (payload) => {
   const locale = typeof payload.locale === "string" ? payload.locale : "en";
   const pageUrl = typeof payload.pageUrl === "string" ? payload.pageUrl : "";
   const submittedAt = typeof payload.submittedAt === "string" ? payload.submittedAt : "";
+  const formLoadedAt = Number(payload.formLoadedAt);
+  const timeToSubmit = Number(payload.timeToSubmit);
 
   if (website) {
     errors.website = "Submission rejected.";
@@ -124,6 +127,12 @@ const validateSubmission = (payload) => {
     errors.submittedAt = "submittedAt must be a valid ISO date string.";
   }
 
+  if (!Number.isFinite(formLoadedAt) || formLoadedAt <= 0) {
+    errors.formLoadedAt = "Form load time is required.";
+  } else if (!Number.isFinite(timeToSubmit) || timeToSubmit < MIN_SUBMISSION_TIME_MS) {
+    errors.timeToSubmit = "Submission rejected.";
+  }
+
   return {
     errors,
     submission: {
@@ -134,6 +143,8 @@ const validateSubmission = (payload) => {
       message,
       locale,
       pageUrl,
+      formLoadedAt,
+      timeToSubmit,
       submittedAt
     }
   };

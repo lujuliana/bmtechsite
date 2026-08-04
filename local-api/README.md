@@ -170,6 +170,8 @@ With `HONEYPOT_DEBUG` unset, this returns the normal `201` success response. Wit
 | `message` | Required, 10–5,000 characters |
 | `locale` | `en` or `ja` |
 | `pageUrl` | Optional, 2,048 characters maximum |
+| `formLoadedAt` | Required Unix timestamp in milliseconds |
+| `timeToSubmit` | Required; must be at least 3,000 milliseconds |
 | `submittedAt` | Optional valid date string |
 
 Stop the server with `Ctrl+C`.
