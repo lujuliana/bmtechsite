@@ -112,9 +112,7 @@ Submit a contact-form test only if the production backend is intended to receive
 Before a risky deployment, create a timestamped copy outside the live document root:
 
 ```sh
-sudo cp -a \
-  /usr/share/nginx/html/bmtechco.webflow \
-  /usr/share/nginx/html/bmtechco.webflow-backup-$(date +%Y%m%d-%H%M%S)
+sudo cp -a /usr/share/nginx/html/bmtechco.webflow /usr/share/nginx/html/bmtechco.webflow-backup-$(date +%Y%m%d-%H%M%S)
 ```
 
 List backups:
