@@ -53,9 +53,7 @@ npm ci
 npm run check
 npm run build
 
-sudo rsync -av --delete \
-    dist/ \
-    /usr/share/nginx/html/bmtechco.webflow/
+sudo rsync -ai --delete dist/ /usr/share/nginx/html/bmtechco.webflow/
 
 sudo nginx -t
 sudo systemctl reload nginx
