@@ -1,10 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Button from '../../components/Button.astro';
-import ProductCarousel from '../../components/ProductCarousel.astro';
-import { products, sortProductsBySlug } from '../../data/products';
+import Layout from "../../layouts/Layout.astro";
+import Button from "../../components/Button.astro";
+import ProductCarousel from "../../components/ProductCarousel.astro";
+import { products, sortProductsBySlug } from "../../data/products";
 
-const homepageProducts = sortProductsBySlug(products.filter((product) => product.featured === true));
+const homepageProducts = sortProductsBySlug(
+  products.filter((product) => product.featured === true),
+);
 ---
 
 <Layout
@@ -18,47 +20,99 @@ const homepageProducts = sortProductsBySlug(products.filter((product) => product
   webflowPageId="6a0c84e6593078e8f088bc70"
 >
   <Fragment slot="head">
-    <style>html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo, .image-divider) {visibility: hidden !important;}</style>
+    <style>
+      html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo, .image-divider) {
+        visibility: hidden !important;
+      }
+    </style>
   </Fragment>
 
   <Fragment slot="scripts">
-    <script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script>
+    <script
+      src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js"
+      type="text/javascript"
+    ></script>
   </Fragment>
 
   <div class="w-layout-vflex main-wrapper">
     <section class="hero-section">
-      <div data-poster-url="/videos/windfarm2-1_poster.0000000.jpg" data-video-urls="/videos/windfarm2-1_mp4.mp4,/videos/windfarm2-1_webm.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="hero-video w-background-video w-background-video-atom"><video id="68e50f0e-89e1-74b9-230c-fb6f5dbc2fd2-video" autoplay="" loop="" preload="auto" poster="/videos/windfarm2-1_poster.0000000.jpg" width="1280" height="720" style="background-image:url(&quot;/videos/windfarm2-1_poster.0000000.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
-          <source src="/videos/windfarm2-1_mp4.mp4" data-wf-ignore="true">
-          <source src="/videos/windfarm2-1_webm.webm" data-wf-ignore="true">
-        </video></div>
+      <div
+        data-poster-url="/videos/windfarm2-1_poster.0000000.jpg"
+        data-video-urls="/videos/windfarm2-1_mp4.mp4,/videos/windfarm2-1_webm.webm"
+        data-autoplay="true"
+        data-loop="true"
+        data-wf-ignore="true"
+        class="hero-video w-background-video w-background-video-atom"
+      >
+        <video
+          id="68e50f0e-89e1-74b9-230c-fb6f5dbc2fd2-video"
+          autoplay=""
+          loop=""
+          preload="auto"
+          poster="/videos/windfarm2-1_poster.0000000.jpg"
+          width="1280"
+          height="720"
+          style='background-image:url("/videos/windfarm2-1_poster.0000000.jpg")'
+          muted=""
+          playsinline=""
+          data-wf-ignore="true"
+          data-object-fit="cover"
+        >
+          <source
+            src="/videos/windfarm2-1_mp4.mp4"
+            data-wf-ignore="true"
+          />
+          <source
+            src="/videos/windfarm2-1_webm.webm"
+            data-wf-ignore="true"
+          />
+        </video>
+      </div>
       <div class="overlay"></div>
       <div class="w-layout-blockcontainer hero-container w-container">
-        <div data-w-id="ac31293e-530d-81d5-5877-184c410a707a" style="opacity:0" class="w-layout-blockcontainer hero-right w-container">
-          <div class="hero-txt">持続可能な未来のための、信頼できるエネルギー管理。</div>
+        <div
+          data-w-id="ac31293e-530d-81d5-5877-184c410a707a"
+          style="opacity:0"
+          class="w-layout-blockcontainer hero-right w-container"
+        >
+          <div class="hero-txt">
+            持続可能な未来のための、信頼できるエネルギー管理。
+          </div>
         </div>
-        <div data-w-id="fc0af1aa-def5-3384-a861-1e7eab58edfa" class="w-layout-blockcontainer hero-left w-container">
+        <div
+          data-w-id="fc0af1aa-def5-3384-a861-1e7eab58edfa"
+          class="w-layout-blockcontainer hero-left w-container"
+        >
           <h1 class="display-lg">エネルギーの可能性を革新する</h1>
         </div>
       </div>
     </section>
     <section class="section">
       <div class="section-container">
-        <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec" style="opacity:0" class="section-col-aside">
-          <img 
+        <div
+          data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec"
+          style="opacity:0"
+          class="section-col-aside"
+        >
+          <img
             class="section-col-img"
-            src="/images/metal-sign.png" 
+            src="/images/metal-sign.png"
             alt="A metal sign reading: BMTech; empower a sustainable future"
-            style="opacity:0" 
-            sizes="(max-width: 2093px) 100vw, 2093px" 
-            srcset="/images/metal-sign-500.png 500w, /images/metal-sign-800.png 800w, /images/metal-sign-1080.png 1080w, /images/metal-sign-1600.png 1600w, /images/metal-sign-2000.png 2000w, /images/metal-sign.png 2093w" 
+            style="opacity:0"
+            sizes="(max-width: 2093px) 100vw, 2093px"
+            srcset="/images/metal-sign-500.png 500w, /images/metal-sign-800.png 800w, /images/metal-sign-1080.png 1080w, /images/metal-sign-1600.png 1600w, /images/metal-sign-2000.png 2000w, /images/metal-sign.png 2093w"
             loading="lazy"
-            data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ed" 
-          >
+            data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ed"
+          />
         </div>
-        <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ee" class="section-col-content">
-          <h1 class="h1">私たちについて</h1>
+        <div
+          data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ee"
+          class="section-col-content"
+        >
+          <h2 class="h2">私たちについて</h2>
           <p class="body-txt text-muted">
-            Battery Management Technology Corporation（BMTech）は、テキサス州ダラスを拠点にバッテリーおよびエネルギー管理技術の発展に取り組むクリーンテック企業です。安全で信頼性が高く、効率的なエネルギー貯蔵に対する高まる需要を支える革新的なソリューションを開発しています。
+            Battery Management Technology
+            Corporation（BMTech）は、テキサス州ダラスを拠点にバッテリーおよびエネルギー管理技術の発展に取り組むクリーンテック企業です。安全で信頼性が高く、効率的なエネルギー貯蔵に対する高まる需要を支える革新的なソリューションを開発しています。
           </p>
           <p class="body-txt text-muted">
             当社のハードウェア・ソフトウェア統合型ソリューションは、バッテリー性能の最適化、運用信頼性の向上、そしてお客様のエネルギーシステムの価値最大化を支援します。
@@ -66,38 +120,91 @@ const homepageProducts = sortProductsBySlug(products.filter((product) => product
         </div>
       </div>
       <div class="section-container">
-        <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ee" style="opacity:0" class="section-col-content">
-          <h1 class="h1">米国発の技術を、世界へ</h1>
+        <div
+          data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ee"
+          style="opacity:0"
+          class="section-col-content"
+        >
+          <h2 class="h2">米国発の技術を、世界へ</h2>
           <p class="body-txt text-muted">
             BMTechは、アメリカで培われたエンジニアリングの知見を活かし、高品質で信頼性の高いバッテリー・エネルギー管理ソリューションを世界のお客様へ提供しています。信頼できる製品、実践的なエンジニアリング、そして長期的なサポートを通じて、お客様との強固な信頼関係を築くことを大切にしています。
           </p>
         </div>
-        <div data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec" style="opacity:0" class="section-col-aside">
-          <img 
-            class="section-col-img" 
-            src="/images/texas-usa-flags.jpg" 
+        <div
+          data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec"
+          style="opacity:0"
+          class="section-col-aside"
+        >
+          <img
+            class="section-col-img"
+            src="/images/texas-usa-flags.jpg"
             alt="Texas and United States flags"
-            style="opacity:0" 
-            sizes="(max-width: 2093px) 100vw, 2093px" 
-            loading="lazy" 
-            data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ed" 
+            style="opacity:0"
+            sizes="(max-width: 2093px) 100vw, 2093px"
+            loading="lazy"
+            data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ed"
           />
         </div>
       </div>
     </section>
     <section class="image-divider">
-      <div class="left-img-wrap"><img src="/images/bess_compressed.jpeg" loading="lazy" sizes="(max-width: 1500px) 100vw, 1500px" srcset="/images/bess_compressed-p-500.jpeg 500w, /images/bess_compressed-p-800.jpeg 800w, /images/bess_compressed-p-1080.jpeg 1080w, /images/bess_compressed.jpeg 1500w" alt="A battery energy storage system in the desert" class="image"></div>
-      <div data-poster-url="/videos/solar-sky-poster.jpg" data-video-urls="/videos/solar-sky.mp4,/videos/solar-sky.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="background-video w-background-video w-background-video-atom"><video id="b6856f96-fb76-76a6-6ec9-9a81c2960e88-video" autoplay="" loop="" poster="/videos/solar-sky-poster.jpg" width="1280" height="720" style="background-image:url(&quot;/videos/solar-sky-poster.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
-          <source src="/videos/solar-sky.mp4" data-wf-ignore="true">
-          <source src="/videos/solar-sky.webm" data-wf-ignore="true">
-        </video></div>
+      <div class="left-img-wrap">
+        <img
+          src="/images/bess_compressed.jpeg"
+          loading="lazy"
+          sizes="(max-width: 1500px) 100vw, 1500px"
+          srcset="/images/bess_compressed-p-500.jpeg 500w, /images/bess_compressed-p-800.jpeg 800w, /images/bess_compressed-p-1080.jpeg 1080w, /images/bess_compressed.jpeg 1500w"
+          alt="A battery energy storage system in the desert"
+          class="image"
+        />
+      </div>
+      <div
+        data-poster-url="/videos/solar-sky-poster.jpg"
+        data-video-urls="/videos/solar-sky.mp4,/videos/solar-sky.webm"
+        data-autoplay="true"
+        data-loop="true"
+        data-wf-ignore="true"
+        class="background-video w-background-video w-background-video-atom"
+      >
+        <video
+          id="b6856f96-fb76-76a6-6ec9-9a81c2960e88-video"
+          autoplay=""
+          loop=""
+          poster="/videos/solar-sky-poster.jpg"
+          width="1280"
+          height="720"
+          style='background-image:url("/videos/solar-sky-poster.jpg")'
+          muted=""
+          playsinline=""
+          data-wf-ignore="true"
+          data-object-fit="cover"
+        >
+          <source
+            src="/videos/solar-sky.mp4"
+            data-wf-ignore="true"
+          />
+          <source
+            src="/videos/solar-sky.webm"
+            data-wf-ignore="true"
+          />
+        </video>
+      </div>
     </section>
-    <section class="products-section" data-scroll-reveal>
+    <section
+      class="products-section"
+      data-scroll-reveal
+    >
       <div class="flex-container-y">
         <div class="flex-y">
-          <h1 class="h1 centered">製品情報</h1>
-          <p class="body-txt centered text-muted padding-bottom">当社のバッテリー管理システム（BMS）およびエネルギー管理システム（EMS）製品をご覧ください。</p>
-          <Button href="/ja/products" variant="secondary">全て見る</Button>
+          <h2 class="h2 centered">製品情報</h2>
+          <p class="body-txt centered text-muted padding-bottom">
+            当社のバッテリー管理システム（BMS）およびエネルギー管理システム（EMS）製品をご覧ください。
+          </p>
+          <Button
+            href="/ja/products"
+            variant="secondary"
+            >全て見る</Button
+          >
         </div>
         <ProductCarousel
           id="homepage-products-ja"
