@@ -86,7 +86,7 @@ Amazon SES
 ```
 
 1. `ContactForm.astro` renders a shared localized form and the API endpoint configured in its form action.
-2. `public/js/contact-form.js` validates required fields in the browser, records the form load timestamp, applies a 15-second request timeout, and posts JSON with the locale, page URL, submission timestamp, and elapsed time to submit. The API rejects attempts submitted in under five seconds.
+2. `public/js/contact-form.js` validates required fields in the browser, records the form load timestamp, applies a 15-second request timeout, and posts JSON with the locale, page URL, submission timestamp, and elapsed time to submit. The API rejects attempts submitted in under 15 seconds.
 3. API Gateway accepts `POST /contact` and CORS preflight requests.
 4. The Lambda revalidates origin, content type, body size, payload, and the honeypot field before using SES.
 5. Valid submissions are sent as HTML and plain-text email. The visitor address is the SES `Reply-To`, never the sender.

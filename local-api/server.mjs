@@ -9,7 +9,7 @@ const ALLOWED_ORIGINS = new Set(
     .filter(Boolean)
 );
 const MAX_BODY_BYTES = 64 * 1024;
-const MIN_SUBMISSION_TIME_MS = 5000;
+const MIN_SUBMISSION_TIME_MS = 15000;
 const SUBJECTS = new Set(["Inquiry", "Career", "Security", "Other"]);
 const HONEYPOT_DEBUG = process.env.HONEYPOT_DEBUG === "false";
 
@@ -234,6 +234,15 @@ const server = http.createServer(async (request, response) => {
     }
 
     const { errors, submission } = validateSubmission(payload);
+
+    if (errors.timeToSubmit) {
+      sendJson(response, 400, {
+        success: false,
+        error: "Invalid submission.",
+        requestId
+      }, origin);
+      return;
+    }
 
     if (Object.keys(errors).length > 0) {
       sendJson(response, 422, {

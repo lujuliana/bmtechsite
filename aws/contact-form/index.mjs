@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 const MAX_BODY_BYTES = 64 * 1024;
-const MIN_SUBMISSION_TIME_MS = 5000;
+const MIN_SUBMISSION_TIME_MS = 15000;
 const SUBJECTS = new Set(["Inquiry", "Career", "Security", "Other"]);
 
 const AWS_REGION = process.env.SES_REGION || process.env.AWS_REGION;
@@ -361,6 +361,14 @@ export const handler = async (event, context) => {
     }
 
     const { errors, submission } = validateSubmission(payload);
+
+    if (errors.timeToSubmit) {
+      return jsonResponse(400, {
+        success: false,
+        error: "Invalid submission.",
+        requestId
+      }, origin);
+    }
 
     if (Object.keys(errors).length > 0) {
       return jsonResponse(422, {

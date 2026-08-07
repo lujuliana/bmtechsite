@@ -2,6 +2,8 @@
   "use strict";
 
   const REQUEST_TIMEOUT_MS = 15000;
+  const MIN_SUBMISSION_TIME_MS = 15000;
+  const TOO_FAST_MESSAGE = "This form was submitted too quickly. Please wait a few seconds and try again.";
   const SUBJECTS = new Set(["Inquiry", "Career", "Security", "Other"]);
   const messages = {
     en: {
@@ -86,6 +88,11 @@
     }
   };
 
+  const wasSubmittedTooQuickly = (form) => {
+    const formLoadedAt = Number(form.elements.formLoadedAt.value);
+    return !Number.isFinite(formLoadedAt) || Date.now() - formLoadedAt < MIN_SUBMISSION_TIME_MS;
+  };
+
   const buildPayload = (form) => {
     const formLoadedAt = form.elements.formLoadedAt.value;
 
@@ -112,6 +119,8 @@
 
     if (!successMessage || !errorMessage) return;
 
+    const defaultErrorMessage = errorMessage.textContent;
+
     form.addEventListener("input", (event) => {
       if (event.target instanceof HTMLInputElement ||
           event.target instanceof HTMLTextAreaElement ||
@@ -124,11 +133,18 @@
       event.preventDefault();
       successMessage.hidden = true;
       errorMessage.hidden = true;
+      errorMessage.textContent = defaultErrorMessage;
 
       const locale = form.dataset.locale || "en";
       setFieldValidity(form, locale);
       if (!form.checkValidity()) {
         form.reportValidity();
+        return;
+      }
+
+      if (wasSubmittedTooQuickly(form)) {
+        errorMessage.textContent = TOO_FAST_MESSAGE;
+        showResult(form, successMessage, errorMessage, false);
         return;
       }
 
