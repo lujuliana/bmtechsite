@@ -3,7 +3,6 @@
 
   const REQUEST_TIMEOUT_MS = 15000;
   const MIN_SUBMISSION_TIME_MS = 15000;
-  const TOO_FAST_MESSAGE = "This form was submitted too quickly. Please wait a few seconds and try again.";
   const SUBJECTS = new Set(["Inquiry", "Career", "Security", "Other"]);
   const messages = {
     en: {
@@ -143,7 +142,7 @@
       }
 
       if (wasSubmittedTooQuickly(form)) {
-        errorMessage.textContent = TOO_FAST_MESSAGE;
+        errorMessage.textContent = form.dataset.tooFastMessage || defaultErrorMessage;
         showResult(form, successMessage, errorMessage, false);
         return;
       }

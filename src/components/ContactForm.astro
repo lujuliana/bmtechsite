@@ -29,6 +29,7 @@ const content = {
     submitLabel: 'Submit',
     successMessage: 'Thank you! Your submission has been received.',
     errorMessage: 'Oops! Something went wrong while submitting the form.',
+    tooFastMessage: 'This form was submitted too quickly. Please wait a few seconds and try again.',
   },
   ja: {
     honeypotLabel: 'ウェブサイト',
@@ -52,6 +53,7 @@ const content = {
     submitLabel: '送信',
     successMessage: '送信が完了しました。お問い合わせいただき、ありがとうございます。',
     errorMessage: 'エラーが発生しました。お手数ですが、もう一度お試しください。',
+    tooFastMessage: '送信が早すぎます。数秒待ってから、もう一度お試しください。',
   },
 } as const;
 
@@ -63,7 +65,7 @@ const text = content[locale];
   style={initiallyHidden ? 'opacity:0' : undefined}
   class="form-main"
 >
-  <form id="email-form" name="email-form" action="https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact" method="post" class="form js-contact-form" data-locale={locale}>
+  <form id="email-form" name="email-form" action="https://r8gtx7aav7.execute-api.us-east-2.amazonaws.com/contact" method="post" class="form js-contact-form" data-locale={locale} data-too-fast-message={text.tooFastMessage}>
     <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;"><label for="website">{text.honeypotLabel}</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off" /></div>
     <input type="hidden" name="formLoadedAt" value="" />
     <div class="single-block"><label for="name" class="input-label">{text.nameLabel}</label><input class="form-input w-input" maxlength="256" name="name" placeholder={text.namePlaceholder} type="text" id="name" autocomplete="name" required /></div>
