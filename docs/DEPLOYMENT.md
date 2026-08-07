@@ -49,39 +49,23 @@ git fetch origin
 git checkout main
 git pull --ff-only origin main
 
+git show --stat --oneline HEAD                                        # shows latest commit msg + changes
+
 npm ci
-npm run check
+npm run check                                                         # optional. ignore returned hints
 npm run build
 
 sudo rsync -ai --delete dist/ /usr/share/nginx/html/bmtechco.webflow/
 
-sudo nginx -t
+sudo nginx -t                                                        # expected: success msgs
 sudo systemctl reload nginx
 
-curl -Ik --resolve bmtech.com:443:127.0.0.1 https://bmtech.com/
+curl -Ik --resolve bmtech.com:443:127.0.0.1 https://bmtech.com/      # expected: successful HTTP 200 response
+
+git log -1 --oneline                                                 # optional; records deployed revision
 ```
 
 `rsync --delete` synchronizes the Nginx document root with the latest build and removes obsolete files from previous deployments.
-
-Expected results include:
-
-- `sudo nginx -t` (Nginx configuration test):
-    - Expected:
-
-        ```sh
-        nginx: configuration file syntax is ok
-        nginx: configuration file test is successful
-        ```
-
-- `curl -Ik --resolve bmtech.com:443:127.0.0.1 https://bmtech.com/`
-
-    - Expected: a successful `HTTP 200` response.
-
-Record the deployed revision when needed:
-
-```sh
-git log -1 --oneline
-```
 
 `npm ci` is appropriate for every production deployment because it installs exactly what `package-lock.json` specifies. A dependency-only change still requires a new build and file copy.
 
