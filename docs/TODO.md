@@ -1,8 +1,8 @@
 # TODO
 
-- [ ] Strengthen contact form spam filters (API rate limiting or AWS WAF)
+- [ ] Replace product photos
+- [ ] Add support for multiple product images before restructuring the product detail page. Update the product data model from a single image to an images array, and create a reusable ProductGallery.astro component. Show one large primary image with thumbnails below when multiple images exist; with one image, show only the main image and no gallery controls. Preserve the current product page layout and styling as much as possible for now. Ensure the gallery is responsive and accessible, and update existing product data to the new structure without changing unrelated code
 - [ ] Translate Japanese image alt text and page metadata
-- [ ] Add About page
 - [ ] Add Blog or News section
 - [ ] Update the LinkedIn link
 - [ ] Add factory photographs
@@ -29,3 +29,4 @@
 - [x] Deploy the Astro site to AWS Lightsail
 - [x] Configure Nginx to serve the production site
 - [x] Change language switcher to an English-first dropdown
+- [x] Add About page
