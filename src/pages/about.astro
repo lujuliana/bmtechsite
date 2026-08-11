@@ -30,8 +30,11 @@ import PageBanner from "../components/PageBanner.astro";
       imageWidth={4000}
       imageHeight={3000}
     />
-    <div class="section">
-      <section class="section-container">
+    <div class="section about-section">
+      <section
+        class="section-container about-intro-section"
+        data-scroll-reveal
+      >
         <div
           data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec"
           class="section-col-aside"
@@ -58,7 +61,10 @@ import PageBanner from "../components/PageBanner.astro";
       </section>
 
       <!-- Our Vision -->
-      <section class="section-container">
+      <section
+        class="section-container"
+        data-scroll-reveal
+      >
         <div
           data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec"
           class="section-col-aside"
@@ -97,7 +103,10 @@ import PageBanner from "../components/PageBanner.astro";
       </section>
 
       <!-- Our Expertise -->
-      <section class="section-container feature-section">
+      <section
+        class="section-container feature-section"
+        data-scroll-reveal
+      >
         <div
           data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec"
           class="section-col-aside"
@@ -263,7 +272,10 @@ import PageBanner from "../components/PageBanner.astro";
       </section>
 
       <!-- Partnerships -->
-      <section class="section-container">
+      <section
+        class="section-container"
+        data-scroll-reveal
+      >
         <div
           data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ec"
           class="section-col-aside"
@@ -303,7 +315,10 @@ import PageBanner from "../components/PageBanner.astro";
       </section>
 
       <!-- Applications -->
-      <section class="section-container feature-section">
+      <section
+        class="section-container feature-section"
+        data-scroll-reveal
+      >
         <div
           data-w-id="1d07c983-3d6a-4d3d-5bc9-d7fbce51e6ef"
           class="section-col-aside"
@@ -561,6 +576,14 @@ import PageBanner from "../components/PageBanner.astro";
   }
 
   @media screen and (max-width: 991px) {
+    .about-intro-section {
+      row-gap: 8px;
+    }
+
+    .about-intro-section h2 {
+      font-size: var(--font-size-heading-1);
+    }
+
     .feature-section {
       row-gap: var(--space-4);
     }
@@ -589,6 +612,10 @@ import PageBanner from "../components/PageBanner.astro";
   }
 
   @media screen and (max-width: 767px) {
+    .about-section {
+      padding-top: 44px;
+    }
+
     .feature-grid {
       grid-template-columns: 1fr;
       grid-template-rows: none;
