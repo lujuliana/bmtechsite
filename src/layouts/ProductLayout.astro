@@ -1,14 +1,14 @@
 ---
-import Layout from './Layout.astro';
-import Button from '../components/Button.astro';
-import ProductCarousel from '../components/ProductCarousel.astro';
-import ProductGallery from '../components/ProductGallery.astro';
-import { getRelatedProducts, type Product } from '../data/products';
+import Layout from "./Layout.astro";
+import Button from "../components/Button.astro";
+import ProductCarousel from "../components/ProductCarousel.astro";
+import ProductGallery from "../components/ProductGallery.astro";
+import { getRelatedProducts, type Product } from "../data/products";
 
 interface Props {
   product: Product;
   allProducts: readonly Product[];
-  locale: 'en' | 'ja';
+  locale: "en" | "ja";
 }
 
 const { product, allProducts, locale } = Astro.props as Props;
@@ -20,26 +20,34 @@ const localizedFeatures = product.features[locale];
 const localizedApplications = product.applications[locale];
 const labels = {
   en: {
-    features: 'Features',
-    applications: 'Applications',
-    category: 'Category',
-    consulting: 'Product Consulting',
-    contact: 'Contact',
-    relatedProducts: 'Related Products',
+    features: "Features",
+    applications: "Applications",
+    category: "Category",
+    consulting: "Product Consulting",
+    contact: "Contact",
+    relatedProducts: "Related Products",
   },
   ja: {
-    features: '特徴',
-    applications: '用途',
-    category: 'カテゴリー',
-    consulting: '製品に関するお問い合わせ',
-    contact: 'お問い合わせ',
-    relatedProducts: '関連製品',
+    features: "特徴",
+    applications: "用途",
+    category: "カテゴリー",
+    consulting: "製品に関するお問い合わせ",
+    contact: "お問い合わせ",
+    relatedProducts: "関連製品",
   },
 } as const;
-const consultingSubject = locale === 'ja' ? `${product.name} 製品に関するお問い合わせ (Product Consulting)` : `${product.name} Product consulting`;
+const consultingSubject =
+  locale === "ja"
+    ? `${product.name} 製品に関するお問い合わせ (Product Consulting)`
+    : `${product.name} Product consulting`;
 const consultingLink = `mailto:info@bmtech.com?subject=${encodeURIComponent(consultingSubject)}`;
 const text = labels[locale];
-const imageWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('smc-') ? 640 : 800;
+const imageWidth =
+  product.slug === "iot-b10"
+    ? 560
+    : product.slug.startsWith("smc-")
+      ? 640
+      : 800;
 const imageHeight = imageWidth * 0.75;
 const imagePath = `/images/${product.images[0].src}`;
 ---
@@ -47,17 +55,26 @@ const imagePath = `/images/${product.images[0].src}`;
 <Layout
   locale={locale}
   title={metadata.title}
-  currentPath={locale === 'ja' ? `/ja/products/${product.slug}` : `/products/${product.slug}`}
+  currentPath={locale === "ja"
+    ? `/ja/products/${product.slug}`
+    : `/products/${product.slug}`}
   description={metadata.description}
   ogTitle={metadata.title}
   ogDescription={metadata.description}
   ogImage={imagePath}
 >
   <Fragment slot="head">
-    <style>html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo) {visibility: hidden !important;}</style>
+    <style>
+      html.w-mod-js:not(.w-mod-ix3) :is(.linked-nav-logo) {
+        visibility: hidden !important;
+      }
+    </style>
   </Fragment>
 
-  <div class="main-wrapper" data-scroll-reveal>
+  <div
+    class="main-wrapper"
+    data-scroll-reveal
+  >
     <div class="w-layout-grid prod-page-grid">
       <ProductGallery
         id={`product-gallery-${product.slug}`}
@@ -70,7 +87,11 @@ const imagePath = `/images/${product.images[0].src}`;
       <div class="w-layout-vflex product-info">
         <h1 class="h1 product-title">{product.name}</h1>
         <h2 class="product-full-name">{englishFullName}</h2>
-        {locale === 'ja' && japaneseFullName && <h2 class="product-full-name">{japaneseFullName}</h2>}
+        {
+          locale === "ja" && japaneseFullName && (
+            <h2 class="product-full-name">{japaneseFullName}</h2>
+          )
+        }
         <div class="divider"></div>
         <h2 class="product-h2">{text.features}</h2>
         <div class="prod-details w-richtext">
@@ -79,17 +100,23 @@ const imagePath = `/images/${product.images[0].src}`;
           </ul>
         </div>
         <h2 class="product-h2">{text.applications}</h2>
-        <div class="prod-details">{localizedApplications.join(', ')}</div>
+        <div class="prod-details">{localizedApplications.join(", ")}</div>
         <h2 class="product-h2">{text.category}</h2>
         <div class="prod-details">{product.category}</div>
         <div class="divider"></div>
         <h2 class="product-h2">{text.consulting}</h2>
-        <Button href={consultingLink} variant="large">{text.contact}</Button>
+        <Button
+          href={consultingLink}
+          variant="large"
+          >{text.contact}</Button
+        >
       </div>
     </div>
+
     <section class="related-products">
-      <div class="w-layout-vflex product-info">
-        <h2 class="product-h2">{text.relatedProducts}</h2>
+      <h2 class="product-h2">{text.relatedProducts}</h2>
+      <div class="divider"></div>
+      <div class="w-layout-vflex">
         <ProductCarousel
           id={`related-products-${product.slug}`}
           products={relatedProducts}

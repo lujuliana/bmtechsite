@@ -648,11 +648,13 @@ html:lang(ja) .navbar {
 .product-info {
   width: var(--size-full-width);
   padding: var(--space-5) var(--space-7) var(--space-7);
+  flex-flow: column;
+  display: flex;
+}
+.related-products > .product-info {
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-sm);
   background-color: var(--color-white);
-  flex-flow: column;
-  display: flex;
 }
 .prod-details {
   color: var(--color-text-muted);
@@ -1107,6 +1109,10 @@ html:lang(ja) .language-menu-icon {
   }
   .prod-page-grid {
     grid-template-columns: 1fr;
+  }
+  .related-products > .product-h2 {
+    width: var(--size-full-width);
+    text-align: center;
   }
   .divider {
     width: var(--size-full-width);
