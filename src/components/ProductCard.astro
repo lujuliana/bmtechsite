@@ -8,9 +8,10 @@ interface Props {
 
 const { product, locale } = Astro.props;
 const productPath = locale === 'ja' ? `/ja/products/${product.slug}` : `/products/${product.slug}`;
-const imagePath = `/images/${product.image.src}`;
-const imageExtensionIndex = product.image.src.lastIndexOf('.');
-const responsiveImagePath = `/images/${product.image.src.slice(0, imageExtensionIndex)}-p-500${product.image.src.slice(imageExtensionIndex)}`;
+const primaryImage = product.images[0];
+const imagePath = `/images/${primaryImage.src}`;
+const imageExtensionIndex = primaryImage.src.lastIndexOf('.');
+const responsiveImagePath = `/images/${primaryImage.src.slice(0, imageExtensionIndex)}-p-500${primaryImage.src.slice(imageExtensionIndex)}`;
 const sourceWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('smc-') ? 640 : 800;
 ---
 
@@ -19,7 +20,7 @@ const sourceWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('
     <img
       loading="lazy"
       src={imagePath}
-      alt={product.name}
+      alt={primaryImage.alt?.[locale] ?? product.name}
       sizes="(max-width: 800px) 100vw, 800px"
       srcset={`${responsiveImagePath} 500w, ${imagePath} ${sourceWidth}w`}
       class="card-img"

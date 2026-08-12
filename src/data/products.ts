@@ -5,6 +5,11 @@ export interface ProductMetadata {
 
 export type ProductLocale = "en" | "ja";
 
+export interface ProductImage {
+  src: string;
+  alt?: Partial<Record<ProductLocale, string>>;
+}
+
 export interface Product {
   slug: string;
   name: string;
@@ -15,7 +20,7 @@ export interface Product {
   fullNameJa?: string;
   category: string;
   searchKeywords?: Partial<Record<ProductLocale, readonly string[]>>;
-  image: { src: string };
+  images: readonly [ProductImage, ...ProductImage[]];
   features: { en: string[]; ja: string[] };
   applications: { en: string[]; ja: string[] };
   metadata: ProductMetadata;
@@ -38,7 +43,7 @@ export const products: Product[] = [
       en: ["battery bank", "bank management", "battery management unit"],
       ja: ["バッテリーバンク", "蓄電池バンク", "バンク管理", "バッテリー管理"],
     },
-    image: { src: "bbmu.jpg" },
+    images: [{ src: "bbmu.jpg" }],
     features: {
       en: [
         "Quad-core Cortex-A55 2.0 GHz CPU",
@@ -95,7 +100,7 @@ export const products: Product[] = [
         "バッテリー管理",
       ],
     },
-    image: { src: "bmmu.jpg" },
+    images: [{ src: "bmmu.jpg" }],
     features: {
       en: [
         "Compliant with UL1973/UL60730 standards",
@@ -149,7 +154,7 @@ export const products: Product[] = [
       en: ["battery rack", "rack management", "battery management unit"],
       ja: ["バッテリーラック", "蓄電池ラック", "ラック管理", "バッテリー管理"],
     },
-    image: { src: "brmu.jpg" },
+    images: [{ src: "brmu.jpg" }],
     features: {
       en: [
         "Compliant with UL1973/UL60730 standards",
@@ -214,7 +219,7 @@ export const products: Product[] = [
         "エネルギー管理",
       ],
     },
-    image: { src: "ems-c.jpg" },
+    images: [{ src: "ems-c.jpg" }],
     features: {
       en: [
         "Quad-core 1.8 GHz CPU",
@@ -260,7 +265,7 @@ export const products: Product[] = [
       ],
       ja: ["データ通信端末", "遠隔監視", "テレメトリ", "ファームウェア更新"],
     },
-    image: { src: "IOT-B10.jpg" },
+    images: [{ src: "IOT-B10.jpg" }],
     features: {
       en: [
         "Supports remote BMS program and firmware updates",
@@ -308,7 +313,7 @@ export const products: Product[] = [
         "バッテリーコンテナ表示",
       ],
     },
-    image: { src: "smc-gateway.jpg" },
+    images: [{ src: "smc-gateway.jpg" }],
     features: {
       en: [
         "Quad-core Cortex-A55 2.0 GHz CPU",
@@ -359,7 +364,7 @@ export const products: Product[] = [
         "蓄電所データ",
       ],
     },
-    image: { src: "smc-server.jpg" },
+    images: [{ src: "smc-server.jpg" }],
     features: {
       en: [
         "X86 CPU with Linux operating system",

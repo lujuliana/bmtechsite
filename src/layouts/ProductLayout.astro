@@ -2,6 +2,7 @@
 import Layout from './Layout.astro';
 import Button from '../components/Button.astro';
 import ProductCarousel from '../components/ProductCarousel.astro';
+import ProductGallery from '../components/ProductGallery.astro';
 import { getRelatedProducts, type Product } from '../data/products';
 
 interface Props {
@@ -38,11 +39,9 @@ const labels = {
 const consultingSubject = locale === 'ja' ? `${product.name} 製品に関するお問い合わせ (Product Consulting)` : `${product.name} Product consulting`;
 const consultingLink = `mailto:info@bmtech.com?subject=${encodeURIComponent(consultingSubject)}`;
 const text = labels[locale];
-const imagePath = `/images/${product.image.src}`;
-const imageExtensionIndex = product.image.src.lastIndexOf('.');
-const responsiveImagePath = `/images/${product.image.src.slice(0, imageExtensionIndex)}-p-500${product.image.src.slice(imageExtensionIndex)}`;
 const imageWidth = product.slug === 'iot-b10' ? 560 : product.slug.startsWith('smc-') ? 640 : 800;
 const imageHeight = imageWidth * 0.75;
+const imagePath = `/images/${product.images[0].src}`;
 ---
 
 <Layout
@@ -60,17 +59,13 @@ const imageHeight = imageWidth * 0.75;
 
   <div class="main-wrapper" data-scroll-reveal>
     <div class="w-layout-grid prod-page-grid">
-      <img
-        src={imagePath}
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        width={imageWidth}
-        height={imageHeight}
-        sizes="(max-width: 800px) 100vw, 800px"
-        srcset={`${responsiveImagePath} 500w, ${imagePath} ${imageWidth}w`}
-        alt={product.name}
-        class="prod-image"
+      <ProductGallery
+        id={`product-gallery-${product.slug}`}
+        images={product.images}
+        productName={product.name}
+        locale={locale}
+        imageWidth={imageWidth}
+        imageHeight={imageHeight}
       />
       <div class="w-layout-vflex product-info">
         <h1 class="h1 product-title">{product.name}</h1>
