@@ -1,14 +1,14 @@
 # TODO
 
 - [ ] Fix related-products divider length in ProductLayout.astro for small screens
-- [ ] Replace About page photos
-- [ ] Replace product photos
-- [ ] Translate Japanese image alt text and page metadata
-- [ ] Add Blog or News section
-- [ ] Update the LinkedIn link
-- [ ] Add factory photographs
-- [ ] Replace or add product photographs
+- [ ] Align product name with top of product image in ProductLayout.astro for 2-col screens
 - [ ] Add the HV Box product
+- [ ] Replace or add product photographs
+- [ ] Replace About page photos
+- [ ] Add factory photographs
+- [ ] Translate Japanese image alt text and page metadata
+- [ ] Add Blog or News page
+- [ ] Update the LinkedIn link
 
 ## Future Improvements
 
