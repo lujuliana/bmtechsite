@@ -8,8 +8,8 @@
     "check": "astro check"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
-    "astro": "7.1.2",
+    "@astrojs/check": "^0.9.10",
+    "astro": "^7.2.3",
     "typescript": "^6.0.3"
   }
 }
