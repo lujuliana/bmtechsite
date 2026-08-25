@@ -1,8 +1,8 @@
 ---
-import { activeAriaCurrent, activeLinkClass } from '../lib/routes';
+import { activeAriaCurrent, activeLinkClass } from "../lib/routes";
 
 interface Props {
-  locale: 'en' | 'ja';
+  locale: "en" | "ja";
   currentPath: string;
 }
 
@@ -10,73 +10,168 @@ const { locale, currentPath } = Astro.props as Props;
 
 const content = {
   en: {
-    headquarters: 'OFFICE: 1255 W 15th St, Ste 325, Plano, TX 75075, USA',
-    home: { label: 'Home', href: '/' },
-    products: { label: 'Products', href: '/products' },
-    security: { label: 'Security', href: '/security-vuln' },
-    careers: { label: 'Careers', href: '/careers' },
-    contact: { label: 'Contact', href: '/contact' },
-    navId: 'w-node-d9cb0135-f8d1-edb1-9f0e-0e29f9fa28b4-19513961',
-    contactId: 'w-node-_75165c98-ada8-0bdd-e89b-0d3719513970-19513961',
+    headquarters: "OFFICE: 1255 W 15th St, Ste 325, Plano, TX 75075, USA",
+    home: { label: "Home", href: "/" },
+    products: { label: "Products", href: "/products" },
+    security: { label: "Security", href: "/security-vuln" },
+    careers: { label: "Careers", href: "/careers" },
+    contact: { label: "Contact", href: "/contact" },
+    navId: "w-node-d9cb0135-f8d1-edb1-9f0e-0e29f9fa28b4-19513961",
+    contactId: "w-node-_75165c98-ada8-0bdd-e89b-0d3719513970-19513961",
   },
   ja: {
-    headquarters: '本社： Suite 325, 789 W 15th St, Plano, TX 75075, USA',
-    home: { label: 'ホーム', href: '/ja/' },
-    products: { label: '製品情報', href: '/ja/products' },
-    security: { label: 'セキュリティ', href: '/ja/security-vuln' },
-    contact: { label: 'お問い合わせ', href: '/ja/contact' },
-    navId: 'w-node-_81e6db74-40f1-9991-196e-8edc29db6ad5-29db6acf',
-    contactId: 'w-node-_81e6db74-40f1-9991-196e-8edc29db6ae6-29db6acf',
+    headquarters: "本社： Suite 325, 1255 W 15th St, Plano, TX 75075, USA",
+    home: { label: "ホーム", href: "/ja/" },
+    products: { label: "製品情報", href: "/ja/products" },
+    security: { label: "セキュリティ", href: "/ja/security-vuln" },
+    contact: { label: "お問い合わせ", href: "/ja/contact" },
+    navId: "w-node-_81e6db74-40f1-9991-196e-8edc29db6ad5-29db6acf",
+    contactId: "w-node-_81e6db74-40f1-9991-196e-8edc29db6ae6-29db6acf",
   },
 } as const;
 
 const footer = content[locale];
-const careersLink = locale === 'en' ? content.en.careers : undefined;
+const careersLink = locale === "en" ? content.en.careers : undefined;
 const productsPath = footer.products.href;
 const linkClass = (href: string, baseClass: string) =>
-  activeLinkClass(baseClass, currentPath, href, href === productsPath ? 'descendant' : 'exact');
+  activeLinkClass(
+    baseClass,
+    currentPath,
+    href,
+    href === productsPath ? "descendant" : "exact",
+  );
 const ariaCurrent = (href: string) =>
-  activeAriaCurrent(currentPath, href, href === productsPath ? 'descendant' : 'exact');
+  activeAriaCurrent(
+    currentPath,
+    href,
+    href === productsPath ? "descendant" : "exact",
+  );
 ---
 
-<footer class="footer" lang={locale}>
+<footer
+  class="footer"
+  lang={locale}
+>
   <div class="footer-container">
     <div class="footer-wrapper">
-      <div class="footer-logo"><img loading="lazy" src="/images/BMT-logo-w-text.png" alt="BMT: Empower a Sustainable Future" sizes="(max-width: 3360px) 100vw, 3360px" srcset="/images/BMT-logo-w-text-p-500.png 500w, /images/BMT-logo-w-text-p-800.png 800w, /images/BMT-logo-w-text-p-1080.png 1080w, /images/BMT-logo-w-text-p-1600.png 1600w, /images/BMT-logo-w-text-p-2000.png 2000w, /images/BMT-logo-w-text-p-2600.png 2600w, /images/BMT-logo-w-text.png 3360w" /></div>
+      <div class="footer-logo">
+        <img
+          loading="lazy"
+          src="/images/BMT-logo-w-text.png"
+          alt="BMT: Empower a Sustainable Future"
+          sizes="(max-width: 3360px) 100vw, 3360px"
+          srcset="/images/BMT-logo-w-text-p-500.png 500w, /images/BMT-logo-w-text-p-800.png 800w, /images/BMT-logo-w-text-p-1080.png 1080w, /images/BMT-logo-w-text-p-1600.png 1600w, /images/BMT-logo-w-text-p-2000.png 2000w, /images/BMT-logo-w-text-p-2600.png 2600w, /images/BMT-logo-w-text.png 3360w"
+        />
+      </div>
       <div class="footer-content">
-        <nav id={footer.navId} class="footer-block">
-          <ul role="list" class="footer-nav">
+        <nav
+          id={footer.navId}
+          class="footer-block"
+        >
+          <ul
+            role="list"
+            class="footer-nav"
+          >
             <li class="footer-subhead3">
-              <a href={footer.home.href} aria-current={ariaCurrent(footer.home.href)} class={linkClass(footer.home.href, 'footer-page-link w-inline-block')}>
-                <div class="nav-link-two">{footer.home.label}</div><img src="/images/arrow-right.svg" loading="lazy" alt="" class="arrow-right" />
+              <a
+                href={footer.home.href}
+                aria-current={ariaCurrent(footer.home.href)}
+                class={linkClass(
+                  footer.home.href,
+                  "footer-page-link w-inline-block",
+                )}
+              >
+                <div class="nav-link-two">{footer.home.label}</div><img
+                  src="/images/arrow-right.svg"
+                  loading="lazy"
+                  alt=""
+                  class="arrow-right"
+                />
               </a>
             </li>
             <li class="footer-subhead3">
-              <a href={footer.products.href} aria-current={ariaCurrent(footer.products.href)} class={linkClass(footer.products.href, 'footer-page-link w-inline-block')}>
-                <div class="nav-link-two">{footer.products.label}</div><img src="/images/arrow-right.svg" loading="lazy" alt="" class="arrow-right" />
+              <a
+                href={footer.products.href}
+                aria-current={ariaCurrent(footer.products.href)}
+                class={linkClass(
+                  footer.products.href,
+                  "footer-page-link w-inline-block",
+                )}
+              >
+                <div class="nav-link-two">{footer.products.label}</div><img
+                  src="/images/arrow-right.svg"
+                  loading="lazy"
+                  alt=""
+                  class="arrow-right"
+                />
               </a>
             </li>
             <li class="footer-subhead3">
-              <a href={footer.security.href} aria-current={ariaCurrent(footer.security.href)} class={linkClass(footer.security.href, 'footer-page-link w-inline-block')}>
-                <div class="nav-link-two">{footer.security.label}</div><img src="/images/arrow-right.svg" loading="lazy" alt="" class="arrow-right" />
+              <a
+                href={footer.security.href}
+                aria-current={ariaCurrent(footer.security.href)}
+                class={linkClass(
+                  footer.security.href,
+                  "footer-page-link w-inline-block",
+                )}
+              >
+                <div class="nav-link-two">{footer.security.label}</div><img
+                  src="/images/arrow-right.svg"
+                  loading="lazy"
+                  alt=""
+                  class="arrow-right"
+                />
               </a>
             </li>
-            {careersLink && (
-              <li class="footer-subhead3">
-                <a href={careersLink.href} aria-current={ariaCurrent(careersLink.href)} class={linkClass(careersLink.href, 'footer-page-link w-inline-block')}>
-                  <div class="nav-link-two">{careersLink.label}</div>
-                  <img src="/images/arrow-right.svg" loading="lazy" alt="" class="arrow-right" />
-                </a>
-              </li>
-            )}
+            {
+              careersLink && (
+                <li class="footer-subhead3">
+                  <a
+                    href={careersLink.href}
+                    aria-current={ariaCurrent(careersLink.href)}
+                    class={linkClass(
+                      careersLink.href,
+                      "footer-page-link w-inline-block",
+                    )}
+                  >
+                    <div class="nav-link-two">{careersLink.label}</div>
+                    <img
+                      src="/images/arrow-right.svg"
+                      loading="lazy"
+                      alt=""
+                      class="arrow-right"
+                    />
+                  </a>
+                </li>
+              )
+            }
           </ul>
         </nav>
-        <div id={footer.contactId} class="footer-block">
-          <a href={footer.contact.href} aria-current={ariaCurrent(footer.contact.href)} class={linkClass(footer.contact.href, 'footer-subhead3 footer-page-link')}>     
+        <div
+          id={footer.contactId}
+          class="footer-block"
+        >
+          <a
+            href={footer.contact.href}
+            aria-current={ariaCurrent(footer.contact.href)}
+            class={linkClass(
+              footer.contact.href,
+              "footer-subhead3 footer-page-link",
+            )}
+          >
             <div class="nav-link-two">{footer.contact.label}</div>
-            <img src="/images/arrow-right.svg" loading="lazy" alt="" class="arrow-right" />
+            <img
+              src="/images/arrow-right.svg"
+              loading="lazy"
+              alt=""
+              class="arrow-right"
+            />
           </a>
-          <a href="mailto:info@bmtech.com" class="footer-text link">info@bmtech.com</a>
+          <a
+            href="mailto:info@bmtech.com"
+            class="footer-text link"
+            >info@bmtech.com</a
+          >
           <div class="footer-text">{footer.headquarters}</div>
         </div>
       </div>
@@ -85,148 +180,154 @@ const ariaCurrent = (href: string) =>
 </footer>
 
 <style>
-  .footer { 
-    width: var(--size-full-width); 
-    padding: var(--space-7) var(--section-padding-block) var(--space-6); 
-    background-color: var(--color-text); 
-    font-family: var(--font-family-display); 
-    color: var(--color-white); 
-    border-bottom: 1px solid #e4ebf3; 
-    justify-content: space-between; 
-    align-items: flex-start; 
-    display: flex; 
-    position: relative; 
-    inset: auto 0% 0%; 
+  .footer {
+    width: var(--size-full-width);
+    padding: var(--space-7) var(--section-padding-block) var(--space-6);
+    background-color: var(--color-text);
+    font-family: var(--font-family-display);
+    color: var(--color-white);
+    border-bottom: 1px solid #e4ebf3;
+    justify-content: space-between;
+    align-items: flex-start;
+    display: flex;
+    position: relative;
+    inset: auto 0% 0%;
   }
-  :global(html:lang(ja)) .footer { 
-    font-family: var(--font-family-locale-ja); 
-    font-weight: var(--font-weight-regular); 
+  :global(html:lang(ja)) .footer {
+    font-family: var(--font-family-locale-ja);
+    font-weight: var(--font-weight-regular);
   }
-  .footer-container { 
-    width: var(--size-full-width); 
+  .footer-container {
+    width: var(--size-full-width);
     /* max-width: var(--size-full-width);  */
-    justify-content: space-between; 
-    align-items: flex-start; 
-    display: flex; 
+    justify-content: space-between;
+    align-items: flex-start;
+    display: flex;
   }
-  .footer-wrapper { 
-    width: var(--size-full-width); 
-    grid-column-gap: var(--space-8); 
-    grid-row-gap: var(--grid-gap); 
-    justify-content: space-between; 
-    align-items: flex-start; 
-    display: flex; 
+  .footer-wrapper {
+    width: var(--size-full-width);
+    grid-column-gap: var(--space-8);
+    grid-row-gap: var(--grid-gap);
+    justify-content: space-between;
+    align-items: flex-start;
+    display: flex;
   }
-  .footer-logo { 
-    max-width: 16rem; 
-    flex-shrink: 0; 
+  .footer-logo {
+    max-width: 16rem;
+    flex-shrink: 0;
   }
-  .footer-content { 
-    width: min(100%, 35rem); 
-    margin-left: auto; 
-    grid-column-gap: var(--grid-gap); 
-    grid-row-gap: var(--grid-gap); 
-    grid-template-rows: auto; 
-    grid-template-columns: 1fr 1fr; 
-    grid-auto-columns: 1fr; 
-    display: grid; 
-    justify-content: end; 
+  .footer-content {
+    width: min(100%, 35rem);
+    margin-left: auto;
+    grid-column-gap: var(--grid-gap);
+    grid-row-gap: var(--grid-gap);
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-columns: 1fr;
+    display: grid;
+    justify-content: end;
   }
-  .footer-block { 
-    width: var(--size-full-width); 
-    flex-direction: column; 
-    justify-content: flex-start; 
-    align-items: flex-start; 
-    display: flex; 
+  .footer-block {
+    width: var(--size-full-width);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
   }
-  .footer-text { 
-    margin-top: var(--space-2); 
-    margin-bottom: var(--space-2); 
-    font-family: var(--font-family-body); 
-    color: var(--color-white); 
-    font-size: var(--font-size-xs); 
-    line-height: var(--line-height-xs); 
-    text-decoration: none; 
+  .footer-text {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+    font-family: var(--font-family-body);
+    color: var(--color-white);
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-xs);
+    text-decoration: none;
   }
-  .footer-text.link { 
-    font-family: var(--font-family-body); 
-    color: var(--color-link-inverse); 
-    font-size: var(--font-size-xs); 
-    font-weight: var(--font-weight-medium); 
+  .footer-text.link {
+    font-family: var(--font-family-body);
+    color: var(--color-link-inverse);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
   }
-  .footer-text.link:hover { 
-    color: var(--color-border); 
+  .footer-text.link:hover {
+    color: var(--color-border);
   }
-  :global(html:lang(ja)) .footer-text { 
-    font-family: var(--font-family-locale-ja); 
+  :global(html:lang(ja)) .footer-text {
+    font-family: var(--font-family-locale-ja);
   }
-  .footer-nav { 
-    width: var(--size-full-width); 
-    margin-top: var(--space-0); 
-    margin-bottom: var(--space-0); 
-    padding-left: var(--space-0); 
-    list-style-type: none; 
+  .footer-nav {
+    width: var(--size-full-width);
+    margin-top: var(--space-0);
+    margin-bottom: var(--space-0);
+    padding-left: var(--space-0);
+    list-style-type: none;
   }
-  .footer-subhead3 { 
-    width: var(--size-full-width); 
-    margin-bottom: var(--space-4); 
-    padding-bottom: var(--space-4); 
-    line-height: var(--line-height-heading-4); 
-    font-weight: var(--font-weight-regular); 
-    text-transform: uppercase; 
-    border-bottom: 1px solid #6a6a6a70; 
+  .footer-subhead3 {
+    width: var(--size-full-width);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-4);
+    line-height: var(--line-height-heading-4);
+    font-weight: var(--font-weight-regular);
+    text-transform: uppercase;
+    border-bottom: 1px solid #6a6a6a70;
   }
-  .footer-page-link { 
-    color: var(--color-white); 
-    text-decoration: none; 
-    -webkit-text-decoration-color: var(--color-white); 
-    text-decoration-color: var(--color-white); 
-    justify-content: space-between; 
-    align-items: center; 
-    display: flex; 
+  .footer-page-link {
+    color: var(--color-white);
+    text-decoration: none;
+    -webkit-text-decoration-color: var(--color-white);
+    text-decoration-color: var(--color-white);
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
   }
-  .footer-page-link:hover { 
-    color: var(--color-link-inverse); 
-    font-weight: var(--font-weight-semibold); 
+  .footer-page-link:hover {
+    color: var(--color-link-inverse);
+    font-weight: var(--font-weight-semibold);
   }
-  .nav-link-two { 
-    text-decoration: none; 
+  .nav-link-two {
+    text-decoration: none;
   }
-  .nav-link-two:global(.w--current) { 
-    color: #d5d5d5; 
+  .nav-link-two:global(.w--current) {
+    color: #d5d5d5;
+  }
+  @media screen and (max-width: 991px) {
+    .footer {
+      position: relative;
+      inset: auto 0% 0%;
     }
-  @media screen and (max-width: 991px) { 
-    .footer { 
-      position: relative; 
-      inset: auto 0% 0%; 
-      } 
-      .footer-logo { 
-        max-width: 12rem; 
-      } 
+    .footer-logo {
+      max-width: 12rem;
     }
-  @media screen and (max-width: 767px) { 
-    .footer { 
-      padding-right: var(--space-8); 
-      padding-left: var(--space-8); 
-    } 
-    .footer-wrapper { 
-      flex-direction: column; 
-      grid-template-columns: .5fr; 
-      align-items: center; 
-    } 
-    .footer-content { 
-      width: 100%; 
-      margin-top: var(--space-6); 
-      margin-left: 0; 
-      grid-column-gap: var(--space-6); 
-      grid-row-gap: var(--space-0); 
-      grid-template-columns: 1fr; 
-      justify-content: start; 
-    } 
   }
-  @media screen and (max-width: 479px) { 
-    .footer-container { max-width: none; } 
-    .footer-logo { max-width: 10rem; } 
-    .footer-text.link { font-size: var(--font-size-xs); } 
+  @media screen and (max-width: 767px) {
+    .footer {
+      padding-right: var(--space-8);
+      padding-left: var(--space-8);
+    }
+    .footer-wrapper {
+      flex-direction: column;
+      grid-template-columns: 0.5fr;
+      align-items: center;
+    }
+    .footer-content {
+      width: 100%;
+      margin-top: var(--space-6);
+      margin-left: 0;
+      grid-column-gap: var(--space-6);
+      grid-row-gap: var(--space-0);
+      grid-template-columns: 1fr;
+      justify-content: start;
+    }
+  }
+  @media screen and (max-width: 479px) {
+    .footer-container {
+      max-width: none;
+    }
+    .footer-logo {
+      max-width: 10rem;
+    }
+    .footer-text.link {
+      font-size: var(--font-size-xs);
+    }
   }
 </style>
